@@ -5,6 +5,8 @@ import Button from "../Buttons/Button";
 import { displayCenter, displayEnd } from "../../../styles/displays";
 import { inputShadow } from "../../../styles/shadows";
 import ButtonDiv from "../Buttons/ButtonDiv";
+import { Link } from "react-router-dom";
+import Logo from "../Logo";
 
 const Container = styled.header`
   width: 100%;
@@ -22,8 +24,6 @@ const Top = styled.form`
 
   width: 80%;
 `;
-
-const Logo = styled.div``;
 
 const Search = styled.div`
   ${displayCenter}
@@ -64,9 +64,7 @@ export default function Header() {
           e.preventDefault();
         }}
       >
-        <Logo>
-          <BsPinMapFill size={"40px"} />
-        </Logo>
+        <Logo logoSize={"40px"} />
         <Search>
           <HiMagnifyingGlass
             size={"30px"}
@@ -75,18 +73,22 @@ export default function Header() {
           <Input placeholder="이름을 검색해보세요." />
         </Search>
         <Buttons>
-          <Button
-            width="120px"
-            height="40px"
-            fontSize="14px"
-            content="회원가입"
-          />
-          <Button
-            width="120px"
-            height="40px"
-            fontSize="14px"
-            content="로그인"
-          />
+          <Link to="join">
+            <Button
+              width="120px"
+              height="40px"
+              fontSize="14px"
+              content="회원가입"
+            />
+          </Link>
+          <Link to="login">
+            <Button
+              width="120px"
+              height="40px"
+              fontSize="14px"
+              content="로그인"
+            />
+          </Link>
         </Buttons>
       </Top>
       <Bottom>

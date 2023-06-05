@@ -10,6 +10,7 @@ import Login from "./Pages/Login";
 import Join from "./Pages/Join";
 import Header from "./Components/Global/Header/Header";
 import NotFound from "./Pages/NotFound";
+import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -17,7 +18,13 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Container = styled.main``;
+const Container = styled.main`
+  width: 100%;
+  height: auto;
+`;
+
+// 모든 요청에 withCredentials가 true로 설정됩니다.
+axios.defaults.withCredentials = true;
 
 function App() {
   return (
