@@ -5,7 +5,7 @@ type loginType = {
   password: string;
 };
 
-export const handleLogin = async (loginInfo: loginType) => {
+export const handleStartLogin = async (loginInfo: loginType) => {
   try {
     const response = await axios.post("http://localhost:4000/user/login", {
       loginInfo,

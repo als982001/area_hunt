@@ -6,5 +6,6 @@ declare module "styled-components" {
       bgColor: string;
       hoverColor: string;
     };
+    borderRadius: string;
   }
 }

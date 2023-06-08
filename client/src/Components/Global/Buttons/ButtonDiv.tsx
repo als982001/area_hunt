@@ -11,6 +11,7 @@ type ButtonType = {
   height: string;
   fontSize: string;
   content?: string;
+  onClick?: () => void;
 };
 
 const Container = styled.div<ButtonType>`
@@ -41,6 +42,7 @@ export default function ButtonDiv(props: ButtonType) {
       width={props.width}
       height={props.height}
       fontSize={props.fontSize}
+      onClick={props.onClick}
     >
       {props.content}
     </Container>

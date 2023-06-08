@@ -11,6 +11,7 @@ import Join from "./Pages/Join";
 import Header from "./Components/Global/Header/Header";
 import NotFound from "./Pages/NotFound";
 import axios from "axios";
+import Test from "./Pages/Test";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -32,13 +33,14 @@ function App() {
       <Header />
       <Container>
         <Routes>
-          <Route path="/detail" element={<Detail />} />
           <Route path="/regist" element={<Regist />} />
           <Route path="/list" element={<List />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
           <Route path="/notfound" element={<NotFound />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/:id" element={<Detail />} />
           <Route path="/" element={<Main />} />
         </Routes>
       </Container>

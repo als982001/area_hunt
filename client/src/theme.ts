@@ -5,4 +5,5 @@ export const theme: DefaultTheme = {
     bgColor: "#ffd966",
     hoverColor: "#F2CD5C",
   },
+  borderRadius: "20px",
 };

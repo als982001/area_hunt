@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import { BsPinMapFill } from "react-icons/bs";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import Button from "../Buttons/Button";
 import { displayCenter, displayEnd } from "../../../styles/displays";
 import { inputShadow } from "../../../styles/shadows";
 import ButtonDiv from "../Buttons/ButtonDiv";
-import { Link } from "react-router-dom";
-import Logo from "../Logo";
+import { Link, useNavigate } from "react-router-dom";
+import MainLogo from "../Logos/MainLogo";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../Redux/Stores";
+import { handleLogout } from "../../../Redux/Actions";
 
 const Container = styled.header`
   width: 100%;
@@ -57,6 +59,17 @@ const Bottom = styled.div`
 `;
 
 export default function Header() {
+  const userState = useSelector((state: RootState) => state.userReducer);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleStartLogout = () => {
+    alert("로그아웃 했습니다.");
+    dispatch(handleLogout());
+    navigate("/");
+    return;
+  };
+
   return (
     <Container>
       <Top
@@ -64,7 +77,9 @@ export default function Header() {
           e.preventDefault();
         }}
       >
-        <Logo logoSize={"40px"} />
+        <Link to="/list">
+          <MainLogo logoSize={"40px"} />
+        </Link>
         <Search>
           <HiMagnifyingGlass
             size={"30px"}
@@ -73,22 +88,44 @@ export default function Header() {
           <Input placeholder="이름을 검색해보세요." />
         </Search>
         <Buttons>
-          <Link to="join">
-            <Button
-              width="120px"
-              height="40px"
-              fontSize="14px"
-              content="회원가입"
-            />
-          </Link>
-          <Link to="login">
-            <Button
-              width="120px"
-              height="40px"
-              fontSize="14px"
-              content="로그인"
-            />
-          </Link>
+          {userState.login ? (
+            <>
+              <Link to="/mypage">
+                <Button
+                  width="120px"
+                  height="40px"
+                  fontSize="14px"
+                  content="내 정보"
+                />
+              </Link>
+              <ButtonDiv
+                width="120px"
+                height="40px"
+                fontSize="14px"
+                content="로그아웃"
+                onClick={() => handleStartLogout()}
+              />
+            </>
+          ) : (
+            <>
+              <Link to="join">
+                <Button
+                  width="120px"
+                  height="40px"
+                  fontSize="14px"
+                  content="회원가입"
+                />
+              </Link>
+              <Link to="login">
+                <Button
+                  width="120px"
+                  height="40px"
+                  fontSize="14px"
+                  content="로그인"
+                />
+              </Link>
+            </>
+          )}
         </Buttons>
       </Top>
       <Bottom>

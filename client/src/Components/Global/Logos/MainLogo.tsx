@@ -4,7 +4,7 @@ type propsType = {
   logoSize: string;
 };
 
-export default function Logo(props: propsType) {
+export default function MainLogo(props: propsType) {
   return (
     <div>
       <BsPinMapFill size={props.logoSize} />
