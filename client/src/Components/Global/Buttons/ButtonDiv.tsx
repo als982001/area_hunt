@@ -25,6 +25,7 @@ const Container = styled.div<ButtonType>`
   cursor: pointer;
   margin: 0 10px;
   background-color: ${(props) => props.theme.button.bgColor};
+  font-weight: 500;
 
   &:hover {
     ${buttonHoverShadow}

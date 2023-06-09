@@ -12,11 +12,12 @@ import { handleLogout } from "../../../Redux/Actions";
 
 const Container = styled.header`
   width: 100%;
-  height: 120px;
+  height: 80px;
   display: grid;
   grid-template-rows: 1fr 1fr;
   border-bottom: 2px solid red;
   justify-items: center;
+  padding-top: 20px;
 `;
 
 const Top = styled.form`
@@ -52,12 +53,6 @@ const Buttons = styled.div`
   height: 100%;
 `;
 
-const Bottom = styled.div`
-  ${displayCenter}
-
-  width: 80%;
-`;
-
 export default function Header() {
   const userState = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
@@ -90,6 +85,22 @@ export default function Header() {
         <Buttons>
           {userState.login ? (
             <>
+              <Link to="/regist">
+                <ButtonDiv
+                  width="120px"
+                  height="40px"
+                  fontSize="14px"
+                  content="등록하기"
+                />
+              </Link>
+              <Link to="/list">
+                <ButtonDiv
+                  width="120px"
+                  height="40px"
+                  fontSize="14px"
+                  content="리스트"
+                />
+              </Link>
               <Link to="/mypage">
                 <Button
                   width="120px"
@@ -108,6 +119,14 @@ export default function Header() {
             </>
           ) : (
             <>
+              <Link to="/list">
+                <ButtonDiv
+                  width="120px"
+                  height="40px"
+                  fontSize="14px"
+                  content="리스트"
+                />
+              </Link>
               <Link to="join">
                 <Button
                   width="120px"
@@ -128,30 +147,6 @@ export default function Header() {
           )}
         </Buttons>
       </Top>
-      <Bottom>
-        <Link to="/list">
-          <ButtonDiv
-            width="120px"
-            height="40px"
-            fontSize="14px"
-            content="List"
-          />
-        </Link>
-        <Link to="/regist">
-          <ButtonDiv
-            width="120px"
-            height="40px"
-            fontSize="14px"
-            content="Regist"
-          />
-        </Link>
-        <ButtonDiv
-          width="120px"
-          height="40px"
-          fontSize="14px"
-          content="뭐하지3"
-        />
-      </Bottom>
     </Container>
   );
 }
