@@ -1,8 +1,9 @@
 import express from "express";
-import { home } from "../../controllers/areaControllers";
+import { getImage, home } from "../../controllers/itemControllers";
 
 const rootRouter = express.Router();
 
-rootRouter.get("/", home);
+rootRouter.get("/uploads/:filename", getImage);
+rootRouter.get("/", getImage);
 
 export default rootRouter;

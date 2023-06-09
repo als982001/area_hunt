@@ -5,9 +5,12 @@ import session from "express-session";
 import flash from "express-flash";
 import https from "https";
 import fs from "fs";
+import multer from "multer";
+import path from "path";
 import MongoStore from "connect-mongo";
 import rootRouter from "./src/routers/rootRouter";
 import userRouter from "./src/routers/userRouter";
+import itemRouter from "./src/routers/itemrouter";
 const cookieParser = require("cookie-parser");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -51,7 +54,13 @@ app.use(flash());
 // app.use("/static", express.static("assets"));
 
 // app.use(localMiddleware);
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "../uploads")),
+  rootRouter
+);
 app.use("/user", userRouter);
+app.use("/item", itemRouter);
 app.use("/", rootRouter);
 
 const handleListening = () =>

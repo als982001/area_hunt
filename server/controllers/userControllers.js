@@ -100,6 +100,21 @@ export const checkUserInfo = (req, res) => {
   return res.status(401).send("Not Authorized");
 };
 
+export const join = (req, res) => {
+  const { userId, password } = req.body.joinInfo;
+
+  const userInfo = dummyAccounts.find((account) => account.userId === userId);
+
+  if (userInfo === undefined) {
+    const newAccount = { id: dummyAccounts.length + "", ...req.body.joinInfo };
+    dummyAccounts.push(newAccount);
+
+    res.status(codes.ok).end();
+  } else {
+    res.status(codes.unauthorized).send("동일한 ID가 존재합니다.");
+  }
+};
+
 export const kakaoLogin = async (req, res) => {
   const { KAKAO_CODE } = req.body;
 
@@ -157,20 +172,5 @@ export const kakaoLogin = async (req, res) => {
     res.redirect("userInfo");
   } catch (error) {
     return res.status(401).send("Not Authorized");
-  }
-};
-
-export const join = (req, res) => {
-  const { userId, password } = req.body.joinInfo;
-
-  const userInfo = dummyAccounts.find((account) => account.userId === userId);
-
-  if (userInfo === undefined) {
-    const newAccount = { id: dummyAccounts.length + "", ...req.body.joinInfo };
-    dummyAccounts.push(newAccount);
-
-    res.status(codes.ok).end();
-  } else {
-    res.status(codes.unauthorized).send("동일한 ID가 존재합니다.");
   }
 };
