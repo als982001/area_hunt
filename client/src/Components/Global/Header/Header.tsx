@@ -129,18 +129,22 @@ export default function Header() {
         </Buttons>
       </Top>
       <Bottom>
-        <ButtonDiv
-          width="120px"
-          height="40px"
-          fontSize="14px"
-          content="뭐하지1"
-        />
-        <ButtonDiv
-          width="120px"
-          height="40px"
-          fontSize="14px"
-          content="뭐하지2"
-        />
+        <Link to="/list">
+          <ButtonDiv
+            width="120px"
+            height="40px"
+            fontSize="14px"
+            content="List"
+          />
+        </Link>
+        <Link to="/regist">
+          <ButtonDiv
+            width="120px"
+            height="40px"
+            fontSize="14px"
+            content="Regist"
+          />
+        </Link>
         <ButtonDiv
           width="120px"
           height="40px"

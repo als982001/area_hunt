@@ -76,11 +76,7 @@ export default function Regist() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("stringData", JSON.stringify(data));
-
-    const success = await handlePostItem(formData);
+    const success = await handlePostItem(image, data);
 
     return;
   };
@@ -95,13 +91,12 @@ export default function Regist() {
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };
 
-  useEffect(() => {
-    console.log(imageUrl);
-  }, [imageUrl]);
-
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit(handleStartPost)}>
+      <Form
+        onSubmit={handleSubmit(handleStartPost)}
+        encType="multipart/form-data"
+      >
         <Image bgImage={imageUrl}>
           <input type="file" accept="image/*" onChange={handleImagePost} />
         </Image>

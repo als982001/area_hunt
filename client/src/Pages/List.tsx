@@ -2,7 +2,8 @@ import styled from "styled-components";
 import Card from "../Components/List/Card";
 import { displayCenter } from "../styles/displays";
 import { BsFillArrowUpSquareFill } from "react-icons/bs";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getAllItems } from "../utils/itemFunctions";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -30,9 +31,28 @@ const options = {
   threshold: 1.0,
 };
 
-const tempId = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+interface IItem {
+  id: number;
+  image: {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
+  };
+  name: string;
+  address: string;
+  location: string;
+  content: string;
+}
 
 export default function List() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<IItem[]>([]);
+
   const btnRef = useRef(null);
 
   useEffect(() => {
@@ -53,13 +73,28 @@ export default function List() {
     })();
   }, [btnRef]);
 
+  useEffect(() => {
+    (async () => {
+      setIsLoading((prev) => true);
+
+      const result = await getAllItems();
+      setData((prev) => result);
+
+      setIsLoading((prev) => false);
+    })();
+  }, []);
+
   return (
     <Wrapper>
-      <Cards>
-        {tempId.map((id) => (
-          <Card key={id + ""} id={id + ""} />
-        ))}
-      </Cards>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <Cards>
+          {data.map((item) => (
+            <Card key={item.id + ""} item={item} />
+          ))}
+        </Cards>
+      )}
       <ToTop ref={btnRef}>
         <BsFillArrowUpSquareFill size={"100px"} />
       </ToTop>

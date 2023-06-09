@@ -1,12 +1,104 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { getItem } from "../utils/itemFunctions";
+import VisitRecords from "../Components/Detail/VisitRecords";
 
 const Wrapper = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
 `;
 
+const Container = styled.div`
+  margin-top: 50px;
+  min-width: 800px;
+  width: 70%;
+`;
+
+const Area = styled.div`
+  width: 100%;
+  min-height: 500px;
+  border-radius: ${(props) => props.theme.borderRadius};
+  border: 2px solid black;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 80%;
+  height: 90%;
+  border-radius: ${(props) => props.theme.borderRadius};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Infos = styled.div`
+  width: 80%;
+  height: 90%;
+  border-radius: ${(props) => props.theme.borderRadius};
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InfoSpace = styled.div`
+  width: 80%;
+  height: 50px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 20px 0;
+  border-bottom: 2px solid gray;
+`;
+
+const Label = styled.label`
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const Info = styled.h4`
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 400;
+`;
+
+interface IItem {
+  id: number;
+  image: {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
+  };
+  name: string;
+  address: string;
+  location: string;
+  content: string;
+}
+
 export default function Detail() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState<IItem | null>(null);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -24,5 +116,60 @@ export default function Detail() {
     }
   });
 
-  return <Wrapper></Wrapper>;
+  useEffect(() => {
+    (async () => {
+      setIsLoading((prev) => true);
+
+      if (id) {
+        const result = await getItem(id);
+        setData((prev) => result);
+
+        if (result === null) {
+          navigate("/notfound");
+          return;
+        }
+      } else {
+        navigate("/notfound");
+        return;
+      }
+
+      setIsLoading((prev) => false);
+    })();
+  }, []);
+
+  return (
+    <Wrapper>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <Container>
+          <Area>
+            <Img
+              src="https://cdn.pixabay.com/photo/2023/04/01/07/21/winter-landscape-7891462_1280.jpg"
+              alt="area_img"
+            />
+            <Infos>
+              <InfoSpace>
+                <Label>이름</Label>
+                <Info>{data?.name}</Info>
+              </InfoSpace>
+              <InfoSpace>
+                <Label>주소</Label>
+                <Info>{data?.address}</Info>
+              </InfoSpace>
+              <InfoSpace>
+                <Label>위치</Label>
+                <Info>{data?.location}</Info>
+              </InfoSpace>
+              <InfoSpace>
+                <Label>내용</Label>
+                <Info>{data?.content}</Info>
+              </InfoSpace>
+            </Infos>
+          </Area>
+          <VisitRecords id={id ? id : 1} />
+        </Container>
+      )}
+    </Wrapper>
+  );
 }

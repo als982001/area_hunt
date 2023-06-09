@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getAreaImage } from "../../utils/itemFunctions";
 
 const Container = styled.div`
   position: relative;
@@ -59,19 +61,13 @@ const Container = styled.div`
   }
 `;
 
-const Image = styled.div`
+const Image = styled.img`
   background: black;
   width: 100%;
   height: 100%;
   display: grid;
   place-items: center;
   border-radius: ${(props) => props.theme.borderRadius};
-
-  /*
-  background-image:
-  background-size: cover;
-  background-position: center;
-  */
 `;
 
 const Title = styled.span`
@@ -93,22 +89,62 @@ const Location = styled.span`
   color: #000;
 `;
 
+interface IBgImage {
+  bgImage: string;
+}
 interface IProps {
-  id: string;
+  item: {
+    id: number;
+    image: {
+      fieldname: string;
+      originalname: string;
+      encoding: string;
+      mimetype: string;
+      destination: string;
+      filename: string;
+      path: string;
+      size: number;
+    };
+    name: string;
+    address: string;
+    location: string;
+    content: string;
+  };
 }
 
 export default function Card(props: IProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [imgUrl, setImgUrl] = useState("");
+
   const naviage = useNavigate();
 
   const showDetail = () => {
-    naviage(`/${props.id}`);
+    naviage(`/${props.item.id}`);
   };
+
+  useEffect(() => {
+    (async () => {
+      setIsLoading((prev) => true);
+
+      const result = await getAreaImage(props.item.image.path);
+      setImgUrl((prev) => result);
+
+      setIsLoading((prev) => false);
+    })();
+  }, []);
 
   return (
     <Container onClick={showDetail}>
-      <Image />
-      <Title>Cool Chair</Title>
-      <Location>$100</Location>
+      <Image
+        src={
+          isLoading || imgUrl === ""
+            ? "https://cdn.pixabay.com/photo/2018/03/24/21/12/hourglass-3257907_1280.png"
+            : "https://cdn.pixabay.com/photo/2018/03/24/21/12/hourglass-3257907_1280.png"
+        }
+        alt="Image"
+      />
+      <Title>{props.item.name}</Title>
+      <Location>{props.item.location}</Location>
     </Container>
   );
 }
