@@ -5,6 +5,7 @@ import Button from "../Components/Global/Buttons/Button";
 import { displayCenter } from "../styles/displays";
 import { useEffect, useState } from "react";
 import { handlePostItem } from "../utils/itemFunctions";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -60,7 +61,9 @@ export default function Regist() {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
 
-  const { handleSubmit, control } = useForm<FormValues>({
+  const navigate = useNavigate();
+
+  const { handleSubmit, control, reset } = useForm<FormValues>({
     defaultValues: {
       name: "",
       address: "",
@@ -78,7 +81,15 @@ export default function Regist() {
 
     const success = await handlePostItem(image, data);
 
-    return;
+    if (success) {
+      alert("등록 완료");
+      navigate("/list");
+      return;
+    } else {
+      alert("등록 실패!!!");
+      reset();
+      return;
+    }
   };
 
   const handleImagePost = (event: any) => {

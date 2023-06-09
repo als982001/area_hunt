@@ -137,9 +137,7 @@ export default function Card(props: IProps) {
     <Container onClick={showDetail}>
       <Image
         src={
-          isLoading || imgUrl === ""
-            ? "https://cdn.pixabay.com/photo/2018/03/24/21/12/hourglass-3257907_1280.png"
-            : "https://cdn.pixabay.com/photo/2018/03/24/21/12/hourglass-3257907_1280.png"
+          "https://cdn.pixabay.com/photo/2023/05/27/11/12/naxos-8021321_1280.jpg"
         }
         alt="Image"
       />

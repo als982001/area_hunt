@@ -1,4 +1,4 @@
-import { dummyAreas } from "../datas/dummyData";
+import { dummyAreas, dummyVisitRecords } from "../datas/dummyData";
 import path from "path";
 
 const codes = {
@@ -19,12 +19,7 @@ export const getAllAreas = async (req, res) => {
 export const getItem = async (req, res) => {
   const { id } = req.params;
 
-  console.log(`id: ${id}, typeof id: ${typeof id}`);
-
-  const item = dummyAreas.find((area) => {
-    console.log(`area.id: ${area.id}, required id: ${+id}`);
-    return area.id === +id;
-  });
+  const item = dummyAreas.find((area) => area.id === +id);
 
   if (item) {
     return res.status(codes.ok).json(item);
@@ -39,6 +34,7 @@ export const postItem = async (req, res) => {
     const areaData = req.body;
 
     dummyAreas.push({
+      id: dummyAreas.length + 1,
       image: areaImage,
       ...areaData,
     });
@@ -54,4 +50,40 @@ export const getImage = async (req, res) => {
   const filePath = path.join(__dirname, "../uploads", filename);
 
   return res.send(filePath);
+};
+
+export const getVisitRecords = async (req, res) => {
+  const { id } = req.params;
+
+  const records = dummyVisitRecords.filter((record) => record.areaId === +id);
+
+  if (records) {
+    return res.status(codes.ok).json(records);
+  } else {
+    return res.status(codes.notFound).end();
+  }
+};
+
+export const postVisitRecords = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const image = req.file;
+    const info = JSON.parse(req.body.info);
+    const areaId = JSON.parse(req.body.areaId);
+
+    dummyVisitRecords.push({
+      id: dummyVisitRecords.length + 1,
+      areaId: +areaId,
+      imgPath:
+        "https://cdn.pixabay.com/photo/2023/05/28/14/22/naxos-8023806_1280.jpg",
+      name: info.name,
+      content: info.content,
+      date: info.date,
+    });
+
+    return res.status(codes.ok).end();
+  } catch (error) {
+    return res.status(400).send("Error");
+  }
 };

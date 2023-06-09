@@ -11,6 +11,7 @@ import MongoStore from "connect-mongo";
 import rootRouter from "./src/routers/rootRouter";
 import userRouter from "./src/routers/userRouter";
 import itemRouter from "./src/routers/itemrouter";
+import recordRouter from "./src/routers/recordRouter";
 const cookieParser = require("cookie-parser");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -61,6 +62,7 @@ app.use(
 );
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
+app.use("/records", recordRouter);
 app.use("/", rootRouter);
 
 const handleListening = () =>

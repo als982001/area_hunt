@@ -1,13 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { border2px } from "../../styles/styles";
 
 const Container = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  ${border2px}
   border-radius: ${(props) => props.theme.borderRadius};
   margin-bottom: 10px;
+  padding: 10px;
 `;
 
 const Img = styled.img<{ onClick?: () => void }>`
@@ -57,7 +59,19 @@ const Modal = styled.img`
   border-radius: ${(props) => props.theme.borderRadius};
 `;
 
-export default function VisitRecord() {
+interface IProps {
+  record: {
+    id: number;
+    areaId: number;
+    imgPath: string;
+    name: string;
+    content: string;
+    date: string;
+  };
+  key: string;
+}
+
+export default function VisitRecord(props: IProps) {
   const [bigImg, setBigImg] = useState(false);
 
   const handleBigImg = (isBig: boolean) => {
@@ -68,14 +82,14 @@ export default function VisitRecord() {
     <>
       <Container>
         <Img
-          src="https://cdn.pixabay.com/photo/2023/05/28/14/22/naxos-8023806_1280.jpg"
+          src={props.record.imgPath}
           alt="visit_img"
           onClick={() => handleBigImg(true)}
         />
         <Infos>
-          <Info alignItems="center">익명의 이용자</Info>
-          <Info alignItems="start">여기 정말 좋은 곳이네요!</Info>
-          <Info alignItems="center">2023/06/09</Info>
+          <Info alignItems="center">{props.record.name}</Info>
+          <Info alignItems="start">{props.record.content}</Info>
+          <Info alignItems="center">{props.record.date}</Info>
         </Infos>
       </Container>
       {bigImg && (
