@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getItem } from "../utils/itemFunctions";
 import VisitRecords from "../Components/Detail/VisitRecords";
+import KakaoMap from "../Components/Detail/KakaoMap";
+import { displayCenter } from "../styles/displays";
+import { border2px, borderRadius20px } from "../styles/styles";
+import MapImgToggle from "../Components/Detail/MapImgToggle";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -18,6 +22,7 @@ const Container = styled.div`
 `;
 
 const Area = styled.div`
+  min-width: 900px;
   width: 100%;
   min-height: 500px;
   border-radius: ${(props) => props.theme.borderRadius};
@@ -28,9 +33,20 @@ const Area = styled.div`
   align-items: center;
 `;
 
-const Img = styled.img`
+const ImgOrMap = styled.div`
+  min-width: 360px;
+  min-height: 450px;
   width: 80%;
   height: 90%;
+  ${displayCenter}
+  ${border2px}
+  ${borderRadius20px}
+  overflow: hidden;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
   border-radius: ${(props) => props.theme.borderRadius};
   display: flex;
   justify-content: center;
@@ -77,6 +93,11 @@ const Info = styled.h4`
   font-weight: 400;
 `;
 
+const SwitchSpace = styled.div`
+  margin-top: 10px;
+  ${displayCenter}
+`;
+
 interface IItem {
   id: number;
   image: {
@@ -96,11 +117,16 @@ interface IItem {
 }
 
 export default function Detail() {
+  const [showMap, setShowMap] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<IItem | null>(null);
 
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const handleShowMap = () => {
+    setShowMap((prev) => (prev === 1 ? 0 : 1));
+  };
 
   useEffect(() => {
     const idPattern = /^[0-9]{1,}$/;
@@ -114,7 +140,7 @@ export default function Detail() {
       navigate("/notfound");
       return;
     }
-  });
+  }, [id]);
 
   useEffect(() => {
     (async () => {
@@ -144,10 +170,16 @@ export default function Detail() {
       ) : (
         <Container>
           <Area>
-            <Img
-              src="https://cdn.pixabay.com/photo/2023/04/01/07/21/winter-landscape-7891462_1280.jpg"
-              alt="area_img"
-            />
+            <ImgOrMap>
+              {showMap === 1 ? (
+                <KakaoMap width="360px" height="450px" />
+              ) : (
+                <Img
+                  src="https://cdn.pixabay.com/photo/2023/04/01/07/21/winter-landscape-7891462_1280.jpg"
+                  alt="area_img"
+                />
+              )}
+            </ImgOrMap>
             <Infos>
               <InfoSpace>
                 <Label>이름</Label>
@@ -167,6 +199,9 @@ export default function Detail() {
               </InfoSpace>
             </Infos>
           </Area>
+          <SwitchSpace>
+            <MapImgToggle onClick={handleShowMap} showMap={showMap} />
+          </SwitchSpace>
           <VisitRecords id={id ? id : 1} />
         </Container>
       )}

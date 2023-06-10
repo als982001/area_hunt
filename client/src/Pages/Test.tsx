@@ -1,39 +1,17 @@
-import * as React from "react";
-import { useForm, useController, UseControllerProps } from "react-hook-form";
+import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import { border2px, borderRadius20px } from "../styles/styles";
+import { displayCenter } from "../styles/displays";
 
-type FormValues = {
-  FirstName: string;
-  LastName: string;
-};
-
-function Input(props: UseControllerProps<FormValues>) {
-  const { field, fieldState } = useController(props);
-
-  return (
-    <div>
-      <input {...field} placeholder={props.name} />
-      <p>{fieldState.isTouched && "Touched"}</p>
-      <p>{fieldState.isDirty && "Dirty"}</p>
-      <p>{fieldState.invalid ? "invalid" : "valid"}</p>
-    </div>
-  );
-}
+const Wrapper = styled.div`
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default function Test() {
-  const { handleSubmit, control } = useForm<FormValues>({
-    defaultValues: {
-      FirstName: "",
-      LastName: "",
-    },
-    mode: "onChange",
-  });
-  const onSubmit = (data: FormValues) => console.log(data);
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Input control={control} name="FirstName" rules={{ required: true }} />
-      <Input control={control} name="LastName" rules={{ required: true }} />
-      <input type="submit" />
-    </form>
-  );
+  return <Wrapper></Wrapper>;
 }

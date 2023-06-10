@@ -5,7 +5,7 @@ import { getVisitRecords } from "../../utils/itemFunctions";
 import RecordForm from "./RecordForm";
 
 const Wrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 20px;
   flex-direction: column;
 `;
 
