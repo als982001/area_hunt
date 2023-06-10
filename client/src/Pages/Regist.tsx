@@ -6,6 +6,8 @@ import { displayCenter } from "../styles/displays";
 import { useEffect, useState } from "react";
 import { handlePostItem } from "../utils/itemFunctions";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/Stores";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -61,6 +63,8 @@ export default function Regist() {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
 
+  const userState = useSelector((state: RootState) => state.userReducer);
+
   const navigate = useNavigate();
 
   const { handleSubmit, control, reset } = useForm<FormValues>({
@@ -101,6 +105,13 @@ export default function Regist() {
     setImage((prev) => imageFile);
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };
+
+  useEffect(() => {
+    if (userState.login === false) {
+      navigate("/login");
+      return;
+    }
+  }, []);
 
   return (
     <Wrapper>

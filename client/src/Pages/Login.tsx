@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
 import { handleLogin } from "../Redux/Actions";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
   ${displayStartA}
@@ -39,6 +40,8 @@ interface FormValues {
 }
 
 export default function Login() {
+  const userState = useSelector((state: RootState) => state.userReducer);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -63,6 +66,13 @@ export default function Login() {
 
     return;
   };
+
+  useEffect(() => {
+    if (userState.login === true) {
+      navigate("/list");
+      return;
+    }
+  }, []);
 
   return (
     <Wrapper>
