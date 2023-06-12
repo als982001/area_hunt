@@ -61,7 +61,7 @@ app.use(
   rootRouter
 );
 app.use("/user", userRouter);
-app.use("/item", itemRouter);
+app.use("/items", itemRouter);
 app.use("/records", recordRouter);
 app.use("/", rootRouter);
 

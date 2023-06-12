@@ -16,6 +16,19 @@ export const getAllAreas = async (req, res) => {
   return res.status(codes.ok).json(dummyAreas);
 };
 
+export const getSomeItems = async (req, res) => {
+  const start = Number(req.query.start);
+  const end = Number(req.query.end);
+
+  if (start >= dummyAreas.length) {
+    return res.status(codes.badRequest).end();
+  }
+
+  const sliced = dummyAreas.slice(start, end);
+
+  return res.status(codes.ok).json(sliced);
+};
+
 export const getItem = async (req, res) => {
   const { id } = req.params;
 

@@ -13,5 +13,9 @@ const Wrapper = styled.div`
 `;
 
 export default function Test() {
-  return <Wrapper></Wrapper>;
+  return (
+    <Wrapper>
+      <div id="map" style={{ width: "700px", height: "500px" }}></div>
+    </Wrapper>
+  );
 }

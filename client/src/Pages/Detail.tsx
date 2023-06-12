@@ -117,7 +117,7 @@ interface IItem {
 }
 
 export default function Detail() {
-  const [showMap, setShowMap] = useState(1);
+  const [showMap, setShowMap] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<IItem | null>(null);
 
@@ -172,7 +172,12 @@ export default function Detail() {
           <Area>
             <ImgOrMap>
               {showMap === 1 ? (
-                <KakaoMap width="360px" height="450px" />
+                <KakaoMap
+                  width="100%"
+                  height="100%"
+                  address={data?.address}
+                  name={data?.name}
+                />
               ) : (
                 <Img
                   src="https://cdn.pixabay.com/photo/2023/04/01/07/21/winter-landscape-7891462_1280.jpg"
@@ -202,7 +207,7 @@ export default function Detail() {
           <SwitchSpace>
             <MapImgToggle onClick={handleShowMap} showMap={showMap} />
           </SwitchSpace>
-          <VisitRecords id={id ? id : 1} />
+          <VisitRecords id={id as string} />
         </Container>
       )}
     </Wrapper>

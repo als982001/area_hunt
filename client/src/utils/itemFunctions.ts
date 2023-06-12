@@ -9,8 +9,20 @@ interface IAreaData {
 
 export const getAllItems = async () => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BACK}/item`);
+    const response = await axios.get(`${process.env.REACT_APP_BACK}/items`);
 
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getSomeItems = async (start: number, end: number) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK}/items/slice?start=${start}&end=${end}`
+    );
     return response.data;
   } catch (error) {
     console.log(error);
@@ -21,7 +33,7 @@ export const getAllItems = async () => {
 export const getItem = async (id: string | number) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/item/${id}`
+      `${process.env.REACT_APP_BACK}/items/${id}`
     );
 
     return response.data;
@@ -41,7 +53,7 @@ export const handlePostItem = async (image: File, data: IAreaData) => {
     formData.append("location", data.location);
     formData.append("content", data.content);
 
-    await axios.post(`${process.env.REACT_APP_BACK}/item`, formData, {
+    await axios.post(`${process.env.REACT_APP_BACK}/items`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

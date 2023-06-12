@@ -3,7 +3,7 @@ import Card from "../Components/List/Card";
 import { displayCenter } from "../styles/displays";
 import { BsFillArrowUpSquareFill } from "react-icons/bs";
 import { useEffect, useRef, useState } from "react";
-import { getAllItems } from "../utils/itemFunctions";
+import { getAllItems, getSomeItems } from "../utils/itemFunctions";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -49,17 +49,30 @@ interface IItem {
   content: string;
 }
 
+const offset = 8;
+
 export default function List() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<IItem[]>([]);
+  const [startIdx, setStartIdx] = useState(100);
+  const [isEnd, setIsEnd] = useState(false);
 
   const btnRef = useRef(null);
 
   useEffect(() => {
     (async () => {
-      const observer = new IntersectionObserver(([entry]) => {
+      const observer = new IntersectionObserver(async ([entry]) => {
         if (entry.isIntersecting) {
-          console.log("카드 끝!");
+          const result = await getSomeItems(startIdx, startIdx + offset);
+          setStartIdx((prev) => prev + offset);
+
+          if (result.length === 0) {
+            setIsEnd((prev) => true);
+          } else {
+            setStartIdx((prev) => prev + offset);
+          }
+
+          console.log(result);
         }
       }, options);
 
@@ -77,7 +90,14 @@ export default function List() {
     (async () => {
       setIsLoading((prev) => true);
 
-      const result = await getAllItems();
+      const result = await getSomeItems(startIdx, startIdx + offset);
+
+      if (result.length === 0) {
+        setIsEnd((prev) => true);
+      } else {
+        setStartIdx((prev) => prev + offset);
+      }
+
       setData((prev) => result);
 
       setIsLoading((prev) => false);

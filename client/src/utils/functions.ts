@@ -9,3 +9,26 @@ export const getToday: () => string = () => {
 
   return dateString;
 };
+
+export const checkValidAddress = async (address: string) => {
+  const geocoder = new window.kakao.maps.services.Geocoder();
+
+  try {
+    const checkResult = await new Promise<any>((resolve, reject) => {
+      geocoder.addressSearch(address, (result: any, status: string) => {
+        resolve({ result, status });
+      });
+    });
+
+    const { result, status } = checkResult;
+
+    if (status !== "OK") {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Geocoder error:", error);
+    return false;
+  }
+};

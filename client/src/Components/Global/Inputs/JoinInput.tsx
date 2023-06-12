@@ -11,6 +11,7 @@ interface FormValues {
   userId: string;
   password: string;
   password2: string;
+  name: string;
   phone: string;
   email: string;
 }

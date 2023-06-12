@@ -73,7 +73,6 @@ const Info = styled.h4`
 `;
 
 export default function MyPage() {
-  const [isLoading, setIsLoading] = useState(false);
   const userState = useSelector((state: RootState) => state.userReducer);
   const navigate = useNavigate();
 
@@ -99,10 +98,10 @@ export default function MyPage() {
           </InfoSpace>
           <InfoSpace>
             <Label>전화번호</Label>
-            <Info>{userState.userInfo?.callNumber}</Info>
+            <Info>{userState.userInfo?.phone}</Info>
           </InfoSpace>
           <InfoSpace>
-            <Label>이름</Label>
+            <Label>이메일</Label>
             <Info>{userState.userInfo?.email}</Info>
           </InfoSpace>
         </Infos>

@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../Actions";
+import { AUTH, LOGIN, LOGOUT } from "../Actions";
 
 export interface UserState {
   login: Boolean;
@@ -19,6 +19,12 @@ const userReducer = (state: UserState = initState, action: any) => {
       return { login: true, userInfo: action.payload?.userInfo };
     case LOGOUT:
       return { login: false, userInfo: null };
+    case AUTH:
+      if (action.payload.userInfo === null) {
+        return { login: false, userInfo: null };
+      } else {
+        return { login: true, userInfo: action.payload.userInfo };
+      }
     default:
       return state;
   }

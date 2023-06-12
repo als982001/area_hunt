@@ -8,6 +8,7 @@ import { handlePostItem } from "../utils/itemFunctions";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
+import { checkValidAddress } from "../utils/functions";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -80,6 +81,15 @@ export default function Regist() {
   const handleStartPost = async (data: FormValues) => {
     if (image === null) {
       alert("이미지를 등록해주세요.");
+      return;
+    }
+
+    const { address } = data;
+
+    const isValidAddress = await checkValidAddress(address);
+
+    if (isValidAddress === false) {
+      alert("주소가 유효하지 않습니다!");
       return;
     }
 
