@@ -3,7 +3,7 @@ import multer from "multer";
 import {
   getAllAreas,
   getItem,
-  getSomeItems,
+  getItemsByLocation,
   postItem,
 } from "../../controllers/itemControllers";
 
@@ -13,7 +13,7 @@ const upload = multer({
 
 const itemRouter = express.Router();
 
-itemRouter.get("/slice", getSomeItems);
+itemRouter.get("/location/:location", getItemsByLocation);
 itemRouter.get("/:id", getItem);
 itemRouter.get("/", getAllAreas);
 itemRouter.post("/", upload.single("image"), postItem);

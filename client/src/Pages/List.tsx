@@ -2,14 +2,23 @@ import styled from "styled-components";
 import Card from "../Components/List/Card";
 import { displayCenter } from "../styles/displays";
 import { BsFillArrowUpSquareFill } from "react-icons/bs";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getAllItems, getSomeItems } from "../utils/itemFunctions";
+import Spinner from "../Components/Global/Spinner";
+import Cards from "../Components/List/Cards";
 
 const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Cards = styled.div`
+const Loader = styled.div`
+  width: 100%;
+  height: 200vh;
+  display: flex;
+  justify-content: center;
+`;
+
+const Cardss = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -49,74 +58,21 @@ interface IItem {
   content: string;
 }
 
-const offset = 8;
+const locations = ["서울", "강원", "충청", "경상", "전라", "제주"];
 
 export default function List() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<IItem[]>([]);
-  const [startIdx, setStartIdx] = useState(100);
-  const [isEnd, setIsEnd] = useState(false);
-
   const btnRef = useRef(null);
-
-  useEffect(() => {
-    (async () => {
-      const observer = new IntersectionObserver(async ([entry]) => {
-        if (entry.isIntersecting) {
-          const result = await getSomeItems(startIdx, startIdx + offset);
-          setStartIdx((prev) => prev + offset);
-
-          if (result.length === 0) {
-            setIsEnd((prev) => true);
-          } else {
-            setStartIdx((prev) => prev + offset);
-          }
-
-          console.log(result);
-        }
-      }, options);
-
-      if (btnRef.current) {
-        observer.observe(btnRef.current);
-      }
-
-      return () => {
-        observer.disconnect();
-      };
-    })();
-  }, [btnRef]);
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading((prev) => true);
-
-      const result = await getSomeItems(startIdx, startIdx + offset);
-
-      if (result.length === 0) {
-        setIsEnd((prev) => true);
-      } else {
-        setStartIdx((prev) => prev + offset);
-      }
-
-      setData((prev) => result);
-
-      setIsLoading((prev) => false);
-    })();
-  }, []);
 
   return (
     <Wrapper>
-      {isLoading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <Cards>
-          {data.map((item) => (
-            <Card key={item.id + ""} item={item} />
-          ))}
-        </Cards>
-      )}
+      {locations.map((location) => (
+        <Cards location={location} key={location} />
+      ))}
       <ToTop ref={btnRef}>
-        <BsFillArrowUpSquareFill size={"100px"} />
+        <BsFillArrowUpSquareFill
+          onClick={() => window.scrollTo(0, 0)}
+          size={"100px"}
+        />
       </ToTop>
     </Wrapper>
   );

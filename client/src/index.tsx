@@ -7,6 +7,7 @@ import { theme } from "./theme";
 import { store, persistor } from "./Redux/Stores";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -75,13 +76,17 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
+const queryClient = new QueryClient();
+
 root.render(
   <BrowserRouter>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <PersistGate persistor={persistor}>
-          <GlobalStyle />
-          <App />
+          <QueryClientProvider client={queryClient}>
+            <GlobalStyle />
+            <App />
+          </QueryClientProvider>
         </PersistGate>
       </ThemeProvider>
     </Provider>

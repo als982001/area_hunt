@@ -3,6 +3,7 @@ import path from "path";
 
 const codes = {
   ok: 200,
+  noContent: 204,
   badRequest: 400,
   forbidden: 403,
   notFound: 404,
@@ -16,17 +17,16 @@ export const getAllAreas = async (req, res) => {
   return res.status(codes.ok).json(dummyAreas);
 };
 
-export const getSomeItems = async (req, res) => {
-  const start = Number(req.query.start);
-  const end = Number(req.query.end);
+export const getItemsByLocation = async (req, res) => {
+  const { location } = req.params;
 
-  if (start >= dummyAreas.length) {
-    return res.status(codes.badRequest).end();
-  }
+  console.log(`location: ${location}`);
 
-  const sliced = dummyAreas.slice(start, end);
+  const itemsByLocation = dummyAreas.filter((area) =>
+    area.location.includes(location)
+  );
 
-  return res.status(codes.ok).json(sliced);
+  return res.status(codes.ok).json(itemsByLocation);
 };
 
 export const getItem = async (req, res) => {

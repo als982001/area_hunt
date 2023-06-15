@@ -18,11 +18,25 @@ export const getAllItems = async () => {
   }
 };
 
-export const getSomeItems = async (start: number, end: number) => {
+export const getSomeItems = async (start: number, size: number) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/items/slice?start=${start}&end=${end}`
+      `${process.env.REACT_APP_BACK}/items/slice?start=${start}&size=${size}`
     );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getItemsByLocation = async (location: string) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK}/items/location/${location}`
+    );
+
     return response.data;
   } catch (error) {
     console.log(error);
@@ -35,6 +49,8 @@ export const getItem = async (id: string | number) => {
     const response = await axios.get(
       `${process.env.REACT_APP_BACK}/items/${id}`
     );
+
+    console.log(response);
 
     return response.data;
   } catch (error) {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getAreaImage } from "../../utils/itemFunctions";
+import { motion } from "framer-motion";
 
 const Container = styled.div`
   position: relative;

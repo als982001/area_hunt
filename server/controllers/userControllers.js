@@ -75,8 +75,6 @@ export const checkUserInfo = (req, res) => {
     const { id } = accessPayload;
     const userInfo = dummyAccounts.find((account) => account.id === id);
 
-    console.log(userInfo);
-
     if (!userInfo) {
       return res.status(401).send("Not Authorized");
     }
