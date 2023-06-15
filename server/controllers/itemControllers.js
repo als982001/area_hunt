@@ -100,3 +100,11 @@ export const postVisitRecords = async (req, res) => {
     return res.status(400).send("Error");
   }
 };
+
+export const getItemsByKeyword = async (req, res) => {
+  const { keyword } = req.query;
+
+  const result = dummyAreas.filter((item) => item.name.includes(keyword));
+
+  return res.status(codes.ok).json(result);
+};

@@ -9,6 +9,14 @@ import MainLogo from "../Logos/MainLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Stores";
 import { handleLogout } from "../../../Redux/Actions";
+import { getItemsByKeyword } from "../../../utils/itemFunctions";
+
+interface IHeaderProps {
+  keyword: string;
+  handleSetKeyword: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSetSearchResult: (result: IItem[]) => void;
+  setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const Container = styled.header`
   width: 100%;
@@ -38,7 +46,6 @@ const Search = styled.div`
 
 const Input = styled.input`
   ${inputShadow}
-
   width: 100%;
   height: 80%;
   padding-left: 50px;
@@ -53,7 +60,12 @@ const Buttons = styled.div`
   height: 100%;
 `;
 
-export default function Header() {
+export default function Header({
+  keyword,
+  handleSetKeyword,
+  handleSetSearchResult,
+  setSearchFinished,
+}: IHeaderProps) {
   const userState = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,6 +75,18 @@ export default function Header() {
     dispatch(handleLogout());
     navigate("/");
     return;
+  };
+
+  const handleEnterKeyword = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      const result = await getItemsByKeyword(keyword);
+      handleSetSearchResult(result);
+      setSearchFinished(true);
+
+      navigate("/list");
+    }
   };
 
   return (
@@ -80,7 +104,11 @@ export default function Header() {
             size={"30px"}
             style={{ position: "absolute", left: "10px" }}
           />
-          <Input placeholder="이름을 검색해보세요." />
+          <Input
+            onChange={handleSetKeyword}
+            placeholder="이름을 검색해보세요."
+            onKeyDown={handleEnterKeyword}
+          />
         </Search>
         <Buttons>
           {userState.login ? (

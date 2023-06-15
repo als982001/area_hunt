@@ -6,6 +6,15 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { getAllItems, getSomeItems } from "../utils/itemFunctions";
 import Spinner from "../Components/Global/Spinner";
 import Cards from "../Components/List/Cards";
+import SearchResult from "../Components/List/SearchResult";
+
+interface ISearch {
+  keyword: string;
+  searchResult: IItem[];
+  setSearchResult: React.Dispatch<React.SetStateAction<IItem[]>>;
+  searchFinished: boolean;
+  setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const Wrapper = styled.div`
   width: 100%;
@@ -60,14 +69,34 @@ interface IItem {
 
 const locations = ["서울", "강원", "충청", "경상", "전라", "제주"];
 
-export default function List() {
+export default function List({
+  keyword,
+  searchResult,
+  setSearchResult,
+  searchFinished,
+  setSearchFinished,
+}: ISearch) {
   const btnRef = useRef(null);
+
+  useEffect(() => {
+    // setSearchFinished((prev) => false);
+  }, []);
 
   return (
     <Wrapper>
-      {locations.map((location) => (
-        <Cards location={location} key={location} />
-      ))}
+      {searchFinished ? (
+        <SearchResult
+          keyword={keyword}
+          searchResult={searchResult}
+          setSearchResult={setSearchResult}
+          setSearchFinished={setSearchFinished}
+        />
+      ) : (
+        locations.map((location) => (
+          <Cards location={location} key={location} />
+        ))
+      )}
+
       <ToTop ref={btnRef}>
         <BsFillArrowUpSquareFill
           onClick={() => window.scrollTo(0, 0)}

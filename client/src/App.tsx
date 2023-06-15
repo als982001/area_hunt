@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import Main from "./Pages/Main";
@@ -31,7 +31,19 @@ const Container = styled.main`
 axios.defaults.withCredentials = true;
 
 function App() {
+  const [keyword, setKeyword] = useState("");
+  const [searchResult, setSearchResult] = useState<IItem[]>([]);
+  const [searchFinished, setSearchFinished] = useState<boolean>(false);
+
   const dispatch = useDispatch();
+
+  const handleSetKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword((prev) => event.target.value);
+  };
+
+  const handleSetSearchResult = async (result: IItem[]) => {
+    setSearchResult((prev) => [...result]);
+  };
 
   const authHandler = async () => {
     try {
@@ -49,11 +61,27 @@ function App() {
 
   return (
     <Wrapper>
-      <Header />
+      <Header
+        keyword={keyword}
+        handleSetKeyword={handleSetKeyword}
+        handleSetSearchResult={handleSetSearchResult}
+        setSearchFinished={setSearchFinished}
+      />
       <Container>
         <Routes>
           <Route path="/regist" element={<Regist />} />
-          <Route path="/list" element={<List />} />
+          <Route
+            path="/list"
+            element={
+              <List
+                keyword={keyword}
+                searchResult={searchResult}
+                setSearchResult={setSearchResult}
+                searchFinished={searchFinished}
+                setSearchFinished={setSearchFinished}
+              />
+            }
+          />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />

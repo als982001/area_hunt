@@ -50,8 +50,6 @@ export const getItem = async (id: string | number) => {
       `${process.env.REACT_APP_BACK}/items/${id}`
     );
 
-    console.log(response);
-
     return response.data;
   } catch (error) {
     console.log(error);
@@ -133,5 +131,18 @@ export const postRecord = async (
   } catch (error) {
     console.log(error);
     return false;
+  }
+};
+
+export const getItemsByKeyword = async (keyword: string) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK}/items/search?keyword=${keyword}`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };
