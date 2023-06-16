@@ -18,6 +18,10 @@ const Form = styled.form`
   padding: 10px;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 600px) {
+    height: 150px;
+  }
 `;
 
 const Img = styled.div<{ bgImage: string }>`
@@ -25,6 +29,12 @@ const Img = styled.div<{ bgImage: string }>`
   ${border2px}
   width: 180px;
   height: 180px;
+
+  @media screen and (max-width: 600px) {
+    width: 70px;
+    height: 70px;
+  }
+
   ${displayCenter}
   background-image: url(${(props) => props.bgImage});
   background-size: cover;

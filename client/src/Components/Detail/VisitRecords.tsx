@@ -7,6 +7,7 @@ import RecordForm from "./RecordForm";
 const Wrapper = styled.div`
   margin-top: 20px;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Container = styled.div`

@@ -17,12 +17,13 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   margin-top: 50px;
-  min-width: 800px;
   width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Area = styled.div`
-  min-width: 900px;
   width: 100%;
   min-height: 500px;
   border-radius: ${(props) => props.theme.borderRadius};
@@ -31,11 +32,16 @@ const Area = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+    width: 80%;
+    padding: 50px 0;
+  }
 `;
 
 const ImgOrMap = styled.div`
-  min-width: 360px;
-  min-height: 450px;
   width: 80%;
   height: 90%;
   ${displayCenter}
