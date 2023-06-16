@@ -137,9 +137,7 @@ export default function Card(props: IProps) {
   return (
     <Container onClick={showDetail}>
       <Image
-        src={
-          "https://cdn.pixabay.com/photo/2023/05/27/11/12/naxos-8021321_1280.jpg"
-        }
+        src={`${process.env.REACT_APP_BACK}/${props.item.image.path}`}
         alt="Image"
       />
       <Title>{props.item.name}</Title>

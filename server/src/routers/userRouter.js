@@ -5,12 +5,13 @@ import {
   join,
   logout,
 } from "../../controllers/userControllers";
+import { uploadFiles } from "../middlewares";
 
 const userRouter = express.Router();
 
 userRouter.post("/login", login);
 userRouter.post("/logout", logout);
-userRouter.post("/join", join);
+userRouter.post("/join", uploadFiles.single("image"), join);
 userRouter.get("/userInfo", checkUserInfo);
 
 export default userRouter;

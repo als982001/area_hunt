@@ -30,11 +30,25 @@ export const handleStartLogin = async (loginInfo: loginType) => {
   }
 };
 
-export const handleJoin = async (joinInfo: IJoinInfo) => {
+export const handleJoin = async (image: File, joinInfo: IJoinInfo) => {
   try {
+    const formData = new FormData();
+
+    formData.append("image", image);
+    formData.append("userId", joinInfo.userId);
+    formData.append("password", joinInfo.password);
+    formData.append("name", joinInfo.name);
+    formData.append("phone", joinInfo.phone);
+    formData.append("email", joinInfo.email);
+
     const response = await axios.post(
       `${process.env.REACT_APP_BACK}/user/join`,
-      { joinInfo }
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
 
     return true;

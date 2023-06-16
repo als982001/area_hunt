@@ -92,7 +92,9 @@ export default function MyPage() {
   return (
     <Wrapper>
       <Container>
-        <UserIcon bgImage="https://cdn.pixabay.com/photo/2016/11/19/18/57/godafoss-1840758_1280.jpg" />
+        <UserIcon
+          bgImage={`${process.env.REACT_APP_BACK}/${userState.userInfo.userImg.path}`}
+        />
         <Infos>
           <InfoSpace>
             <Label>ID</Label>

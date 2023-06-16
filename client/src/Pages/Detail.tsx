@@ -25,7 +25,7 @@ const Container = styled.div`
 
 const Area = styled.div`
   width: 100%;
-  min-height: 500px;
+  height: 500px;
   border-radius: ${(props) => props.theme.borderRadius};
   border: 2px solid black;
   display: grid;
@@ -53,6 +53,7 @@ const ImgOrMap = styled.div`
 const Img = styled.img`
   width: 100%;
   height: 100%;
+  max-height: 100%;
   border-radius: ${(props) => props.theme.borderRadius};
   display: flex;
   justify-content: center;
@@ -169,6 +170,10 @@ export default function Detail() {
     })();
   }, []);
 
+  useEffect(() => {
+    console.log(data?.image.path);
+  }, [data]);
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -186,7 +191,7 @@ export default function Detail() {
                 />
               ) : (
                 <Img
-                  src="https://cdn.pixabay.com/photo/2023/04/01/07/21/winter-landscape-7891462_1280.jpg"
+                  src={`${process.env.REACT_APP_BACK}/${data?.image.path}`}
                   alt="area_img"
                 />
               )}

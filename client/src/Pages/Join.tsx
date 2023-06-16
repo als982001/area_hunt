@@ -6,6 +6,7 @@ import JoinLogo from "../Components/Global/Logos/JoinLogo";
 import SubmitButton from "../Components/Global/Buttons/SubmitButton";
 import { handleJoin } from "../utils/MemberFunctions";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Wrapper = styled.div`
   ${displayStartA}
@@ -30,6 +31,19 @@ const Inputs = styled.div`
   width: 100%;
 `;
 
+const Img = styled.div<{ bgImage: string }>`
+  width: 50%;
+  height: 150px;
+  border: 2px solid black;
+  border-radius: 20px;
+  ${displayCenter}
+  background-image: url(${(props) => props.bgImage});
+  background-size: cover;
+  background-position: center;
+`;
+
+const ImageInput = styled.input``;
+
 interface FormValues {
   userId: string;
   password: string;
@@ -40,6 +54,9 @@ interface FormValues {
 }
 
 export default function Join() {
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+
   const navigate = useNavigate();
 
   const { handleSubmit, control } = useForm<FormValues>({
@@ -54,8 +71,23 @@ export default function Join() {
     mode: "onChange",
   });
 
+  const handleImagePost = (event: any) => {
+    if (event.target.files === null) {
+      return;
+    }
+
+    const imageFile = event.target.files[0];
+    setImage((prev) => imageFile);
+    setImageUrl((prev) => URL.createObjectURL(imageFile));
+  };
+
   const handleStartJoin = async (data: FormValues) => {
-    const success = await handleJoin(data);
+    if (image === null) {
+      alert("이미지를 등록해주세요.");
+      return;
+    }
+
+    const success = await handleJoin(image, data);
 
     if (success) {
       alert("회원가입에 성공했습니다.");
@@ -70,9 +102,19 @@ export default function Join() {
 
   return (
     <Wrapper>
-      <Container onSubmit={handleSubmit(handleStartJoin)}>
+      <Container
+        encType="multipart/form-data"
+        onSubmit={handleSubmit(handleStartJoin)}
+      >
         <JoinLogo logoSize={"100px"} />
         <Inputs>
+          <Img bgImage={imageUrl}>
+            <ImageInput
+              type="file"
+              accept="image/*"
+              onChange={handleImagePost}
+            />
+          </Img>
           <JoinInput
             type="text"
             control={control}

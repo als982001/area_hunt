@@ -5,13 +5,13 @@ import session from "express-session";
 import flash from "express-flash";
 import https from "https";
 import fs from "fs";
-import multer from "multer";
 import path from "path";
 import MongoStore from "connect-mongo";
 import rootRouter from "./src/routers/rootRouter";
 import userRouter from "./src/routers/userRouter";
 import itemRouter from "./src/routers/itemrouter";
 import recordRouter from "./src/routers/recordRouter";
+import { testPrint } from "./src/middlewares";
 const cookieParser = require("cookie-parser");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -60,9 +60,11 @@ app.use(
   express.static(path.join(__dirname, "../uploads")),
   rootRouter
 );
+
 app.use("/user", userRouter);
 app.use("/items", itemRouter);
 app.use("/records", recordRouter);
+app.use("/uploads", testPrint, express.static("uploads"));
 app.use("/", rootRouter);
 
 const handleListening = () =>

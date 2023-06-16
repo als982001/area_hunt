@@ -101,12 +101,15 @@ export const checkUserInfo = (req, res) => {
 };
 
 export const join = (req, res) => {
-  const { userId, password } = req.body.joinInfo;
+  const userImg = req.file;
+  const joinInfo = req.body;
+
+  const { userId, password } = joinInfo;
 
   const userInfo = dummyAccounts.find((account) => account.userId === userId);
 
   if (userInfo === undefined) {
-    const newAccount = { id: dummyAccounts.length + "", ...req.body.joinInfo };
+    const newAccount = { id: dummyAccounts.length, userImg, ...joinInfo };
     dummyAccounts.push(newAccount);
 
     res.status(codes.ok).end();

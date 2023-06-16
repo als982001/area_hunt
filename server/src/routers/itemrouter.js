@@ -1,5 +1,4 @@
 import express from "express";
-import multer from "multer";
 import {
   getAllAreas,
   getItem,
@@ -7,10 +6,7 @@ import {
   getItemsByAddress,
   postItem,
 } from "../../controllers/itemControllers";
-
-const upload = multer({
-  dest: "uploads/",
-});
+import { uploadFiles } from "../middlewares";
 
 const itemRouter = express.Router();
 
@@ -18,6 +14,6 @@ itemRouter.get("/address/:address", getItemsByAddress);
 itemRouter.get("/search", getItemsByKeyword);
 itemRouter.get("/:id", getItem);
 itemRouter.get("/", getAllAreas);
-itemRouter.post("/", upload.single("image"), postItem);
+itemRouter.post("/", uploadFiles.single("image"), postItem);
 
 export default itemRouter;

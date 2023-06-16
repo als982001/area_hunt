@@ -5,6 +5,17 @@ export interface UserState {
   userInfo: {
     userId: string;
     email: string;
+    phone: string;
+    userImg: {
+      fieldname: string;
+      originalname: string;
+      encoding: string;
+      mimetype: string;
+      destination: string;
+      filename: string;
+      path: string;
+      size: number;
+    };
   } | null;
 }
 
