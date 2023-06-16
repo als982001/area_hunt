@@ -17,16 +17,16 @@ export const getAllAreas = async (req, res) => {
   return res.status(codes.ok).json(dummyAreas);
 };
 
-export const getItemsByLocation = async (req, res) => {
-  const { location } = req.params;
+export const getItemsByAddress = async (req, res) => {
+  const { address } = req.params;
 
-  console.log(`location: ${location}`);
+  console.log(`address: ${address}`);
 
-  const itemsByLocation = dummyAreas.filter((area) =>
-    area.location.includes(location)
+  const itemsByAddress = dummyAreas.filter((area) =>
+    area.address.includes(address)
   );
 
-  return res.status(codes.ok).json(itemsByLocation);
+  return res.status(codes.ok).json(itemsByAddress);
 };
 
 export const getItem = async (req, res) => {

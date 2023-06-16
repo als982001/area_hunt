@@ -20,10 +20,10 @@ const userReducer = (state: UserState = initState, action: any) => {
     case LOGOUT:
       return { login: false, userInfo: null };
     case AUTH:
-      if (action.payload.userInfo === null) {
-        return { login: false, userInfo: null };
-      } else {
+      if (action.payload.userInfo) {
         return { login: true, userInfo: action.payload.userInfo };
+      } else {
+        return { login: false, userInfo: null };
       }
     default:
       return state;

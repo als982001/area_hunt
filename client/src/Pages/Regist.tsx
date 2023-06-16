@@ -15,10 +15,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: start;
+  padding-bottom: 200px;
 `;
 
 const Form = styled.form`
-  min-width: 800px;
   width: 70%;
   margin-top: 50px;
   display: grid;
@@ -29,6 +29,12 @@ const Form = styled.form`
   padding: 30px 10px;
   border-radius: ${(props) => props.theme.borderRadius};
   border: 2px solid black;
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+    gap: none;
+  }
 `;
 
 const Image = styled.div<IImage>`
@@ -40,6 +46,10 @@ const Image = styled.div<IImage>`
   background-image: url(${(props) => props.bgImage});
   background-size: cover;
   background-position: center;
+
+  @media screen and (max-width: 1000px) {
+    height: 300px;
+  }
 `;
 
 const Inputs = styled.div`
@@ -47,6 +57,10 @@ const Inputs = styled.div`
   flex-direction: column;
   width: 80%;
   height: 500px;
+
+  @media screen and (max-width: 1000px) {
+    height: 300px;
+  }
 `;
 
 interface FormValues {

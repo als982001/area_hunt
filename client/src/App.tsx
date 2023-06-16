@@ -49,7 +49,7 @@ function App() {
     try {
       const result = await handleLoginCheck();
 
-      dispatch(handleAuth(result.data));
+      dispatch(handleAuth(result));
     } catch (err) {
       dispatch(handleLogout());
     }

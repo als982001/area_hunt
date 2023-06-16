@@ -78,10 +78,6 @@ export default function List({
 }: ISearch) {
   const btnRef = useRef(null);
 
-  useEffect(() => {
-    // setSearchFinished((prev) => false);
-  }, []);
-
   return (
     <Wrapper>
       {searchFinished ? (

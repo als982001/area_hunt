@@ -23,6 +23,12 @@ const Button = styled.button<{ left: string; right: string }>`
   margin: auto 0;
   left: ${(props) => props.left};
   right: ${(props) => props.right};
+
+  @media screen and (max-width: 1000px) {
+    left: ${(props) => props.left !== "null" && "0"};
+    right: ${(props) => props.right !== "null" && "0"};
+  }
+
   border: 1px solid black;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 

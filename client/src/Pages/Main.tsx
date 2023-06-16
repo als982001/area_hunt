@@ -23,6 +23,17 @@ const Container = styled.div<{ show?: boolean }>`
 const Img = styled.img`
   width: 400px;
   height: 400px;
+
+  @media screen and (max-width: 1000px) {
+    width: 300px;
+    height: 300px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 200px;
+    height: 200px;
+  }
+
   ${borderRadius20px}
 
   animation: slideIn 0.5s ease-in-out; // 애니메이션 적용
@@ -39,6 +50,17 @@ const Img = styled.img`
 const Contents = styled.div`
   width: 400px;
   height: 400px;
+
+  @media screen and (max-width: 1000px) {
+    width: 300px;
+    height: 300px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 200px;
+    height: 200px;
+  }
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,6 +75,10 @@ const Title = styled.h2`
 const Content = styled.h4`
   font-size: 17px;
   font-weight: 400;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const options = {

@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Stores";
 import { handleLogout } from "../../../Redux/Actions";
 import { getItemsByKeyword } from "../../../utils/itemFunctions";
+import { useEffect } from "react";
+import ButtonDropDown from "./ButtonDropDown";
 
 interface IHeaderProps {
   keyword: string;
@@ -32,8 +34,8 @@ const Top = styled.form`
   display: grid;
   grid-template-columns: 1fr 4fr 4fr;
   align-items: center;
-
   width: 80%;
+  position: relative;
 `;
 
 const Search = styled.div`
@@ -58,6 +60,11 @@ const Input = styled.input`
 const Buttons = styled.div`
   ${displayEnd}
   height: 100%;
+
+  @media screen and (max-width: 1000px) {
+    // 1000px부터 시작
+    display: none;
+  }
 `;
 
 export default function Header({
@@ -174,6 +181,7 @@ export default function Header({
             </>
           )}
         </Buttons>
+        <ButtonDropDown />
       </Top>
     </Container>
   );

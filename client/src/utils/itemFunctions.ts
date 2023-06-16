@@ -31,10 +31,10 @@ export const getSomeItems = async (start: number, size: number) => {
   }
 };
 
-export const getItemsByLocation = async (location: string) => {
+export const getItemsByAddress = async (address: string) => {
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/items/location/${location}`
+      `${process.env.REACT_APP_BACK}/items/address/${address}`
     );
 
     return response.data;

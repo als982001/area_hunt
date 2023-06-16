@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   margin-top: 50px;
-  min-width: 800px;
+
   width: 70%;
   height: 500px;
   border: 2px solid black;
@@ -24,12 +24,18 @@ const Container = styled.div`
   gap: 50px;
   align-items: center;
   padding: 0 50px;
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+    padding: 0 10px;
+  }
 `;
 
 const UserIcon = styled.div<{ bgImage: string }>`
   flex: 1 0 auto;
   height: 80%;
-  background-color: pink;
   background-image: url(${(props) => props.bgImage});
   background-size: cover;
   background-position: center;
@@ -39,10 +45,10 @@ const UserIcon = styled.div<{ bgImage: string }>`
 const Infos = styled.div`
   flex: 1 0 auto;
   height: 80%;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
   align-items: center;
-  justify-content: center;
+  gap: 0;
   border: 2px solid black;
   ${borderRadius20px}
 `;
@@ -50,9 +56,9 @@ const Infos = styled.div`
 const InfoSpace = styled.div`
   display: flex;
   align-items: center;
-  margin: 20px 0;
+
   width: 100%;
-  height: 50px;
+  height: 100%;
 `;
 
 const Label = styled.div`

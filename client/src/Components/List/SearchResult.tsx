@@ -20,11 +20,19 @@ const ResultHeader = styled.div`
   justify-content: space-between;
   padding: 0 200px;
   height: 100px;
+
+  @media screen and (max-width: 1000px) {
+    height: 200px;
+    flex-direction: column;
+    padding: 0;
+    justify-content: space-around;
+  }
 `;
 
 const Title = styled.h2`
   font-size: 30px;
   font-weight: bold;
+  margin: 0 50px;
 `;
 
 const Container = styled.div`
@@ -32,6 +40,19 @@ const Container = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 400px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
   justify-items: center;
   row-gap: 100px;
 `;
@@ -59,7 +80,6 @@ export default function SearchResult({
   setSearchResult,
   setSearchFinished,
 }: IResult) {
-  console.log(searchResult);
   return (
     <Wrapper>
       <ResultHeader>

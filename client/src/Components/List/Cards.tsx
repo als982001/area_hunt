@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { getItemsByLocation } from "../../utils/itemFunctions";
+import { getItemsByAddress } from "../../utils/itemFunctions";
 import Spinner from "../Global/Spinner";
 import Card from "./Card";
 import SlideButton from "../Global/Buttons/SlideButton";
+import NoData from "./NoData";
 
 interface IProps {
   location: string;
@@ -96,12 +97,10 @@ export default function Cards({ location }: IProps) {
   const [back, setBack] = useState(false);
 
   const { data, isLoading } = useQuery<IItem[]>(`${location}Items`, () =>
-    getItemsByLocation(location)
+    getItemsByAddress(location)
   );
 
   const getNextCards = () => {
-    console.log("zzz");
-
     setBack(false);
     setVisible((prev) =>
       data ? (prev === data.length - 1 ? data.length - 1 : prev + 1) : 0
@@ -141,7 +140,7 @@ export default function Cards({ location }: IProps) {
             />
           </>
         ) : (
-          <h1>No Data</h1>
+          <NoData />
         )}
       </Container>
     </Wrapper>
