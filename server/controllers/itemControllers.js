@@ -43,6 +43,8 @@ export const getItem = async (req, res) => {
 
 export const postItem = async (req, res) => {
   try {
+    console.log("Post Item!!!");
+
     const areaImage = req.file;
     const areaData = req.body;
 
@@ -51,6 +53,8 @@ export const postItem = async (req, res) => {
       image: areaImage,
       ...areaData,
     });
+
+    console.log(dummyAreas);
 
     return res.status(codes.ok).end();
   } catch (error) {
@@ -88,12 +92,13 @@ export const postVisitRecords = async (req, res) => {
     dummyVisitRecords.push({
       id: dummyVisitRecords.length + 1,
       areaId: +areaId,
-      imgPath:
-        "https://cdn.pixabay.com/photo/2023/05/28/14/22/naxos-8023806_1280.jpg",
+      imgPath: image.path,
       name: info.name,
       content: info.content,
       date: info.date,
     });
+
+    console.log(dummyVisitRecords);
 
     return res.status(codes.ok).end();
   } catch (error) {

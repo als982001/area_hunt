@@ -191,7 +191,11 @@ export default function Detail() {
                 />
               ) : (
                 <Img
-                  src={`${process.env.REACT_APP_BACK}/${data?.image.path}`}
+                  src={
+                    data?.image.path.includes("uploads")
+                      ? `${process.env.REACT_APP_BACK}/${data?.image.path}`
+                      : `${data?.image.path}`
+                  }
                   alt="area_img"
                 />
               )}

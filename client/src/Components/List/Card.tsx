@@ -137,7 +137,11 @@ export default function Card(props: IProps) {
   return (
     <Container onClick={showDetail}>
       <Image
-        src={`${process.env.REACT_APP_BACK}/${props.item.image.path}`}
+        src={
+          props.item.image.path.includes("uploads")
+            ? `${process.env.REACT_APP_BACK}/${props.item.image.path}`
+            : `${props.item.image.path}`
+        }
         alt="Image"
       />
       <Title>{props.item.name}</Title>

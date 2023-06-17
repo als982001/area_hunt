@@ -46,8 +46,7 @@ const Overlay = styled.div`
 `;
 
 const Modal = styled.img`
-  min-width: 800px;
-  width: 70%;
+  width: 600px;
   height: auto;
   position: fixed;
   top: 0;
@@ -82,7 +81,11 @@ export default function VisitRecord(props: IProps) {
     <>
       <Container>
         <Img
-          src={props.record.imgPath}
+          src={
+            props.record.imgPath.includes("uploads")
+              ? `${process.env.REACT_APP_BACK}/${props.record.imgPath}`
+              : `${props.record.imgPath}`
+          }
           alt="visit_img"
           onClick={() => handleBigImg(true)}
         />
@@ -96,7 +99,11 @@ export default function VisitRecord(props: IProps) {
         <>
           <Overlay onClick={() => handleBigImg(false)} />
           <Modal
-            src="https://cdn.pixabay.com/photo/2023/05/28/14/22/naxos-8023806_1280.jpg"
+            src={
+              props.record.imgPath.includes("uploads")
+                ? `${process.env.REACT_APP_BACK}/${props.record.imgPath}`
+                : `${props.record.imgPath}`
+            }
             alt="big_visit_img"
           />
         </>

@@ -103,7 +103,10 @@ export default function RecordForm(props: IProps) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(handlePostRecord)}>
+    <Form
+      encType="multipart/form-data"
+      onSubmit={handleSubmit(handlePostRecord)}
+    >
       <Img bgImage={imagePath}>
         <input type="file" accept="image/*" onChange={handleInputImage} />
       </Img>

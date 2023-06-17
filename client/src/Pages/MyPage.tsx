@@ -93,7 +93,11 @@ export default function MyPage() {
     <Wrapper>
       <Container>
         <UserIcon
-          bgImage={`${process.env.REACT_APP_BACK}/${userState.userInfo.userImg.path}`}
+          bgImage={
+            userState.userInfo.userImg.path.includes("pixabay")
+              ? `${userState.userInfo.userImg.path}`
+              : `${process.env.REACT_APP_BACK}/${userState.userInfo.userImg.path}`
+          }
         />
         <Infos>
           <InfoSpace>

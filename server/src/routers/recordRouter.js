@@ -4,14 +4,11 @@ import {
   getVisitRecords,
   postVisitRecords,
 } from "../../controllers/itemControllers";
-
-const upload = multer({
-  dest: "uploads/",
-});
+import { uploadFiles } from "../middlewares";
 
 const recordRouter = express.Router();
 
 recordRouter.get("/:id", getVisitRecords);
-recordRouter.post("/:id", upload.single("image"), postVisitRecords);
+recordRouter.post("/:id", uploadFiles.single("image"), postVisitRecords);
 
 export default recordRouter;
