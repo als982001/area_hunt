@@ -15,8 +15,8 @@
 |내정보|자신의 정보를 확인할 수 있습니다.|/mypage|
 |notfound|잘못된 접근임을 알려줍니다.|/notfound|
 |지역 상세 페이지|등록된 지역의 상세 정보 및 후기를 보여줍니다.|/:id|
-
+<img src="" width="600px" alt=""></img><br>
 <br>
 
 ## 서비스 이미지
-![header](https://blog.kakaocdn.net/dn/3OxGz/btsknwdZMBJ/1vNyf6GsxSRUKvIF9dhEWk/img.png)
+<img src="https://blog.kakaocdn.net/dn/3OxGz/btsknwdZMBJ/1vNyf6GsxSRUKvIF9dhEWk/img.png" width="600px" alt="main"></img><br>
