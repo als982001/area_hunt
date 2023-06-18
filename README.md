@@ -19,4 +19,9 @@
 <br>
 
 ## 서비스 이미지
+<br>
+### 메인화면
 <img src="https://blog.kakaocdn.net/dn/3OxGz/btsknwdZMBJ/1vNyf6GsxSRUKvIF9dhEWk/img.png" width="600px" alt="main"></img><br>
+
+### 회원가입/로그인/내정보
+<img src="https://blog.kakaocdn.net/dn/cqCRye/btskk7S5r3p/sZFlozlVkOKGTO4xcyOD2K/img.gif" width="600px" alt="join+login+mypage"></img><br>
