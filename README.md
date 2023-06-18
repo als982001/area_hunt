@@ -19,4 +19,4 @@
 <br>
 
 ## 서비스 이미지
-![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&text=AIRCAMP&height=300&fontSize=90&animation=twinkling)
+![header](https://blog.kakaocdn.net/dn/3OxGz/btsknwdZMBJ/1vNyf6GsxSRUKvIF9dhEWk/img.png)
