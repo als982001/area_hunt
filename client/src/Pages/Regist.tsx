@@ -98,18 +98,6 @@ export default function Regist() {
       return;
     }
 
-    const { address } = data;
-
-    /*
-    const isValidAddress = await checkValidAddress(address);
-
-   
-    if (isValidAddress === false) {
-      alert("주소가 유효하지 않습니다!");
-      return;
-    }
-    */
-
     const success = await handlePostItem(image, data);
 
     if (success) {

@@ -41,6 +41,20 @@ export const getItem = async (req, res) => {
   }
 };
 
+export const updateItem = async (req, res) => {
+  const { id } = req.params;
+
+  const image = req.file;
+  const updatedData = JSON.parse(req.body.data);
+
+  dummyAreas[updatedData.id] = {
+    image,
+    ...updatedData,
+  };
+
+  return res.end();
+};
+
 export const postItem = async (req, res) => {
   try {
     console.log("Post Item!!!");

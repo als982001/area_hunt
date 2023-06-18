@@ -114,25 +114,11 @@ interface IProps {
 }
 
 export default function Card(props: IProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [imgUrl, setImgUrl] = useState("");
-
   const naviage = useNavigate();
 
   const showDetail = () => {
     naviage(`/${props.item.id}`);
   };
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading((prev) => true);
-
-      const result = await getAreaImage(props.item.image.path);
-      setImgUrl((prev) => result);
-
-      setIsLoading((prev) => false);
-    })();
-  }, []);
 
   return (
     <Container onClick={showDetail}>

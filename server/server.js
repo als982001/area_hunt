@@ -64,7 +64,7 @@ app.use(
 app.use("/user", userRouter);
 app.use("/items", itemRouter);
 app.use("/records", recordRouter);
-app.use("/uploads", testPrint, express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 
 const handleListening = () =>

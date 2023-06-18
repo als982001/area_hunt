@@ -7,6 +7,10 @@ import KakaoMap from "../Components/Detail/KakaoMap";
 import { displayCenter } from "../styles/displays";
 import { border2px, borderRadius20px } from "../styles/styles";
 import MapImgToggle from "../Components/Detail/MapImgToggle";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/Stores";
+import UpdateModal from "../Components/Detail/UpdateModal";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -100,9 +104,45 @@ const Info = styled.h4`
   font-weight: 400;
 `;
 
+const SettingButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const SwitchSpace = styled.div`
   margin-top: 10px;
   ${displayCenter}
+`;
+
+const Overlay = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+`;
+
+const Modal = styled.div`
+  width: 60vw;
+  height: 60vh;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid black;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto auto;
+  z-index: 10;
+  border-radius: ${(props) => props.theme.borderRadius};
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
 `;
 
 interface IItem {
@@ -121,15 +161,19 @@ interface IItem {
   address: string;
   location: string;
   content: string;
+  publisherId: string;
 }
 
 export default function Detail() {
   const [showMap, setShowMap] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<IItem | null>(null);
+  const [update, setUpdate] = useState(false);
 
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const userState = useSelector((state: RootState) => state.userReducer);
 
   const handleShowMap = () => {
     setShowMap((prev) => (prev === 1 ? 0 : 1));
@@ -170,61 +214,77 @@ export default function Detail() {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(data?.image.path);
-  }, [data]);
-
   return (
-    <Wrapper>
-      {isLoading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <Container>
-          <Area>
-            <ImgOrMap>
-              {showMap === 1 ? (
-                <KakaoMap
-                  width="100%"
-                  height="100%"
-                  address={data?.address}
-                  name={data?.name}
-                />
-              ) : (
-                <Img
-                  src={
-                    data?.image.path.includes("uploads")
-                      ? `${process.env.REACT_APP_BACK}/${data?.image.path}`
-                      : `${data?.image.path}`
-                  }
-                  alt="area_img"
-                />
-              )}
-            </ImgOrMap>
-            <Infos>
-              <InfoSpace>
-                <Label>이름</Label>
-                <Info>{data?.name}</Info>
-              </InfoSpace>
-              <InfoSpace>
-                <Label>주소</Label>
-                <Info>{data?.address}</Info>
-              </InfoSpace>
-              <InfoSpace>
-                <Label>위치</Label>
-                <Info>{data?.location}</Info>
-              </InfoSpace>
-              <InfoSpace>
-                <Label>내용</Label>
-                <Info>{data?.content}</Info>
-              </InfoSpace>
-            </Infos>
-          </Area>
-          <SwitchSpace>
-            <MapImgToggle onClick={handleShowMap} showMap={showMap} />
-          </SwitchSpace>
-          <VisitRecords id={id as string} />
-        </Container>
+    <>
+      <Wrapper>
+        {isLoading ? (
+          <h1>Loading...</h1>
+        ) : (
+          <Container>
+            <Area>
+              <ImgOrMap>
+                {showMap === 1 ? (
+                  <KakaoMap
+                    width="100%"
+                    height="100%"
+                    address={data?.address}
+                    name={data?.name}
+                  />
+                ) : (
+                  <Img
+                    src={
+                      data?.image.path.includes("uploads")
+                        ? `${process.env.REACT_APP_BACK}/${data?.image.path}`
+                        : `${data?.image.path}`
+                    }
+                    alt="area_img"
+                  />
+                )}
+              </ImgOrMap>
+              <Infos>
+                <InfoSpace>
+                  <Label>이름</Label>
+                  <Info>{data?.name}</Info>
+                </InfoSpace>
+                <InfoSpace>
+                  <Label>주소</Label>
+                  <Info>{data?.address}</Info>
+                </InfoSpace>
+                <InfoSpace>
+                  <Label>위치</Label>
+                  <Info>{data?.location}</Info>
+                </InfoSpace>
+                <InfoSpace>
+                  <Label>내용</Label>
+                  <Info>{data?.content}</Info>
+                </InfoSpace>
+              </Infos>
+            </Area>
+            <SettingButtons>
+              <SwitchSpace>
+                <MapImgToggle onClick={handleShowMap} showMap={showMap} />
+              </SwitchSpace>
+              {userState.login === true &&
+                userState.userInfo.userId === data?.publisherId && (
+                  <HiOutlinePencilAlt
+                    onClick={() => {
+                      setUpdate((prev) => true);
+                    }}
+                    style={{ marginTop: "20px", cursor: "pointer" }}
+                    size={"35px"}
+                  />
+                )}
+            </SettingButtons>
+            <VisitRecords id={id as string} />
+          </Container>
+        )}
+      </Wrapper>
+      {update && (
+        <>
+          <Overlay onClick={() => setUpdate((prev) => false)} />
+          <UpdateModal data={data as IItem} setUpdate={setUpdate} />
+        </>
       )}
-    </Wrapper>
+    </>
   );
 }

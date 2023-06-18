@@ -7,6 +7,15 @@ interface IAreaData {
   content: string;
 }
 
+interface IUpdate {
+  id: number;
+  name: string;
+  address: string;
+  location: string;
+  content: string;
+  publisherId: string;
+}
+
 export const getAllItems = async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_BACK}/items`);
@@ -72,6 +81,30 @@ export const handlePostItem = async (image: File, data: IAreaData) => {
         "Content-Type": "multipart/form-data",
       },
     });
+
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const updateItem = async (image: File, data: IUpdate) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("image", image);
+    formData.append("data", JSON.stringify(data));
+
+    const response = await axios.patch(
+      `${process.env.REACT_APP_BACK}/items/${data.id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     return true;
   } catch (error) {
