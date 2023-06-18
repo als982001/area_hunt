@@ -15,7 +15,7 @@
 |내정보|자신의 정보를 확인할 수 있습니다.|/mypage|
 |notfound|잘못된 접근임을 알려줍니다.|/notfound|
 |지역 상세 페이지|등록된 지역의 상세 정보 및 후기를 보여줍니다.|/:id|
-<img src="" width="600px" alt=""></img><br>
+
 <br>
 
 ## 서비스 이미지
@@ -23,5 +23,21 @@
 ### 메인화면
 <img src="https://blog.kakaocdn.net/dn/3OxGz/btsknwdZMBJ/1vNyf6GsxSRUKvIF9dhEWk/img.png" width="600px" alt="main"></img><br>
 
+
 ### 회원가입/로그인/내정보
 <img src="https://blog.kakaocdn.net/dn/cqCRye/btskk7S5r3p/sZFlozlVkOKGTO4xcyOD2K/img.gif" width="600px" alt="join+login+mypage"></img><br>
+
+### 등록
+<img src="https://blog.kakaocdn.net/dn/OS7kp/btskifKPHOj/iPHIod8GOAF9FvbDx070nK/img.gif" width="600px" alt="regist"></img><br>
+
+### 리스트
+<img src="https://blog.kakaocdn.net/dn/p39S7/btskhKjPaW1/uVBbWIoe2hxppirunKtgjk/img.png" width="600px" alt="list"></img><br>
+<img src="https://blog.kakaocdn.net/dn/bzvsfx/btsknu8kiDD/XxvV61ko9xDQqKIJ1fPzck/img.gif" width="600px" alt="list"></img><br>
+
+### notfound
+<img src="https://blog.kakaocdn.net/dn/bQR5I0/btskhMopQem/2D8cdV4eDEJKU67SvpF1g0/img.png" width="600px" alt="notfound"></img><br>
+
+### 지역 상세 페이지 
+<img src="https://blog.kakaocdn.net/dn/dQWpSW/btskk9Dm4w6/QIuBSEgEpmXFQTyvcteRk1/img.gif" width="600px" alt="detail1"></img><br>
+<img src="https://blog.kakaocdn.net/dn/yeKz0/btskiShBFRO/MiQPIOLYEL80O7gVmmLiS1/img.gif" width="600px" alt="detail2"></img><br>
+<img src="https://blog.kakaocdn.net/dn/Y0Rzd/btskrbHpJ0D/G9SPaowsNv3gekAAyYP2Dk/img.gif" width="600px" alt="detail3"></img><br>
