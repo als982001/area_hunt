@@ -170,6 +170,10 @@ export default function Detail() {
   const [data, setData] = useState<IItem | null>(null);
   const [update, setUpdate] = useState(false);
 
+  const testFun = () => {
+    console.log("zzz");
+  };
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -199,6 +203,7 @@ export default function Detail() {
 
       if (id) {
         const result = await getItem(id);
+
         setData((prev) => result);
 
         if (result === null) {
@@ -229,6 +234,7 @@ export default function Detail() {
                     height="100%"
                     address={data?.address}
                     name={data?.name}
+                    setShowMap={setShowMap}
                   />
                 ) : (
                   <Img

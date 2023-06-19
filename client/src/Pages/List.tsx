@@ -3,8 +3,6 @@ import Card from "../Components/List/Card";
 import { displayCenter } from "../styles/displays";
 import { BsFillArrowUpSquareFill } from "react-icons/bs";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { getAllItems, getSomeItems } from "../utils/itemFunctions";
-import Spinner from "../Components/Global/Spinner";
 import Cards from "../Components/List/Cards";
 import SearchResult from "../Components/List/SearchResult";
 

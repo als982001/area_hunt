@@ -8,7 +8,11 @@ import { handlePostItem } from "../utils/itemFunctions";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
-import { checkValidAddress } from "../utils/functions";
+import {
+  checkValidAddress,
+  isLocal,
+  localAreaImagePath,
+} from "../utils/functions";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -76,7 +80,7 @@ interface IImage {
 
 export default function Regist() {
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(isLocal ? localAreaImagePath : "");
 
   const userState = useSelector((state: RootState) => state.userReducer);
 
@@ -93,21 +97,43 @@ export default function Regist() {
   });
 
   const handleStartPost = async (data: FormValues) => {
-    if (image === null) {
-      alert("이미지를 등록해주세요.");
-      return;
-    }
+    if (isLocal) {
+      const success = await handlePostItem(
+        imageUrl,
+        data,
+        userState.userInfo.userId
+      );
 
-    const success = await handlePostItem(image, data);
-
-    if (success) {
-      alert("등록 완료");
-      navigate("/list");
-      return;
+      if (success) {
+        alert("등록 완료");
+        navigate("/list");
+        return;
+      } else {
+        alert("등록 실패!!!");
+        reset();
+        return;
+      }
     } else {
-      alert("등록 실패!!!");
-      reset();
-      return;
+      if (image === null) {
+        alert("이미지를 등록해주세요.");
+        return;
+      }
+
+      const success = await handlePostItem(
+        image,
+        data,
+        userState.userInfo.userId
+      );
+
+      if (success) {
+        alert("등록 완료");
+        navigate("/list");
+        return;
+      } else {
+        alert("등록 실패!!!");
+        reset();
+        return;
+      }
     }
   };
 
@@ -135,7 +161,12 @@ export default function Regist() {
         encType="multipart/form-data"
       >
         <Image bgImage={imageUrl}>
-          <input type="file" accept="image/*" onChange={handleImagePost} />
+          <input
+            disabled={isLocal}
+            type="file"
+            accept="image/*"
+            onChange={handleImagePost}
+          />
         </Image>
         <Inputs>
           <RegistInput

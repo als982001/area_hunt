@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Button from "../Global/Buttons/Button";
 import { useEffect, useState } from "react";
 import { updateItem } from "../../utils/itemFunctions";
+import { isLocal, localAreaImagePath } from "../../utils/functions";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   data: {
@@ -105,14 +107,18 @@ export default function UpdateModal({ data, setUpdate }: IProps) {
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(data.image.path);
 
-  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      name: data.name,
+      address: data.address,
+      location: data.location,
+      content: data.content,
+    },
+  });
 
   const handleStartUpdate = async (event: any) => {
-    if (image === null) {
-      alert("이미지를 수정해주세요.");
-      return;
-    }
-
     const { name, address, location, content } = event;
 
     const updatedInfo = {
@@ -124,12 +130,27 @@ export default function UpdateModal({ data, setUpdate }: IProps) {
       publisherId: data.publisherId,
     };
 
-    const success = await updateItem(image, updatedInfo);
+    if (isLocal) {
+      const success = await updateItem(imageUrl, updatedInfo);
 
-    if (success) {
-      setUpdate((prev) => false);
+      if (success) {
+        navigate("/list");
+      } else {
+        alert("정보가 업데이트되지 않았습니다.");
+      }
     } else {
-      alert("정보가 업데이트되지 않았습니다.");
+      if (image === null) {
+        alert("이미지를 수정해주세요.");
+        return;
+      }
+
+      const success = await updateItem(image, updatedInfo);
+
+      if (success) {
+        window.location.reload();
+      } else {
+        alert("정보가 업데이트되지 않았습니다.");
+      }
     }
 
     return;

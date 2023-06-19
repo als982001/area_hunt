@@ -1,3 +1,6 @@
+import { localAreas } from "../Data/localAreas";
+import { localReviews } from "../Data/localReviews";
+import { isLocal, localAreaImagePath } from "./functions";
 import axios from "axios";
 
 interface IAreaData {
@@ -18,22 +21,13 @@ interface IUpdate {
 
 export const getAllItems = async () => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_BACK}/items`);
+    if (isLocal) {
+      return localAreas;
+    } else {
+      const response = await axios.get(`${process.env.REACT_APP_BACK}/items`);
 
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-
-export const getSomeItems = async (start: number, size: number) => {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/items/slice?start=${start}&size=${size}`
-    );
-
-    return response.data;
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     return [];
@@ -42,11 +36,16 @@ export const getSomeItems = async (start: number, size: number) => {
 
 export const getItemsByAddress = async (address: string) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/items/address/${address}`
-    );
+    if (isLocal) {
+      const data = localAreas.filter((area) => area.address.includes(address));
+      return data;
+    } else {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK}/items/address/${address}`
+      );
 
-    return response.data;
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     return [];
@@ -55,83 +54,129 @@ export const getItemsByAddress = async (address: string) => {
 
 export const getItem = async (id: string | number) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/items/${id}`
-    );
+    if (isLocal) {
+      return localAreas[+id];
+    } else {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK}/items/${id}`
+      );
 
-    return response.data;
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     return null;
   }
 };
 
-export const handlePostItem = async (image: File, data: IAreaData) => {
+export const handlePostItem = async (
+  image: File | string,
+  data: IAreaData,
+  userId: string
+) => {
   try {
-    const formData = new FormData();
+    if (isLocal) {
+      const newArea: IArea = {
+        id: localAreas.length,
+        image: {
+          fieldname: "local_area_image",
+          originalname: "local_area_image",
+          encoding: "",
+          mimetype: "",
+          destination: "pixabay",
+          filename: "local_area_image",
+          path: localAreaImagePath,
+          size: 1,
+        },
+        name: data.name,
+        address: data.address,
+        location: data.location,
+        content: data.content,
+        publisherId: userId,
+      };
 
-    formData.append("image", image);
-    formData.append("name", data.name);
-    formData.append("address", data.address);
-    formData.append("location", data.location);
-    formData.append("content", data.content);
+      localAreas.push(newArea);
 
-    await axios.post(`${process.env.REACT_APP_BACK}/items`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+      return true;
+    } else {
+      const formData = new FormData();
 
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-};
+      formData.append("image", image);
+      formData.append("name", data.name);
+      formData.append("address", data.address);
+      formData.append("location", data.location);
+      formData.append("content", data.content);
 
-export const updateItem = async (image: File, data: IUpdate) => {
-  try {
-    const formData = new FormData();
-
-    formData.append("image", image);
-    formData.append("data", JSON.stringify(data));
-
-    const response = await axios.patch(
-      `${process.env.REACT_APP_BACK}/items/${data.id}`,
-      formData,
-      {
+      await axios.post(`${process.env.REACT_APP_BACK}/items`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }
-    );
+      });
 
-    return true;
+      return true;
+    }
   } catch (error) {
     console.log(error);
     return false;
   }
 };
 
-export const getAreaImage = async (filename: string) => {
+export const updateItem = async (image: File | string, data: IUpdate) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/images/${filename}`
-    );
-    return response.data;
+    if (isLocal) {
+      localAreas[data.id] = {
+        image: {
+          fieldname: "local_area_image",
+          originalname: "local_area_image",
+          encoding: "",
+          mimetype: "",
+          destination: "pixabay",
+          filename: "local_area_image",
+          path: localAreaImagePath,
+          size: 1,
+        },
+        ...data,
+      };
+
+      return true;
+    } else {
+      const formData = new FormData();
+
+      formData.append("image", image);
+      formData.append("data", JSON.stringify(data));
+
+      const response = await axios.patch(
+        `${process.env.REACT_APP_BACK}/items/${data.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return true;
+    }
   } catch (error) {
     console.log(error);
-    return "";
+    return false;
   }
 };
 
 export const getVisitRecords = async (areaId: string | number) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/records/${areaId}`
-    );
+    if (isLocal) {
+      const reviews = localReviews.filter(
+        (review) => review.areaId === +areaId
+      );
+      return reviews;
+    } else {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK}/records/${areaId}`
+      );
 
-    return response.data;
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     return [];
@@ -139,28 +184,41 @@ export const getVisitRecords = async (areaId: string | number) => {
 };
 
 export const postRecord = async (
-  image: File,
+  image: File | string,
   areaId: string | number,
   info: { content: string; name: string; date: string }
 ) => {
   try {
-    const formData = new FormData();
+    if (isLocal) {
+      localReviews.push({
+        id: localReviews.length,
+        areaId: +areaId,
+        imgPath: image as string,
+        name: info.name,
+        content: info.content,
+        date: info.date,
+      });
 
-    formData.append("image", image);
-    formData.append("info", JSON.stringify(info));
-    formData.append("areaId", JSON.stringify(areaId));
+      return true;
+    } else {
+      const formData = new FormData();
 
-    const response = await axios.post(
-      `${process.env.REACT_APP_BACK}/records/${areaId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+      formData.append("image", image);
+      formData.append("info", JSON.stringify(info));
+      formData.append("areaId", JSON.stringify(areaId));
 
-    return true;
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACK}/records/${areaId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return true;
+    }
   } catch (error) {
     console.log(error);
     return false;
@@ -169,11 +227,19 @@ export const postRecord = async (
 
 export const getItemsByKeyword = async (keyword: string) => {
   try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_BACK}/items/search?keyword=${keyword}`
-    );
+    if (isLocal) {
+      const searched = localAreas.filter(
+        (area) => area.name.includes(keyword) || area.content.includes(keyword)
+      );
 
-    return response.data;
+      return searched;
+    } else {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACK}/items/search?keyword=${keyword}`
+      );
+
+      return response.data;
+    }
   } catch (error) {
     console.log(error);
     return [];

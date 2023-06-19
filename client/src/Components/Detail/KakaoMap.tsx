@@ -7,6 +7,7 @@ interface IProps {
   height: string;
   address?: string;
   name?: string;
+  setShowMap?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Map = styled.div<IProps>`
@@ -38,6 +39,9 @@ export default function KakaoMap(props: IProps) {
       geocoder.addressSearch(
         props.address,
         function (result: any, status: any) {
+          console.log(status);
+          console.log(props.address);
+
           // 정상적으로 검색이 완료되었을 때
           if (status === window.kakao.maps.services.Status.OK) {
             const coords = new window.kakao.maps.LatLng(
@@ -59,9 +63,13 @@ export default function KakaoMap(props: IProps) {
 
             // 지도와 중심을 결과값으로 받은 위치로 이동
             map.setCenter(coords);
-          } else if (status === null) {
+          } else {
             // 정상적으로 주소강 입력되지 않았을 때
             alert("주소가 잘못 입력되었습니다!");
+
+            if (props.setShowMap) {
+              props.setShowMap(0);
+            }
           }
         }
       );

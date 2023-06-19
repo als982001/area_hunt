@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { displayCenter } from "../styles/displays";
 import { borderRadius20px } from "../styles/styles";
 import { useEffect, useRef, useState } from "react";
+import { isLocal } from "../utils/functions";
+import { AiFillWarning } from "react-icons/ai";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -81,14 +83,48 @@ const Content = styled.h4`
   }
 `;
 
-const options = {
-  root: null,
-  rootMargin: "0px",
-  threshold: 0.5, // 컨테이너의 50% 이상이 보일 때 애니메이션 시작
-};
+const Modal = styled.div`
+  width: 500px;
+  height: 200px;
+  padding: 20px;
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 20px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  & span {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  transition: all 3s linear;
+`;
 
 export default function Main() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    let opacity = 1;
+
+    const interval = setInterval(() => {
+      opacity -= 0.1;
+
+      if (opacity <= 0) {
+        clearInterval(interval);
+        setShow(false);
+      }
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Wrapper>
@@ -158,6 +194,13 @@ export default function Main() {
           alt="main_img_01"
         />
       </Container>
+      {isLocal && (
+        <Modal style={{ opacity: show ? 1 : 0 }}>
+          <AiFillWarning size={"50px"} />
+          <span>현재 서버와 연결되어 있지 않습니다.</span>
+          <span>로컬의 더미 데이터를 이용합니다.</span>
+        </Modal>
+      )}
     </Wrapper>
   );
 }

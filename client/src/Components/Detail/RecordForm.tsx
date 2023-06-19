@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/Stores";
-import { getToday } from "../../utils/functions";
+import { getToday, isLocal, localReviewImagePath } from "../../utils/functions";
 import { postRecord } from "../../utils/itemFunctions";
 import { displayCenter } from "../../styles/displays";
+import { useNavigate } from "react-router-dom";
 
 const Form = styled.form`
   ${borderRadius20px}
@@ -60,18 +61,17 @@ interface FormValues {
 
 export default function RecordForm(props: IProps) {
   const [image, setImage] = useState(null);
-  const [imagePath, setImagePath] = useState("");
+  const [imagePath, setImagePath] = useState(
+    isLocal ? localReviewImagePath : ""
+  );
+
+  const navigate = useNavigate();
 
   const { register, handleSubmit, reset } = useForm<FormValues>();
 
   const userState = useSelector((state: RootState) => state.userReducer);
 
   const handlePostRecord = async (data: FormValues) => {
-    if (image === null) {
-      alert("이미지를 등록해주세요.");
-      return;
-    }
-
     const { content } = data;
     const date = getToday();
 
@@ -81,15 +81,34 @@ export default function RecordForm(props: IProps) {
       date,
     };
 
-    const success = await postRecord(image, props.id, info);
+    if (isLocal) {
+      const success = await postRecord(imagePath, props.id, info);
 
-    if (success) {
-      alert("등록 성공");
-      window.location.reload();
+      if (success) {
+        alert("등록 성공");
+        navigate("/list");
+      } else {
+        alert("등록 실패!!!");
+        reset();
+      }
     } else {
-      alert("등록 실패!!!");
-      reset();
+      if (image === null) {
+        alert("이미지를 등록해주세요.");
+        return;
+      }
+
+      const success = await postRecord(image, props.id, info);
+
+      if (success) {
+        alert("등록 성공");
+        window.location.reload();
+      } else {
+        alert("등록 실패!!!");
+        reset();
+      }
     }
+
+    return;
   };
 
   const handleInputImage = (event: any) => {
@@ -108,7 +127,9 @@ export default function RecordForm(props: IProps) {
       onSubmit={handleSubmit(handlePostRecord)}
     >
       <Img bgImage={imagePath}>
-        <input type="file" accept="image/*" onChange={handleInputImage} />
+        {isLocal === false && (
+          <input type="file" accept="image/*" onChange={handleInputImage} />
+        )}
       </Img>
       <ContentInput {...register("content", { required: true })} />
       <SubmitButton
