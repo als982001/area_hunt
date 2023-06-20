@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Card from "./Card";
 import { border1px, borderRadius20px } from "../../styles/styles";
 import { activeShadow, buttonShadow } from "../../styles/shadows";

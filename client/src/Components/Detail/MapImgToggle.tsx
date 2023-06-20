@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { border2px, borderRadius20px } from "../../styles/styles";
-import { displayCenter } from "../../styles/displays";
 import { BsMapFill } from "react-icons/bs";
 import { AiFillFileImage } from "react-icons/ai";
+
+import { border2px, borderRadius20px } from "../../styles/styles";
+import { displayCenter } from "../../styles/displays";
 
 interface IProps {
   showMap: number;

@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import VisitRecord from "./VisitRecord";
 import { useEffect, useState } from "react";
-import { getVisitRecords } from "../../utils/itemFunctions";
-import RecordForm from "./RecordForm";
 import { useSelector } from "react-redux";
-import userReducer from "../../Redux/Reducers/userReducer";
 import { RootState } from "../../Redux/Stores";
+
+import VisitRecord from "./VisitRecord";
+import RecordForm from "./RecordForm";
+import { getVisitRecords } from "../../utils/itemFunctions";
 
 interface IProps {
   id: string | number;

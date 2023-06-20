@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { getItem } from "../utils/itemFunctions";
+import { useNavigate, useParams } from "react-router-dom";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/Stores";
+
+import UpdateModal from "../Components/Detail/UpdateModal";
 import VisitRecords from "../Components/Detail/VisitRecords";
 import KakaoMap from "../Components/Detail/KakaoMap";
+import MapImgToggle from "../Components/Detail/MapImgToggle";
+import { getItem } from "../utils/itemFunctions";
 import {
   displayCenter,
   displayCenterStart,
@@ -11,11 +17,6 @@ import {
   gridCenter,
 } from "../styles/displays";
 import { border2px, borderRadius20px } from "../styles/styles";
-import MapImgToggle from "../Components/Detail/MapImgToggle";
-import { HiOutlinePencilAlt } from "react-icons/hi";
-import { useSelector } from "react-redux";
-import { RootState } from "../Redux/Stores";
-import UpdateModal from "../Components/Detail/UpdateModal";
 
 const Wrapper = styled.div`
   width: 100%;

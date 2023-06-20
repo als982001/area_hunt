@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+
 import { displayCenter, displayStartCenter } from "../styles/displays";
 
 const Container = styled.div`

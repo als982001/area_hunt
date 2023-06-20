@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { FaUserAlt } from "react-icons/fa";
-import { border2px, borderRadius20px, centerImage } from "../styles/styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { border2px, borderRadius20px, centerImage } from "../styles/styles";
 import {
   displayCenterStart,
   displayStartCenter,

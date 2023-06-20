@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { border2px, borderRadius20px } from "../../../styles/styles";
 import { displayCenter } from "../../../styles/displays";
 

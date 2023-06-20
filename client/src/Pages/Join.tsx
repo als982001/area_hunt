@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { displayCenter, displayCenterStart } from "../styles/displays";
 import { useForm } from "react-hook-form";
-import JoinInput from "../Components/Global/Inputs/JoinInput";
-import JoinLogo from "../Components/Global/Logos/JoinLogo";
-import SubmitButton from "../Components/Global/Buttons/SubmitButton";
 import { handleJoin } from "../utils/MemberFunctions";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+import JoinInput from "../Components/Global/Inputs/JoinInput";
+import JoinLogo from "../Components/Global/Logos/JoinLogo";
+import SubmitButton from "../Components/Global/Buttons/SubmitButton";
+
 import {
   border1px,
   border2px,

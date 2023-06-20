@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Card from "../Components/List/Card";
-import { displayCenter } from "../styles/displays";
-import { BsFillArrowUpSquareFill } from "react-icons/bs";
 import { useRef } from "react";
+
 import Cards from "../Components/List/Cards";
 import SearchResult from "../Components/List/SearchResult";
+import { displayCenter } from "../styles/displays";
+import { BsFillArrowUpSquareFill } from "react-icons/bs";
 
 interface IProps {
   keyword: string;

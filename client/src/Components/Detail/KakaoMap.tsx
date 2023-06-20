@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
-import { checkValidAddress } from "../../utils/functions";
 
 interface IProps {
   width: string;

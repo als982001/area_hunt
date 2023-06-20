@@ -1,5 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { absoluteHorizontalCenter } from "../../styles/positions";
 

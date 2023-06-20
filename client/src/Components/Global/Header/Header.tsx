@@ -1,20 +1,21 @@
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { HiMagnifyingGlass } from "react-icons/hi2";
+
 import Button from "../Buttons/Button";
+import { inputShadow } from "../../../styles/shadows";
+import ButtonDiv from "../Buttons/ButtonDiv";
+import MainLogo from "../Logos/MainLogo";
+import { RootState } from "../../../Redux/Stores";
+import { handleLogout } from "../../../Redux/Actions";
+import { getItemsByKeyword } from "../../../utils/itemFunctions";
+import ButtonDropDown from "./ButtonDropDown";
 import {
   displayCenter,
   displayEndCenter,
   gridCenter,
 } from "../../../styles/displays";
-import { inputShadow } from "../../../styles/shadows";
-import ButtonDiv from "../Buttons/ButtonDiv";
-import { Link, useNavigate } from "react-router-dom";
-import MainLogo from "../Logos/MainLogo";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../Redux/Stores";
-import { handleLogout } from "../../../Redux/Actions";
-import { getItemsByKeyword } from "../../../utils/itemFunctions";
-import ButtonDropDown from "./ButtonDropDown";
 
 interface IProps {
   keyword: string;

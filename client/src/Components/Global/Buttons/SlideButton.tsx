@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { GrPrevious, GrNext } from "react-icons/gr";
+
 import { displayCenter } from "../../../styles/displays";
 import { absoluteVerticalCenter } from "../../../styles/positions";
 import { border1px } from "../../../styles/styles";

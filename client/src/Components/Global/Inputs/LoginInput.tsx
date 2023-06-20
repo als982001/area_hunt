@@ -1,6 +1,5 @@
-import React from "react";
-import { useController, UseControllerProps } from "react-hook-form";
 import styled from "styled-components";
+import { useController, UseControllerProps } from "react-hook-form";
 
 interface FormValues {
   userId: string;
