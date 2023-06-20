@@ -1,23 +1,4 @@
-interface IAccount {
-  id: number;
-  userImg: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: "f2ee15fdbeee2becc1d2abf68924d599";
-    path: string;
-    size: number;
-  };
-  userId: string;
-  password: string;
-  name: string;
-  phone: string;
-  email: string;
-}
-
-export const localAccounts = [
+export const localAccounts: IAccount[] = [
   {
     id: 0,
     userImg: {

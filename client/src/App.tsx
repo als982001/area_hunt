@@ -15,6 +15,7 @@ import Test from "./Pages/Test";
 import { useDispatch } from "react-redux";
 import { handleAuth, handleLogin, handleLogout } from "./Redux/Actions";
 import { handleLoginCheck } from "./utils/MemberFunctions";
+import { checkServer, isLocal } from "./utils/functions";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -46,6 +47,8 @@ function App() {
   };
 
   const authHandler = async () => {
+    if (isLocal === false) return;
+
     try {
       const result = await handleLoginCheck();
 

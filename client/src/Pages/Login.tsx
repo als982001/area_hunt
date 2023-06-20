@@ -54,10 +54,9 @@ export default function Login() {
   });
 
   const handleLoginStart = async (data: FormValues) => {
-    const result = await handleStartLogin(data);
-    const userInfo = result?.data;
+    const userInfo: IAccount | null = await handleStartLogin(data);
 
-    if (result === null) {
+    if (userInfo === null) {
       alert("로그인에 실패했습니다.");
     } else {
       dispatch(handleLogin(userInfo));

@@ -3,6 +3,9 @@ import VisitRecord from "./VisitRecord";
 import { useEffect, useState } from "react";
 import { getVisitRecords } from "../../utils/itemFunctions";
 import RecordForm from "./RecordForm";
+import { useSelector } from "react-redux";
+import userReducer from "../../Redux/Reducers/userReducer";
+import { RootState } from "../../Redux/Stores";
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -32,6 +35,8 @@ export default function VisitRecords(props: IProps) {
   const [records, setRecords] = useState<IRecord[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const userState = useSelector((state: RootState) => state.userReducer);
+
   useEffect(() => {
     (async () => {
       setIsLoading((prev) => true);
@@ -45,7 +50,7 @@ export default function VisitRecords(props: IProps) {
 
   return (
     <Wrapper>
-      <RecordForm id={props.id} />
+      {userState.login && <RecordForm id={props.id} />}
       <Container>
         {isLoading ? (
           <h1>Loading...</h1>

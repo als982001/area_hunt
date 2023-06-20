@@ -7,6 +7,7 @@ import SubmitButton from "../Components/Global/Buttons/SubmitButton";
 import { handleJoin } from "../utils/MemberFunctions";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { isLocal } from "../utils/functions";
 
 const Wrapper = styled.div`
   ${displayStartA}

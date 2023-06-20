@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export let isLocal = true;
 export const localAreaImagePath =
   "https://cdn.pixabay.com/photo/2013/07/18/10/56/railroad-163518_1280.jpg";
@@ -37,6 +39,17 @@ export const checkValidAddress = async (address: string) => {
     return true;
   } catch (error) {
     console.error("Geocoder error:", error);
+    return false;
+  }
+};
+
+export const checkServer = async () => {
+  try {
+    const response = await axios.get(`${process.env.REACT_APP_BACK}`);
+
+    return true;
+  } catch (error) {
+    console.log(error);
     return false;
   }
 };
