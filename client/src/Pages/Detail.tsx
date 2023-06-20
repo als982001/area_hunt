@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { getItem } from "../utils/itemFunctions";
 import VisitRecords from "../Components/Detail/VisitRecords";
 import KakaoMap from "../Components/Detail/KakaoMap";
-import { displayCenter } from "../styles/displays";
+import {
+  displayCenter,
+  displayCenterStart,
+  displayStartCenter,
+  gridCenter,
+} from "../styles/displays";
 import { border2px, borderRadius20px } from "../styles/styles";
 import MapImgToggle from "../Components/Detail/MapImgToggle";
 import { HiOutlinePencilAlt } from "react-icons/hi";
@@ -14,28 +19,24 @@ import UpdateModal from "../Components/Detail/UpdateModal";
 
 const Wrapper = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: start;
+  ${displayCenterStart}
 `;
 
 const Container = styled.div`
   margin-top: 50px;
   width: 70%;
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  ${displayStartCenter}
 `;
 
 const Area = styled.div`
+  ${gridCenter}
+  ${borderRadius20px}
+  ${border2px}
   width: 100%;
   height: 500px;
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 2px solid black;
-  display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
-  align-items: center;
 
   @media screen and (max-width: 1000px) {
     grid-template-columns: none;
@@ -46,73 +47,70 @@ const Area = styled.div`
 `;
 
 const ImgOrMap = styled.div`
-  width: 80%;
-  height: 90%;
   ${displayCenter}
   ${border2px}
   ${borderRadius20px}
+
+  width: 80%;
+  height: 90%;
   overflow: hidden;
 `;
 
 const Img = styled.img`
+  ${borderRadius20px}
+  ${displayCenter}
+  
   width: 100%;
   height: 100%;
   max-height: 100%;
-  border-radius: ${(props) => props.theme.borderRadius};
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Infos = styled.div`
+  ${displayCenter}
+  ${border2px}
+  ${borderRadius20px}
+  
   width: 80%;
   height: 90%;
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 2px solid black;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const InfoSpace = styled.div`
+  ${displayStartCenter}
+
   width: 80%;
   height: 50px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   margin: 20px 0;
   border-bottom: 2px solid gray;
 `;
 
 const Label = styled.label`
+  ${displayStartCenter}
+
   width: 100px;
   height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   font-size: 20px;
   font-weight: bold;
 `;
 
 const Info = styled.h4`
+  ${displayStartCenter}
+
   height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   font-size: 18px;
   font-weight: 400;
 `;
 
 const SettingButtons = styled.div`
-  display: flex;
+  ${displayStartCenter}
+
   flex-direction: column;
-  align-items: center;
 `;
 
 const SwitchSpace = styled.div`
-  margin-top: 10px;
   ${displayCenter}
+
+  margin-top: 10px;
 `;
 
 const Overlay = styled.div`
@@ -125,54 +123,11 @@ const Overlay = styled.div`
   z-index: 5;
 `;
 
-const Modal = styled.div`
-  width: 60vw;
-  height: 60vh;
-  padding: 20px;
-  background-color: white;
-  border: 2px solid black;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto auto;
-  z-index: 10;
-  border-radius: ${(props) => props.theme.borderRadius};
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  align-items: center;
-`;
-
-interface IItem {
-  id: number;
-  image: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: string;
-    path: string;
-    size: number;
-  };
-  name: string;
-  address: string;
-  location: string;
-  content: string;
-  publisherId: string;
-}
-
 export default function Detail() {
   const [showMap, setShowMap] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<IItem | null>(null);
+  const [data, setData] = useState<IArea | null>(null);
   const [update, setUpdate] = useState(false);
-
-  const testFun = () => {
-    console.log("zzz");
-  };
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -288,7 +243,7 @@ export default function Detail() {
       {update && (
         <>
           <Overlay onClick={() => setUpdate((prev) => false)} />
-          <UpdateModal data={data as IItem} setUpdate={setUpdate} />
+          <UpdateModal data={data as IArea} setUpdate={setUpdate} />
         </>
       )}
     </>

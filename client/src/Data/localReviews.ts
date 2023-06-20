@@ -1,12 +1,3 @@
-interface IReview {
-  id: number;
-  areaId: number;
-  imgPath: string;
-  name: string;
-  content: string;
-  date: string;
-}
-
 export const localReviews: IReview[] = [
   {
     id: 0,

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { displayCenter } from "../styles/displays";
+import { displayCenter, displayStartCenter } from "../styles/displays";
 
 const Container = styled.div`
   ${displayCenter}
+
   flex-direction: column;
   width: 100%;
   height: 100vh;
@@ -16,8 +17,7 @@ const Span = styled.span`
 `;
 
 const Div = styled.div`
-  display: flex;
-  align-items: center;
+  ${displayStartCenter}
 `;
 
 export default function NotFound() {

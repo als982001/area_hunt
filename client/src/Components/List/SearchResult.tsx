@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import Card from "./Card";
+import { border1px, borderRadius20px } from "../../styles/styles";
+import { activeShadow, buttonShadow } from "../../styles/shadows";
 
-interface IResult {
+interface IProps {
   keyword: string;
-  searchResult: IItem[];
-  setSearchResult: React.Dispatch<React.SetStateAction<IItem[]>>;
+  searchResult: IArea[];
+  setSearchResult: React.Dispatch<React.SetStateAction<IArea[]>>;
   setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -40,6 +42,8 @@ const Container = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  row-gap: 100px;
 
   @media screen and (max-width: 1000px) {
     grid-template-columns: repeat(3, 1fr);
@@ -52,25 +56,22 @@ const Container = styled.div`
   @media screen and (max-width: 400px) {
     grid-template-columns: repeat(1, 1fr);
   }
-
-  justify-items: center;
-  row-gap: 100px;
 `;
 
 const ClearButton = styled.button`
+  ${border1px}
+  ${borderRadius20px}
+  ${buttonShadow}
+  
   width: 100px;
   height: 60px;
-  border: 1px solid black;
-  border-radius: 20px;
   background-color: #c4b0ff;
   color: #11009e;
   font-size: 15px;
   font-weight: bold;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   &:active {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
-      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    ${activeShadow}
   }
 `;
 
@@ -79,7 +80,7 @@ export default function SearchResult({
   searchResult,
   setSearchResult,
   setSearchFinished,
-}: IResult) {
+}: IProps) {
   return (
     <Wrapper>
       <ResultHeader>

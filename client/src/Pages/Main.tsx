@@ -1,28 +1,33 @@
-import styled, { keyframes } from "styled-components";
-import { RiErrorWarningFill } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
-import { displayCenter } from "../styles/displays";
-import { borderRadius20px } from "../styles/styles";
-import { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import { border2px, borderRadius20px } from "../styles/styles";
+import { useEffect, useState } from "react";
 import { isLocal } from "../utils/functions";
 import { AiFillWarning } from "react-icons/ai";
+import {
+  displayCenter,
+  displayCenterStart,
+  gridCenter,
+} from "../styles/displays";
+import { fixedCenter } from "../styles/positions";
 
 const Wrapper = styled.div`
   width: 100%;
 `;
 
 const Container = styled.div<{ show?: boolean }>`
+  ${gridCenter}
+
   width: 100%;
   height: 500px;
-  display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
   justify-items: center;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
 
 const Img = styled.img`
+  ${borderRadius20px}
+
   width: 400px;
   height: 400px;
 
@@ -35,8 +40,6 @@ const Img = styled.img`
     width: 200px;
     height: 200px;
   }
-
-  ${borderRadius20px}
 
   animation: slideIn 0.5s ease-in-out; // 애니메이션 적용
   @keyframes slideIn {
@@ -50,8 +53,11 @@ const Img = styled.img`
 `;
 
 const Contents = styled.div`
+  ${displayCenterStart}
+
   width: 400px;
   height: 400px;
+  flex-direction: column;
 
   @media screen and (max-width: 1000px) {
     width: 300px;
@@ -62,10 +68,6 @@ const Contents = styled.div`
     width: 200px;
     height: 200px;
   }
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;
 
 const Title = styled.h2`
@@ -84,28 +86,22 @@ const Content = styled.h4`
 `;
 
 const Modal = styled.div`
+  ${border2px}
+  ${borderRadius20px}
+  ${displayCenter}
+  ${fixedCenter}
+  
   width: 500px;
   height: 200px;
   padding: 20px;
-  border: 2px solid black;
   background-color: white;
-  border-radius: 20px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto auto;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  transition: all 3s linear;
 
   & span {
     font-size: 20px;
     font-weight: bold;
   }
-  transition: all 3s linear;
 `;
 
 export default function Main() {

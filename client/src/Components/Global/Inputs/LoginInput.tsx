@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Control,
-  RegisterOptions,
-  useController,
-  UseControllerProps,
-} from "react-hook-form";
+import { useController, UseControllerProps } from "react-hook-form";
 import styled from "styled-components";
 
 interface FormValues {

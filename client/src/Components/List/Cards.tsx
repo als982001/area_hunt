@@ -7,27 +7,11 @@ import Spinner from "../Global/Spinner";
 import Card from "./Card";
 import SlideButton from "../Global/Buttons/SlideButton";
 import NoData from "./NoData";
+import { displayCenter, displayStartCenter } from "../../styles/displays";
+import { absoluteCenter } from "../../styles/positions";
 
 interface IProps {
   location: string;
-}
-
-interface IItem {
-  id: number;
-  image: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: string;
-    path: string;
-    size: number;
-  };
-  name: string;
-  address: string;
-  location: string;
-  content: string;
 }
 
 const Wrapper = styled.div`
@@ -38,35 +22,28 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h3`
+  ${displayStartCenter}
+
   font-size: 30px;
   font-weight: bold;
-  display: flex;
-  align-items: center;
   padding-left: 100px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
 
 const Container = styled.div`
+  ${displayCenter}
+
   width: 100%;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Box = styled(motion.div)`
+  ${absoluteCenter}
+  ${displayCenter}
+
   width: 200px;
   height: 300px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 30px;
 `;
 
@@ -96,7 +73,7 @@ export default function Cards({ location }: IProps) {
   const [visible, setVisible] = useState(0);
   const [back, setBack] = useState(false);
 
-  const { data, isLoading } = useQuery<IItem[]>(`${location}Items`, () =>
+  const { data, isLoading } = useQuery<IArea[]>(`${location}Items`, () =>
     getItemsByAddress(location)
   );
 

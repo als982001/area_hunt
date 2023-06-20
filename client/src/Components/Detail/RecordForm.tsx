@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { border2px, borderRadius20px } from "../../styles/styles";
+import { border2px, borderRadius20px, centerImage } from "../../styles/styles";
 import SubmitButton from "../Global/Buttons/SubmitButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -7,18 +7,26 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/Stores";
 import { getToday, isLocal, localReviewImagePath } from "../../utils/functions";
 import { postRecord } from "../../utils/itemFunctions";
-import { displayCenter } from "../../styles/displays";
+import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { useNavigate } from "react-router-dom";
+
+interface IProps {
+  id: string | number;
+}
+
+interface FormValues {
+  content: string;
+}
 
 const Form = styled.form`
   ${borderRadius20px}
   ${border2px}
+  ${displayStartCenter}
+
   width: 100%;
   height: 200px;
   margin-bottom: 20px;
   padding: 10px;
-  display: flex;
-  align-items: center;
 
   @media screen and (max-width: 600px) {
     height: 150px;
@@ -28,6 +36,9 @@ const Form = styled.form`
 const Img = styled.div<{ bgImage: string }>`
   ${borderRadius20px}
   ${border2px}
+  ${displayCenter}
+  ${centerImage}
+  
   width: 180px;
   height: 180px;
 
@@ -35,29 +46,17 @@ const Img = styled.div<{ bgImage: string }>`
     width: 70px;
     height: 70px;
   }
-
-  ${displayCenter}
-  background-image: url(${(props) => props.bgImage});
-  background-size: cover;
-  background-position: center;
 `;
 
 const ContentInput = styled.textarea`
   ${borderRadius20px}
+
   flex-grow: 1;
   height: 80%;
   margin: 0 30px;
   padding: 20px;
   font-size: 15px;
 `;
-
-interface IProps {
-  id: string | number;
-}
-
-interface FormValues {
-  content: string;
-}
 
 export default function RecordForm(props: IProps) {
   const [image, setImage] = useState(null);

@@ -1,28 +1,32 @@
 import styled from "styled-components";
 import { FaUserAlt } from "react-icons/fa";
-import { borderRadius20px } from "../styles/styles";
+import { border2px, borderRadius20px, centerImage } from "../styles/styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  displayCenterStart,
+  displayStartCenter,
+  gridCenter,
+} from "../styles/displays";
 
 const Wrapper = styled.div`
+  ${displayCenterStart}
+
   width: 100%;
-  display: flex;
-  justify-content: center;
 `;
 
 const Container = styled.div`
-  margin-top: 50px;
+  ${border2px}
+  ${borderRadius20px}
+  ${gridCenter}
 
   width: 70%;
   height: 500px;
-  border: 2px solid black;
-  border-radius: ${(props) => props.theme.borderRadius};
-  display: grid;
+  margin-top: 50px;
   grid-template-columns: 1fr 1fr;
   gap: 50px;
-  align-items: center;
   padding: 0 50px;
 
   @media screen and (max-width: 1000px) {
@@ -34,47 +38,43 @@ const Container = styled.div`
 `;
 
 const UserIcon = styled.div<{ bgImage: string }>`
+  ${centerImage}
+  ${borderRadius20px}
+
   flex: 1 0 auto;
   height: 80%;
-  background-image: url(${(props) => props.bgImage});
-  background-size: cover;
-  background-position: center;
-  ${borderRadius20px}
 `;
 
 const Infos = styled.div`
+  ${borderRadius20px}
+  ${gridCenter}
+
   flex: 1 0 auto;
   height: 80%;
-  display: grid;
   grid-template-rows: repeat(4, 1fr);
-  align-items: center;
   gap: 0;
   border: 2px solid black;
-  ${borderRadius20px}
 `;
 
 const InfoSpace = styled.div`
-  display: flex;
-  align-items: center;
+  ${displayStartCenter}
 
   width: 100%;
   height: 100%;
 `;
 
 const Label = styled.div`
+  ${displayStartCenter}
+
   width: 100px;
   height: 50px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   padding-left: 20px;
   font-weight: bold;
 `;
 
 const Info = styled.h4`
-  display: flex;
-  justify-content: start;
-  align-items: center;
+  ${displayStartCenter}
+
   font-weight: 400;
 `;
 

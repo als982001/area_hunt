@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { displayCenter, displayStartA } from "../styles/displays";
+import { displayCenter, displayCenterStart } from "../styles/displays";
 import { useForm } from "react-hook-form";
 import JoinInput from "../Components/Global/Inputs/JoinInput";
 import JoinLogo from "../Components/Global/Logos/JoinLogo";
@@ -7,43 +7,12 @@ import SubmitButton from "../Components/Global/Buttons/SubmitButton";
 import { handleJoin } from "../utils/MemberFunctions";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { isLocal } from "../utils/functions";
-
-const Wrapper = styled.div`
-  ${displayStartA}
-  width: 100%;
-  min-height: 100vh;
-`;
-
-const Container = styled.form`
-  ${displayCenter}
-  flex-direction: column;
-  width: 450px;
-  margin-top: 60px;
-  border-radius: 20px;
-  border: 1px solid black;
-  padding: 50px;
-`;
-
-const Inputs = styled.div`
-  ${displayCenter}
-  flex-direction: column;
-  margin: 30px 0;
-  width: 100%;
-`;
-
-const Img = styled.div<{ bgImage: string }>`
-  width: 50%;
-  height: 150px;
-  border: 2px solid black;
-  border-radius: 20px;
-  ${displayCenter}
-  background-image: url(${(props) => props.bgImage});
-  background-size: cover;
-  background-position: center;
-`;
-
-const ImageInput = styled.input``;
+import {
+  border1px,
+  border2px,
+  borderRadius20px,
+  centerImage,
+} from "../styles/styles";
 
 interface FormValues {
   userId: string;
@@ -53,6 +22,42 @@ interface FormValues {
   phone: string;
   email: string;
 }
+
+const Wrapper = styled.div`
+  ${displayCenterStart}
+
+  width: 100%;
+  min-height: 100vh;
+`;
+
+const Container = styled.form`
+  ${displayCenter}
+  ${border1px}
+  ${borderRadius20px}
+
+  width: 450px;
+  margin-top: 60px;
+  padding: 50px;
+  flex-direction: column;
+`;
+
+const Inputs = styled.div`
+  ${displayCenter}
+
+  width: 100%;
+  margin: 30px 0;
+  flex-direction: column;
+`;
+
+const Img = styled.div<{ bgImage: string }>`
+  ${borderRadius20px}
+  ${border2px}
+  ${displayCenter}
+  ${centerImage}
+  
+  width: 50%;
+  height: 150px;
+`;
 
 export default function Join() {
   const [image, setImage] = useState(null);
@@ -110,11 +115,7 @@ export default function Join() {
         <JoinLogo logoSize={"100px"} />
         <Inputs>
           <Img bgImage={imageUrl}>
-            <ImageInput
-              type="file"
-              accept="image/*"
-              onChange={handleImagePost}
-            />
+            <input type="file" accept="image/*" onChange={handleImagePost} />
           </Img>
           <JoinInput
             type="text"

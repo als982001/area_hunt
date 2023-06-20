@@ -2,70 +2,23 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import RegistInput from "../Components/Regist/RegistInput";
 import Button from "../Components/Global/Buttons/Button";
-import { displayCenter } from "../styles/displays";
+import {
+  displayCenter,
+  displayCenterStart,
+  gridCenter,
+} from "../styles/displays";
 import { useEffect, useState } from "react";
 import { handlePostItem } from "../utils/itemFunctions";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
+import { isLocal, localAreaImagePath } from "../utils/functions";
 import {
-  checkValidAddress,
-  isLocal,
-  localAreaImagePath,
-} from "../utils/functions";
-
-const Wrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  padding-bottom: 200px;
-`;
-
-const Form = styled.form`
-  width: 70%;
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  align-items: center;
-  justify-items: center;
-  padding: 30px 10px;
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 2px solid black;
-
-  @media screen and (max-width: 1000px) {
-    grid-template-columns: none;
-    grid-template-rows: 1fr 1fr;
-    gap: none;
-  }
-`;
-
-const Image = styled.div<IImage>`
-  ${displayCenter}
-  width: 80%;
-  height: 500px;
-  border: 1px solid black;
-  border-radius: ${(props) => props.theme.borderRadius};
-  background-image: url(${(props) => props.bgImage});
-  background-size: cover;
-  background-position: center;
-
-  @media screen and (max-width: 1000px) {
-    height: 300px;
-  }
-`;
-
-const Inputs = styled.div`
-  ${displayCenter}
-  flex-direction: column;
-  width: 80%;
-  height: 500px;
-
-  @media screen and (max-width: 1000px) {
-    height: 300px;
-  }
-`;
+  border1px,
+  border2px,
+  borderRadius20px,
+  centerImage,
+} from "../styles/styles";
 
 interface FormValues {
   name: string;
@@ -74,9 +27,56 @@ interface FormValues {
   content: string;
 }
 
-interface IImage {
-  bgImage: string;
-}
+const Wrapper = styled.div`
+  ${displayCenterStart}
+
+  width: 100%;
+  padding-bottom: 200px;
+`;
+
+const Form = styled.form`
+  ${gridCenter}
+  ${border2px}
+  ${borderRadius20px}
+  width: 70%;
+  margin-top: 50px;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  justify-items: center;
+  padding: 30px 10px;
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+    gap: none;
+  }
+`;
+
+const Image = styled.div<{ bgImage: string }>`
+  ${displayCenter}
+  ${centerImage}
+  ${border1px}
+  ${borderRadius20px}
+
+  width: 80%;
+  height: 500px;
+
+  @media screen and (max-width: 1000px) {
+    height: 300px;
+  }
+`;
+
+const Inputs = styled.div`
+  ${displayCenter}
+
+  flex-direction: column;
+  width: 80%;
+  height: 500px;
+
+  @media screen and (max-width: 1000px) {
+    height: 300px;
+  }
+`;
 
 export default function Regist() {
   const [image, setImage] = useState(null);

@@ -5,98 +5,75 @@ import { useEffect, useState } from "react";
 import { updateItem } from "../../utils/itemFunctions";
 import { isLocal, localAreaImagePath } from "../../utils/functions";
 import { useNavigate } from "react-router-dom";
+import { border2px, borderRadius20px, centerImage } from "../../styles/styles";
+import { fixedCenter } from "../../styles/positions";
+import {
+  displayCenter,
+  displayStartCenter,
+  gridCenter,
+} from "../../styles/displays";
 
 interface IProps {
-  data: {
-    id: number;
-    image: {
-      fieldname: string;
-      originalname: string;
-      encoding: string;
-      mimetype: string;
-      destination: string;
-      filename: string;
-      path: string;
-      size: number;
-    };
-    name: string;
-    address: string;
-    location: string;
-    content: string;
-    publisherId: string;
-  };
+  data: IArea;
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Container = styled.form`
+  ${borderRadius20px}
+  ${gridCenter}
+ ${border2px}
+  ${fixedCenter}
+
   width: 60vw;
   height: 60vh;
   padding: 20px;
   background-color: white;
-  border: 2px solid black;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto auto;
   z-index: 10;
-  border-radius: ${(props) => props.theme.borderRadius};
-  display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
-  align-items: center;
 `;
 
 const Img = styled.div<{ bgImage: string }>`
+  ${borderRadius20px}
+  ${displayCenter}
+  ${centerImage}
+
   width: 100%;
   height: 100%;
   max-height: 100%;
-  border-radius: ${(props) => props.theme.borderRadius};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(${(props) => props.bgImage});
-  background-size: cover;
-  background-position: center;
 `;
 
 const Infos = styled.div`
+  ${borderRadius20px}
+  ${border2px}
+  ${displayCenter}
+
   width: 80%;
   height: 90%;
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 2px solid black;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const InfoSpace = styled.div`
+  ${displayStartCenter}
   width: 80%;
   height: 50px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   margin: 20px 0;
-  border-bottom: 2px solid gray;
+  border-bottom: 1px solid gray;
 `;
 
 const Label = styled.label`
+  ${displayStartCenter}
+
   width: 100px;
   height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   font-size: 20px;
   font-weight: bold;
 `;
 
 const Input = styled.input`
+  ${displayStartCenter}
+
   height: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
   font-size: 18px;
   font-weight: 400;
   border: none;

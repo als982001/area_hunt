@@ -11,7 +11,6 @@ import Join from "./Pages/Join";
 import Header from "./Components/Global/Header/Header";
 import NotFound from "./Pages/NotFound";
 import axios from "axios";
-import Test from "./Pages/Test";
 import { useDispatch } from "react-redux";
 import { handleAuth, handleLogin, handleLogout } from "./Redux/Actions";
 import { handleLoginCheck } from "./utils/MemberFunctions";
@@ -33,7 +32,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [keyword, setKeyword] = useState("");
-  const [searchResult, setSearchResult] = useState<IItem[]>([]);
+  const [searchResult, setSearchResult] = useState<IArea[]>([]);
   const [searchFinished, setSearchFinished] = useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -42,7 +41,7 @@ function App() {
     setKeyword((prev) => event.target.value);
   };
 
-  const handleSetSearchResult = async (result: IItem[]) => {
+  const handleSetSearchResult = async (result: IArea[]) => {
     setSearchResult((prev) => [...result]);
   };
 
@@ -89,7 +88,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
           <Route path="/notfound" element={<NotFound />} />
-          <Route path="/test" element={<Test />} />
           <Route path="/:id" element={<Detail />} />
           <Route path="/" element={<Main />} />
         </Routes>

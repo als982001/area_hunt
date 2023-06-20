@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Control,
-  RegisterOptions,
-  useController,
-  UseControllerProps,
-} from "react-hook-form";
+import { useController, UseControllerProps } from "react-hook-form";
 import styled from "styled-components";
 
 interface FormValues {
@@ -15,14 +10,15 @@ interface FormValues {
   phone: string;
   email: string;
 }
-interface StyleType {
+
+interface IStyle {
   width: string;
   height: string;
   placeholder: string;
   type: string;
 }
 
-const Input = styled.input<StyleType>`
+const Input = styled.input<IStyle>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   padding: 10px;
@@ -39,7 +35,7 @@ const Input = styled.input<StyleType>`
   }
 `;
 
-function LoginInput(props: UseControllerProps<FormValues> & StyleType) {
+function LoginInput(props: UseControllerProps<FormValues> & IStyle) {
   const { field, fieldState } = useController(props);
 
   return (

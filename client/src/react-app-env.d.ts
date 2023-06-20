@@ -4,23 +4,6 @@ interface Window {
   kakao: any;
 }
 
-interface IItem {
-  id: number;
-  image: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: string;
-    path: string;
-    size: number;
-  };
-  name: string;
-  address: string;
-  location: string;
-  content: string;
-}
 interface IArea {
   id: number;
   image: {
@@ -57,4 +40,13 @@ interface IAccount {
   name: string;
   phone: string;
   email: string;
+}
+
+interface IReview {
+  id: number;
+  areaId: number;
+  imgPath: string;
+  name: string;
+  content: string;
+  date: string;
 }

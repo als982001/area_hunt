@@ -6,21 +6,31 @@ export const displayCenter = css`
   align-items: center;
 `;
 
-export const displayEnd = css`
+export const displayEndCenter = css`
   display: flex;
   justify-content: end;
   align-items: center;
 `;
 
-export const displayStart = css`
+export const displayStartCenter = css`
   display: flex;
   justify-content: start;
   align-items: center;
 `;
 
-// A lign-items가 center이므로 뒤에 A 붙임
-export const displayStartA = css`
+export const displayCenterStart = css`
   display: flex;
   justify-content: center;
   align-items: start;
+`;
+
+export const displayCenterEnd = css`
+  display: flex;
+  justify-content: center;
+  align-items: end;
+`;
+
+export const gridCenter = css`
+  display: grid;
+  align-items: center;
 `;

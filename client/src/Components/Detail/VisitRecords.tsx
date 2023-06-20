@@ -7,17 +7,6 @@ import { useSelector } from "react-redux";
 import userReducer from "../../Redux/Reducers/userReducer";
 import { RootState } from "../../Redux/Stores";
 
-const Wrapper = styled.div`
-  margin-top: 20px;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const Container = styled.div`
-  width: 100%;
-  margin-bottom: 100px;
-`;
-
 interface IProps {
   id: string | number;
 }
@@ -30,6 +19,17 @@ interface IRecord {
   content: string;
   date: string;
 }
+
+const Wrapper = styled.div`
+  margin-top: 20px;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const Container = styled.div`
+  width: 100%;
+  margin-bottom: 100px;
+`;
 
 export default function VisitRecords(props: IProps) {
   const [records, setRecords] = useState<IRecord[]>([]);

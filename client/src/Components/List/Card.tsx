@@ -1,34 +1,30 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { displayCenter, displayStartCenter } from "../../styles/displays";
+import { absoluteHorizontalCenter } from "../../styles/positions";
 
 const Container = styled.div`
-  position: relative;
+  ${displayCenter}
+
   width: 200px;
   height: 300px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #fff;
   padding: 10px;
   padding-bottom: 60px;
   border-radius: ${(props) => props.theme.borderRadius};
+  position: relative;
 
   &::after {
+    ${displayStartCenter}
+    ${absoluteHorizontalCenter}
+
     content: "보러 가기!";
-    display: flex;
-    align-items: center;
-    justify-content: start;
     width: 80%;
     height: 70px;
     padding-left: 20px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
     bottom: -60px;
     background-color: #00ac7c;
     color: #fff;
@@ -61,12 +57,12 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  background: black;
   width: 100%;
   height: 100%;
   display: grid;
   place-items: center;
   border-radius: ${(props) => props.theme.borderRadius};
+  background: black;
 `;
 
 const Title = styled.span`
@@ -88,27 +84,8 @@ const Location = styled.span`
   color: #000;
 `;
 
-interface IBgImage {
-  bgImage: string;
-}
 interface IProps {
-  item: {
-    id: number;
-    image: {
-      fieldname: string;
-      originalname: string;
-      encoding: string;
-      mimetype: string;
-      destination: string;
-      filename: string;
-      path: string;
-      size: number;
-    };
-    name: string;
-    address: string;
-    location: string;
-    content: string;
-  };
+  item: IArea;
 }
 
 export default function Card(props: IProps) {

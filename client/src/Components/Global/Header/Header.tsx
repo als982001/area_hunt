@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import Button from "../Buttons/Button";
-import { displayCenter, displayEnd } from "../../../styles/displays";
+import {
+  displayCenter,
+  displayEndCenter,
+  gridCenter,
+} from "../../../styles/displays";
 import { inputShadow } from "../../../styles/shadows";
 import ButtonDiv from "../Buttons/ButtonDiv";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,20 +14,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../Redux/Stores";
 import { handleLogout } from "../../../Redux/Actions";
 import { getItemsByKeyword } from "../../../utils/itemFunctions";
-import { useEffect } from "react";
 import ButtonDropDown from "./ButtonDropDown";
 
-interface IHeaderProps {
+interface IProps {
   keyword: string;
   handleSetKeyword: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSetSearchResult: (result: IItem[]) => void;
+  handleSetSearchResult: (result: IArea[]) => void;
   setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Container = styled.header`
+  ${gridCenter}
+
   width: 100%;
   height: 80px;
-  display: grid;
   grid-template-rows: 1fr 1fr;
   border-bottom: 2px solid red;
   justify-items: center;
@@ -31,9 +35,9 @@ const Container = styled.header`
 `;
 
 const Top = styled.form`
-  display: grid;
+  ${gridCenter}
+
   grid-template-columns: 1fr 4fr 4fr;
-  align-items: center;
   width: 80%;
   position: relative;
 `;
@@ -48,6 +52,7 @@ const Search = styled.div`
 
 const Input = styled.input`
   ${inputShadow}
+
   width: 100%;
   height: 80%;
   padding-left: 50px;
@@ -58,8 +63,8 @@ const Input = styled.input`
 `;
 
 const Buttons = styled.div`
-  ${displayEnd}
   height: 100%;
+  ${displayEndCenter}
 
   @media screen and (max-width: 1000px) {
     // 1000px부터 시작
@@ -72,7 +77,7 @@ export default function Header({
   handleSetKeyword,
   handleSetSearchResult,
   setSearchFinished,
-}: IHeaderProps) {
+}: IProps) {
   const userState = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();

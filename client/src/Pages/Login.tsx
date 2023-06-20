@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { displayCenter, displayStartA } from "../styles/displays";
+import { displayCenter, displayCenterStart } from "../styles/displays";
 import LoginLogo from "../Components/Global/Logos/LoginLogo";
 import { useForm } from "react-hook-form";
 import { handleStartLogin } from "../utils/MemberFunctions";
@@ -10,34 +10,38 @@ import { RootState } from "../Redux/Stores";
 import { handleLogin } from "../Redux/Actions";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { border1px, borderRadius20px } from "../styles/styles";
+
+interface FormValues {
+  userId: string;
+  password: string;
+}
 
 const Wrapper = styled.div`
-  ${displayStartA}
+  ${displayCenterStart}
+
   width: 100%;
   min-height: 100vh;
 `;
 
 const Container = styled.form`
   ${displayCenter}
-  flex-direction: column;
+  ${border1px}
+  ${borderRadius20px}
+  
   width: 450px;
   margin-top: 60px;
-  border-radius: 20px;
-  border: 1px solid black;
   padding: 50px;
+  flex-direction: column;
 `;
 
 const Inputs = styled.div`
   ${displayCenter}
-  flex-direction: column;
-  margin: 30px 0;
-  width: 100%;
-`;
 
-interface FormValues {
-  userId: string;
-  password: string;
-}
+  width: 100%;
+  margin: 30px 0;
+  flex-direction: column;
+`;
 
 export default function Login() {
   const userState = useSelector((state: RootState) => state.userReducer);

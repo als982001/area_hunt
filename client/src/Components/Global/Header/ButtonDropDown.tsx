@@ -4,12 +4,12 @@ import styled, { css } from "styled-components";
 import { RootState } from "../../../Redux/Stores";
 import { Link, useNavigate } from "react-router-dom";
 import { handleLogout } from "../../../Redux/Actions";
-import { buttonActiveShadow, buttonHoverShadow } from "../../../styles/shadows";
+import { displayCenter } from "../../../styles/displays";
+import { activeShadow, buttonShadow } from "../../../styles/shadows";
 
 const buttonStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${displayCenter}
+
   width: 120px;
   height: 40px;
   font-size: 14px;
@@ -35,11 +35,11 @@ const Wrapper = styled.div`
 
 const Container = styled.div<{ drop: number }>`
   ${buttonStyle}
-  ${buttonHoverShadow}
+
   margin-bottom: 10px;
 
   &:active {
-    ${buttonActiveShadow}
+    ${activeShadow}
   }
 `;
 
@@ -50,10 +50,10 @@ const Buttons = styled.div`
 
 const Button = styled.div`
   ${buttonStyle}
-  ${buttonHoverShadow}
+  ${buttonShadow}
 
   &:active {
-    ${buttonActiveShadow}
+    ${activeShadow}
   }
 `;
 

@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { displayCenter } from "../../../styles/displays";
-import {
-  buttonActiveShadow,
-  buttonHoverShadow,
-  buttonShadow,
-} from "../../../styles/shadows";
+import { activeShadow, buttonShadow } from "../../../styles/shadows";
 
 type ButtonType = {
   width: string;
@@ -17,6 +13,7 @@ type ButtonType = {
 const Container = styled.div<ButtonType>`
   ${displayCenter}
   ${buttonShadow}
+
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   font-size: ${(props) => props.fontSize};
@@ -28,12 +25,11 @@ const Container = styled.div<ButtonType>`
   font-weight: 500;
 
   &:hover {
-    ${buttonHoverShadow}
     background-color: ${(props) => props.theme.button.hoverColor};
   }
 
   &:active {
-    ${buttonActiveShadow}
+    ${activeShadow}
   }
 `;
 

@@ -1,21 +1,38 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { border2px } from "../../styles/styles";
+import { border2px, borderRadius20px } from "../../styles/styles";
+import { displayStartCenter } from "../../styles/displays";
+import { fixedCenter } from "../../styles/positions";
+
+interface IProps {
+  record: {
+    id: number;
+    areaId: number;
+    imgPath: string;
+    name: string;
+    content: string;
+    date: string;
+  };
+  key: string;
+}
 
 const Container = styled.div`
+  ${displayStartCenter}
+  ${border2px}
+  ${borderRadius20px}
+
   width: 100%;
   display: flex;
   align-items: center;
-  ${border2px}
-  border-radius: ${(props) => props.theme.borderRadius};
   margin-bottom: 10px;
   padding: 10px;
 `;
 
 const Img = styled.img<{ onClick?: () => void }>`
+  ${borderRadius20px}
+
   width: 200px;
   height: 200px;
-  border-radius: ${(props) => props.theme.borderRadius};
 `;
 
 const Infos = styled.div`
@@ -46,29 +63,13 @@ const Overlay = styled.div`
 `;
 
 const Modal = styled.img`
+  ${fixedCenter}
+  ${borderRadius20px}
+
   width: 600px;
   height: auto;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto auto;
   z-index: 10;
-  border-radius: ${(props) => props.theme.borderRadius};
 `;
-
-interface IProps {
-  record: {
-    id: number;
-    areaId: number;
-    imgPath: string;
-    name: string;
-    content: string;
-    date: string;
-  };
-  key: string;
-}
 
 export default function VisitRecord(props: IProps) {
   const [bigImg, setBigImg] = useState(false);
