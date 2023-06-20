@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import Cards from "../Components/List/Cards";
 import SearchResult from "../Components/List/SearchResult";

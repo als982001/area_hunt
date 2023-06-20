@@ -10,6 +10,5 @@ export const localMiddleware = (req, res, next) => {
 export const uploadFiles = multer({ dest: "uploads/" });
 
 export const testPrint = (req, res, next) => {
-  console.log("Show Image!!!");
   next();
 };

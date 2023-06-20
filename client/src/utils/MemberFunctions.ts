@@ -37,8 +37,6 @@ export const handleStartLogin = async (loginInfo: loginType) => {
         }
       );
 
-      console.log(response.data);
-
       return response.data;
     }
   } catch (error) {
@@ -70,7 +68,6 @@ export const handleJoin = async (image: File, joinInfo: IJoinInfo) => {
       };
 
       localAccounts.push(newAccount);
-      console.log(localAccounts);
 
       return true;
     } else {

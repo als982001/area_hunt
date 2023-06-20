@@ -20,8 +20,6 @@ export const getAllAreas = async (req, res) => {
 export const getItemsByAddress = async (req, res) => {
   const { address } = req.params;
 
-  console.log(`address: ${address}`);
-
   const itemsByAddress = dummyAreas.filter((area) =>
     area.address.includes(address)
   );
@@ -57,8 +55,6 @@ export const updateItem = async (req, res) => {
 
 export const postItem = async (req, res) => {
   try {
-    console.log("Post Item!!!");
-
     const areaImage = req.file;
     const areaData = req.body;
 
@@ -67,8 +63,6 @@ export const postItem = async (req, res) => {
       image: areaImage,
       ...areaData,
     });
-
-    console.log(dummyAreas);
 
     return res.status(codes.ok).end();
   } catch (error) {
@@ -111,8 +105,6 @@ export const postVisitRecords = async (req, res) => {
       content: info.content,
       date: info.date,
     });
-
-    console.log(dummyVisitRecords);
 
     return res.status(codes.ok).end();
   } catch (error) {

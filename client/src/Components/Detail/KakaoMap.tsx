@@ -16,11 +16,7 @@ const Map = styled.div<IProps>`
 
 export default function KakaoMap(props: IProps) {
   useEffect(() => {
-    console.log(window.kakao);
-
     window.kakao.maps.load(() => {
-      console.log(window.kakao);
-
       const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
 
       const options = {
@@ -38,9 +34,6 @@ export default function KakaoMap(props: IProps) {
       geocoder.addressSearch(
         props.address,
         function (result: any, status: any) {
-          console.log(status);
-          console.log(props.address);
-
           // 정상적으로 검색이 완료되었을 때
           if (status === window.kakao.maps.services.Status.OK) {
             const coords = new window.kakao.maps.LatLng(

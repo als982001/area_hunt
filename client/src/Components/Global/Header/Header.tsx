@@ -95,6 +95,7 @@ export default function Header({
   ) => {
     if (event.key === "Enter") {
       const result = await getItemsByKeyword(keyword);
+
       handleSetSearchResult(result);
       setSearchFinished(true);
 
