@@ -2,10 +2,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HiMagnifyingGlass } from "react-icons/hi2";
-
-import Button from "../Buttons/Button";
 import { inputShadow } from "../../../styles/shadows";
-import ButtonDiv from "../Buttons/ButtonDiv";
 import MainLogo from "../Logos/MainLogo";
 import { RootState } from "../../../Redux/Stores";
 import { handleLogout } from "../../../Redux/Actions";
@@ -16,6 +13,7 @@ import {
   displayEndCenter,
   gridCenter,
 } from "../../../styles/displays";
+import MenuButton from "../Buttons/MenuButton";
 
 interface IProps {
   keyword: string;
@@ -128,62 +126,75 @@ export default function Header({
           {userState.login ? (
             <>
               <Link to="/regist">
-                <ButtonDiv
+                <MenuButton
+                  margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
-                  content="등록하기"
-                />
+                >
+                  등록하기
+                </MenuButton>
               </Link>
               <Link to="/list">
-                <ButtonDiv
+                <MenuButton
+                  margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
-                  content="리스트"
-                />
+                >
+                  리스트
+                </MenuButton>
               </Link>
               <Link to="/mypage">
-                <Button
+                <MenuButton
+                  margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
-                  content="내 정보"
-                />
+                >
+                  내정보
+                </MenuButton>
               </Link>
-              <ButtonDiv
+              <MenuButton
                 width="120px"
                 height="40px"
                 fontSize="14px"
-                content="로그아웃"
                 onClick={() => handleStartLogout()}
-              />
+              >
+                로그아웃
+              </MenuButton>
             </>
           ) : (
             <>
               <Link to="/list">
-                <ButtonDiv
+                <MenuButton
+                  margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
-                  content="리스트"
-                />
+                >
+                  리스트
+                </MenuButton>
               </Link>
               <Link to="join">
-                <Button
+                <MenuButton
+                  margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
-                  content="회원가입"
-                />
+                >
+                  회원가입
+                </MenuButton>
               </Link>
               <Link to="login">
-                <Button
+                <MenuButton
+                  margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
-                  content="로그인"
-                />
+                >
+                  로그인
+                </MenuButton>
               </Link>
             </>
           )}

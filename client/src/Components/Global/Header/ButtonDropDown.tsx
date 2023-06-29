@@ -5,21 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { RootState } from "../../../Redux/Stores";
 import { handleLogout } from "../../../Redux/Actions";
-import { displayCenter } from "../../../styles/displays";
-import { activeShadow, buttonShadow } from "../../../styles/shadows";
 
-const buttonStyle = css`
-  ${displayCenter}
-
-  width: 120px;
-  height: 40px;
-  font-size: 14px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: ${(props) => props.theme.button.bgColor};
-  font-weight: 500;
-`;
+import MenuButton from "../Buttons/MenuButton";
 
 const Wrapper = styled.div`
   width: 120px;
@@ -34,28 +21,9 @@ const Wrapper = styled.div`
   }
 `;
 
-const Container = styled.div<{ drop: number }>`
-  ${buttonStyle}
-
-  margin-bottom: 10px;
-
-  &:active {
-    ${activeShadow}
-  }
-`;
-
 const Buttons = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Button = styled.div`
-  ${buttonStyle}
-  ${buttonShadow}
-
-  &:active {
-    ${activeShadow}
-  }
 `;
 
 export default function ButtonDropDown() {
@@ -79,33 +47,87 @@ export default function ButtonDropDown() {
 
   return (
     <Wrapper>
-      <Container drop={drop ? 1 : 0} onClick={() => handleSetDrop(!drop)}>
+      <MenuButton
+        width="120px"
+        height="40px"
+        fontSize="14px"
+        onClick={() => handleSetDrop(!drop)}
+      >
         {drop ? "접기" : "펼치기"}
-      </Container>
+      </MenuButton>
       {drop &&
         (userState.login ? (
           <Buttons>
             <Link to="/regist">
-              <Button>등록하기</Button>
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                등록하기
+              </MenuButton>
             </Link>
             <Link to="/list">
-              <Button>리스트</Button>
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                리스트
+              </MenuButton>
             </Link>
             <Link to="/mypage">
-              <Button>내 정보</Button>
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                내정보
+              </MenuButton>
             </Link>
-            <Button onClick={() => handleStartLogout()}>로그아웃</Button>
+            <MenuButton
+              width="120px"
+              height="40px"
+              fontSize="14px"
+              onClick={() => handleStartLogout()}
+            >
+              로그아웃
+            </MenuButton>
           </Buttons>
         ) : (
           <Buttons>
             <Link to="/list">
-              <Button>리스트</Button>
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                리스트
+              </MenuButton>
             </Link>
-            <Link to="/join">
-              <Button>회원가입</Button>
+            <Link to="join">
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                회원가입
+              </MenuButton>
             </Link>
-            <Link to="/login">
-              <Button>로그인</Button>
+            <Link to="login">
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                로그인
+              </MenuButton>
             </Link>
           </Buttons>
         ))}

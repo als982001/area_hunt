@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export let isLocal = true;
+export let isLocal = false;
 export const localAreaImagePath =
   "https://cdn.pixabay.com/photo/2013/07/18/10/56/railroad-163518_1280.jpg";
 export const localReviewImagePath =

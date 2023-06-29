@@ -2,19 +2,17 @@ import styled from "styled-components";
 import { displayCenter, displayCenterStart } from "../styles/displays";
 import { useForm } from "react-hook-form";
 import { handleJoin } from "../utils/MemberFunctions";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import JoinInput from "../Components/Global/Inputs/JoinInput";
-import JoinLogo from "../Components/Global/Logos/JoinLogo";
-import SubmitButton from "../Components/Global/Buttons/SubmitButton";
-
 import {
-  border1px,
+  AuthForm,
   border2px,
   borderRadius20px,
   centerImage,
 } from "../styles/styles";
+import AuthButton from "../Components/Auth/AuthButton";
+import JoinInput from "../Components/Auth/JoinInput";
 
 interface FormValues {
   userId: string;
@@ -30,25 +28,32 @@ const Wrapper = styled.div`
 
   width: 100%;
   min-height: 100vh;
+  padding-bottom: 100px;
 `;
 
-const Container = styled.form`
-  ${displayCenter}
-  ${border1px}
-  ${borderRadius20px}
-
-  width: 450px;
-  margin-top: 60px;
-  padding: 50px;
-  flex-direction: column;
+const Form = styled.form`
+  ${AuthForm}
 `;
 
-const Inputs = styled.div`
-  ${displayCenter}
+const Title = styled.h4`
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+  margin-bottom: 30px;
+`;
 
-  width: 100%;
-  margin: 30px 0;
-  flex-direction: column;
+const InputContainer = styled.section`
+  ${displayCenter}
+  position: relative;
+`;
+
+const JoinLink = styled.h4`
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
 `;
 
 const Img = styled.div<{ bgImage: string }>`
@@ -110,72 +115,77 @@ export default function Join() {
 
   return (
     <Wrapper>
-      <Container
+      <Form
         encType="multipart/form-data"
         onSubmit={handleSubmit(handleStartJoin)}
       >
-        <JoinLogo logoSize={"100px"} />
-        <Inputs>
+        <Title>회원가입</Title>
+        <InputContainer>
           <Img bgImage={imageUrl}>
             <input type="file" accept="image/*" onChange={handleImagePost} />
           </Img>
+        </InputContainer>
+        <InputContainer>
           <JoinInput
             type="text"
             control={control}
             name="userId"
             rules={{ required: true }}
-            width="100%"
-            height="40px"
             placeholder="ID를 입력하세요."
           />
+        </InputContainer>
+        <InputContainer>
           <JoinInput
             type="password"
             control={control}
             name="password"
             rules={{ required: true }}
-            width="100%"
-            height="40px"
             placeholder="비밀번호를 입력하세요."
           />
+        </InputContainer>
+        <InputContainer>
           <JoinInput
             type="password"
             control={control}
             name="password2"
             rules={{ required: true }}
-            width="100%"
-            height="40px"
             placeholder="비밀번호 확인을 위해 다시 입력하세요."
           />
+        </InputContainer>
+        <InputContainer>
           <JoinInput
             type="text"
             control={control}
             name="name"
             rules={{ required: true }}
-            width="100%"
-            height="40px"
             placeholder="이름을 입력하세요."
           />
+        </InputContainer>
+        <InputContainer>
           <JoinInput
             type="email"
             control={control}
             name="email"
             rules={{ required: true }}
-            width="100%"
-            height="40px"
             placeholder="이메일을 입력하세요."
           />
+        </InputContainer>
+        <InputContainer>
           <JoinInput
             type="tel"
             control={control}
             name="phone"
             rules={{ required: true }}
-            width="100%"
-            height="40px"
             placeholder="전화번호를 입력하세요."
           />
-        </Inputs>
-        <SubmitButton width="" height="" content="로그인" fontSize="17px" />
-      </Container>
+        </InputContainer>
+        <div>
+          <AuthButton>회원가입</AuthButton>
+        </div>
+        <Link to="/login">
+          <JoinLink>계정이 있으신가요?</JoinLink>
+        </Link>
+      </Form>
     </Wrapper>
   );
 }
