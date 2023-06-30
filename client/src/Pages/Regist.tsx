@@ -15,11 +15,13 @@ import {
 import { handlePostItem } from "../utils/itemFunctions";
 import { isLocal, localAreaImagePath } from "../utils/functions";
 import {
+  AuthForm,
   border1px,
   border2px,
   borderRadius20px,
   centerImage,
 } from "../styles/styles";
+import JoinInput from "../Components/Auth/JoinInput";
 
 interface FormValues {
   name: string;
@@ -32,51 +34,45 @@ const Wrapper = styled.div`
   ${displayCenterStart}
 
   width: 100%;
-  padding-bottom: 200px;
+  min-height: 100vh;
+  padding-bottom: 100px;
 `;
 
 const Form = styled.form`
-  ${gridCenter}
-  ${border2px}
   ${borderRadius20px}
-  width: 70%;
-  margin-top: 50px;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  justify-items: center;
-  padding: 30px 10px;
 
-  @media screen and (max-width: 1000px) {
-    grid-template-columns: none;
-    grid-template-rows: 1fr 1fr;
-    gap: none;
-  }
+  width: 800px;
+  height: 500px;
+  margin-top: 100px;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
 
-const Image = styled.div<{ bgImage: string }>`
+const InputContainer = styled.section`
+  ${displayCenter}
+
+  width: 100%;
+  position: relative;
+`;
+
+const Img = styled.div<{ bgImage: string }>`
+  ${borderRadius20px}
+  ${border2px}
   ${displayCenter}
   ${centerImage}
-  ${border1px}
-  ${borderRadius20px}
-
-  width: 80%;
-  height: 500px;
-
-  @media screen and (max-width: 1000px) {
-    height: 300px;
-  }
+  
+  width: 100%;
+  height: 100%;
 `;
 
 const Inputs = styled.div`
-  ${displayCenter}
-
-  flex-direction: column;
-  width: 80%;
-  height: 500px;
-
-  @media screen and (max-width: 1000px) {
-    height: 300px;
-  }
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  align-items: center;
+  justify-items: center;
 `;
 
 export default function Regist() {
@@ -161,57 +157,69 @@ export default function Regist() {
         onSubmit={handleSubmit(handleStartPost)}
         encType="multipart/form-data"
       >
-        <Image bgImage={imageUrl}>
-          <input
-            disabled={isLocal}
-            type="file"
-            accept="image/*"
-            onChange={handleImagePost}
-          />
-        </Image>
+        <InputContainer>
+          <Img bgImage={imageUrl}>
+            <input
+              disabled={isLocal}
+              type="file"
+              accept="image/*"
+              onChange={handleImagePost}
+            />
+          </Img>
+        </InputContainer>
         <Inputs>
-          <RegistInput
-            type="text"
-            control={control}
-            name="name"
-            rules={{ required: true }}
-            width="80%"
-            height="40px"
-            placeholder="이름을 입력하세요."
-          />
-          <RegistInput
-            type="text"
-            control={control}
-            name="address"
-            rules={{ required: true }}
-            width="80%"
-            height="40px"
-            placeholder="주소을 입력하세요."
-          />
-          <RegistInput
-            type="text"
-            control={control}
-            name="location"
-            rules={{ required: true }}
-            width="80%"
-            height="40px"
-            placeholder="간단한 위치를 입력하세요."
-          />
-          <RegistInput
-            type="text"
-            control={control}
-            name="content"
-            rules={{ required: true }}
-            width="80%"
-            height="40px"
-            placeholder="간단한 소개 문구를 입력하세요."
-          />
-          <Button
-            width="120px"
-            height="40px"
-            fontSize="14px"
-            content="등록하기"
-          />
+          <InputContainer>
+            <RegistInput
+              type="text"
+              control={control}
+              name="name"
+              rules={{ required: true }}
+              width="80%"
+              height="40px"
+              placeholder="이름을 입력하세요."
+            />
+          </InputContainer>
+          <InputContainer>
+            <RegistInput
+              type="text"
+              control={control}
+              name="address"
+              rules={{ required: true }}
+              width="80%"
+              height="40px"
+              placeholder="주소을 입력하세요."
+            />
+          </InputContainer>
+          <InputContainer>
+            <RegistInput
+              type="text"
+              control={control}
+              name="location"
+              rules={{ required: true }}
+              width="80%"
+              height="40px"
+              placeholder="간단한 위치를 입력하세요."
+            />
+          </InputContainer>
+          <InputContainer>
+            <RegistInput
+              type="text"
+              control={control}
+              name="content"
+              rules={{ required: true }}
+              width="80%"
+              height="40px"
+              placeholder="간단한 소개 문구를 입력하세요."
+            />
+          </InputContainer>
+          <div>
+            <Button
+              width="120px"
+              height="40px"
+              fontSize="14px"
+              content="등록하기"
+            />
+          </div>
         </Inputs>
       </Form>
     </Wrapper>

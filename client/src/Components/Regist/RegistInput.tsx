@@ -19,13 +19,16 @@ interface IStyle {
 const Input = styled.input<IStyle>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  padding: 10px;
-  margin: 10px 0;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  color: #555;
   outline: none;
+  border: 1px solid #e5e7eb;
+  margin: 8px 0;
+  background-color: #fff;
+  padding: 15px;
+  padding-right: 45px;
+  font-size: 15px;
+  line-height: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
   &:focus {
     border-color: #007bff;

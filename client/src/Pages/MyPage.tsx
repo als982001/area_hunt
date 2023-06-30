@@ -6,10 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 import { border2px, borderRadius20px, centerImage } from "../styles/styles";
 import {
+  displayCenter,
   displayCenterStart,
   displayStartCenter,
   gridCenter,
 } from "../styles/displays";
+import { userInfo } from "os";
+import { getPhoneForm } from "../utils/functions";
 
 const Wrapper = styled.div`
   ${displayCenterStart}
@@ -17,65 +20,95 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Container = styled.div`
-  ${border2px}
-  ${borderRadius20px}
-  ${gridCenter}
-
-  width: 70%;
-  height: 500px;
+const Card = styled.div`
+  overflow: visible;
+  position: relative;
+  width: 450px;
+  height: 600px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   margin-top: 50px;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
-  padding: 0 50px;
 
-  @media screen and (max-width: 1000px) {
-    grid-template-columns: none;
-    grid-template-rows: 1fr 1fr;
-    gap: 0;
-    padding: 0 10px;
+  &::before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background: #fff;
+    transition: 0.5s;
+    z-index: -99;
+  }
+
+  &:hover:before {
+    transform: rotate(20deg);
+  }
+
+  &:hover:after {
+    transform: rotate(10deg);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  &:hover .imgbox {
+    bottom: 200px;
   }
 `;
 
-const UserIcon = styled.div<{ bgImage: string }>`
+const ImgBox = styled.div`
+  ${borderRadius20px}
+
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  right: 10px;
+  background: #222;
+  transition: 0.5s;
+  z-index: 1;
+`;
+
+const Img = styled.div<{ bgImage: string }>`
+  ${borderRadius20px}
   ${centerImage}
-  ${borderRadius20px}
 
-  flex: 1 0 auto;
-  height: 80%;
-`;
-
-const Infos = styled.div`
-  ${borderRadius20px}
-  ${gridCenter}
-
-  flex: 1 0 auto;
-  height: 80%;
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0;
-  border: 2px solid black;
-`;
-
-const InfoSpace = styled.div`
-  ${displayStartCenter}
-
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 `;
 
-const Label = styled.div`
-  ${displayStartCenter}
-
-  width: 100px;
-  height: 50px;
-  padding-left: 20px;
-  font-weight: bold;
+const Details = styled.div`
+  position: absolute;
+  left: -10px;
+  right: 0;
+  bottom: 5px;
+  height: 180px;
+  text-align: center;
+  text-transform: uppercase;
+  display: grid;
+  grid-template-rows: 2fr 1fr 1fr 1fr;
 `;
 
-const Info = styled.h4`
-  ${displayStartCenter}
+const Title = styled.h2`
+  ${displayCenter}
 
-  font-weight: 400;
+  font-weight: 600;
+  font-size: 20px;
+  color: #777;
+`;
+
+const Caption = styled.span`
+  ${displayCenter}
+
+  font-weight: 500;
+  font-size: 16px;
+  color: #4158d0;
+  display: block;
+  margin-top: 5px;
 `;
 
 export default function MyPage() {
@@ -91,33 +124,23 @@ export default function MyPage() {
 
   return (
     <Wrapper>
-      <Container>
-        <UserIcon
-          bgImage={
-            userState.userInfo.userImg.path.includes("pixabay")
-              ? `${userState.userInfo.userImg.path}`
-              : `${process.env.REACT_APP_BACK}/${userState.userInfo.userImg.path}`
-          }
-        />
-        <Infos>
-          <InfoSpace>
-            <Label>ID</Label>
-            <Info>{userState.userInfo?.userId}</Info>
-          </InfoSpace>
-          <InfoSpace>
-            <Label>이름</Label>
-            <Info>{userState.userInfo?.name}</Info>
-          </InfoSpace>
-          <InfoSpace>
-            <Label>전화번호</Label>
-            <Info>{userState.userInfo?.phone}</Info>
-          </InfoSpace>
-          <InfoSpace>
-            <Label>이메일</Label>
-            <Info>{userState.userInfo?.email}</Info>
-          </InfoSpace>
-        </Infos>
-      </Container>
+      <Card>
+        <ImgBox className="imgbox">
+          <Img
+            bgImage={
+              userState.userInfo.userImg.path.includes("pixabay")
+                ? `${userState.userInfo.userImg.path}`
+                : `${process.env.REACT_APP_BACK}/${userState.userInfo.userImg.path}`
+            }
+          ></Img>
+        </ImgBox>
+        <Details>
+          <Title>{`ID: ${userState.userInfo.userId}`}</Title>
+          <Caption>{`이름: ${userState.userInfo?.name}`}</Caption>
+          <Caption>{getPhoneForm(userState.userInfo.phone)}</Caption>
+          <Caption>{userState.userInfo.email}</Caption>
+        </Details>
+      </Card>
     </Wrapper>
   );
 }

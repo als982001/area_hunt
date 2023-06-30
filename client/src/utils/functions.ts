@@ -53,3 +53,11 @@ export const checkServer = async () => {
     return false;
   }
 };
+
+export const getPhoneForm = (phone: string): string => {
+  const digits = phone.replace(/\D/g, "");
+
+  const formattedNumber = digits.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+
+  return formattedNumber;
+};

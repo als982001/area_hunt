@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { displayCenter } from "../../../styles/displays";
 import { activeShadow, buttonShadow } from "../../../styles/shadows";
+import { BlueButton } from "../../../styles/styles";
 
 type ButtonType = {
   width: string;
@@ -13,23 +14,11 @@ type ButtonType = {
 const Container = styled.button<ButtonType>`
   ${displayCenter}
   ${buttonShadow}
+  ${BlueButton}
 
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   font-size: ${(props) => props.fontSize};
-  border-radius: 2px;
-  border: none;
-  cursor: pointer;
-  margin: 0 10px;
-  background-color: ${(props) => props.theme.button.bgColor};
-
-  &:hover {
-    background-color: ${(props) => props.theme.button.hoverColor};
-  }
-
-  &:active {
-    ${activeShadow}
-  }
 `;
 
 export default function Button(props: ButtonType) {
