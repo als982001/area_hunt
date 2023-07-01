@@ -13,6 +13,7 @@ import {
   displayStartCenter,
   gridCenter,
 } from "../../styles/displays";
+import { defaultShadow } from "../../styles/shadows";
 
 interface IProps {
   data: IArea;
@@ -22,7 +23,6 @@ interface IProps {
 const Container = styled.form`
   ${borderRadius20px}
   ${gridCenter}
- ${border2px}
   ${fixedCenter}
 
   width: 60vw;
@@ -32,12 +32,14 @@ const Container = styled.form`
   z-index: 10;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
+  box-shadow: floralwhite 0px 19px 38px, ghostwhite 0px 15px 12px;
 `;
 
 const Img = styled.div<{ bgImage: string }>`
   ${borderRadius20px}
   ${displayCenter}
   ${centerImage}
+  ${defaultShadow}
 
   width: 100%;
   height: 100%;
@@ -46,8 +48,8 @@ const Img = styled.div<{ bgImage: string }>`
 
 const Infos = styled.div`
   ${borderRadius20px}
-  ${border2px}
   ${displayCenter}
+  ${defaultShadow}
 
   width: 80%;
   height: 90%;
@@ -187,12 +189,9 @@ export default function UpdateModal({ data, setUpdate }: IProps) {
             {...register("content", { required: true })}
           />
         </InfoSpace>
-        <Button
-          width="100px"
-          height="40px"
-          fontSize="18px"
-          content="업데이트"
-        />
+        <Button width="120px" height="40px" fontSize="18px">
+          업데이트
+        </Button>
       </Infos>
     </Container>
   );

@@ -16,7 +16,9 @@ import {
   displayStartCenter,
   gridCenter,
 } from "../styles/displays";
-import { border2px, borderRadius20px } from "../styles/styles";
+import { AuthForm, border2px, borderRadius20px } from "../styles/styles";
+import { defaultShadow } from "../styles/shadows";
+import PencilButton from "../Components/Global/Buttons/PencilButton";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -33,11 +35,14 @@ const Container = styled.div`
 const Area = styled.div`
   ${gridCenter}
   ${borderRadius20px}
-  ${border2px}
+  ${defaultShadow}
+  
   width: 100%;
   height: 500px;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
+
+  background-color: #fff;
 
   @media screen and (max-width: 1000px) {
     grid-template-columns: none;
@@ -49,8 +54,8 @@ const Area = styled.div`
 
 const ImgOrMap = styled.div`
   ${displayCenter}
-  ${border2px}
   ${borderRadius20px}
+  ${defaultShadow}
 
   width: 80%;
   height: 90%;
@@ -60,7 +65,7 @@ const ImgOrMap = styled.div`
 const Img = styled.img`
   ${borderRadius20px}
   ${displayCenter}
-  
+
   width: 100%;
   height: 100%;
   max-height: 100%;
@@ -68,9 +73,9 @@ const Img = styled.img`
 
 const Infos = styled.div`
   ${displayCenter}
-  ${border2px}
   ${borderRadius20px}
-  
+  ${defaultShadow}
+
   width: 80%;
   height: 90%;
   flex-direction: column;
@@ -82,7 +87,7 @@ const InfoSpace = styled.div`
   width: 80%;
   height: 50px;
   margin: 20px 0;
-  border-bottom: 2px solid gray;
+  border-bottom: 1px solid gray;
 `;
 
 const Label = styled.label`
@@ -105,6 +110,7 @@ const Info = styled.h4`
 const SettingButtons = styled.div`
   ${displayStartCenter}
 
+  margin-top: 30px;
   flex-direction: column;
 `;
 
@@ -228,12 +234,11 @@ export default function Detail() {
               </SwitchSpace>
               {userState.login === true &&
                 userState.userInfo.userId === data?.publisherId && (
-                  <HiOutlinePencilAlt
+                  <PencilButton
                     onClick={() => {
                       setUpdate((prev) => true);
                     }}
-                    style={{ marginTop: "20px", cursor: "pointer" }}
-                    size={"35px"}
+                    size="35px"
                   />
                 )}
             </SettingButtons>

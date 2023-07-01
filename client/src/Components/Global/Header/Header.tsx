@@ -28,9 +28,11 @@ const Container = styled.header`
   width: 100%;
   height: 80px;
   grid-template-rows: 1fr 1fr;
-  border-bottom: 2px solid red;
   justify-items: center;
   padding-top: 20px;
+  background-color: #e3f4f4;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
 
 const Top = styled.form`
@@ -54,11 +56,23 @@ const Input = styled.input`
 
   width: 100%;
   height: 80%;
+  border: 1px solid #e5e7eb;
+  background-color: #fff;
+  padding: 15px;
+  padding-right: 45px;
   padding-left: 50px;
+  line-height: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   font-size: 17px;
   outline: none;
   border: none;
   border-radius: 5px;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
 `;
 
 const Buttons = styled.div`

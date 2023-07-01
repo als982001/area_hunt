@@ -16,15 +16,15 @@ interface IProps {
 const Button = styled.button<{ left: string; right: string }>`
   ${displayCenter}
   ${absoluteVerticalCenter}
-  ${border1px}
-  ${buttonShadow}
-
+  box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 3px 4px -1px rgba(255, 255, 255, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.8), inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
 
   width: 70px;
   height: 70px;
   border-radius: 100%;
   background-color: white;
   cursor: pointer;
+  border: none;
+  outline: none;
   left: ${(props) => props.left};
   right: ${(props) => props.right};
 
@@ -34,7 +34,11 @@ const Button = styled.button<{ left: string; right: string }>`
   }
 
   &:active {
-    ${activeShadow}
+    box-shadow: 0 12px 25px -4px rgba(0, 0, 0, 0.4),
+      inset 0 -8px 30px 1px rgba(255, 255, 255, 0.9),
+      0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+      inset 0 8px 25px 0 rgba(0, 0, 0, 0.4),
+      inset 0 0 10px 1px rgba(255, 255, 255, 0.6);
   }
 `;
 

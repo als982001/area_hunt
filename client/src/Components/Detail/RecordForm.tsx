@@ -6,10 +6,17 @@ import { RootState } from "../../Redux/Stores";
 import { useNavigate } from "react-router-dom";
 
 import SubmitButton from "../Global/Buttons/SubmitButton";
-import { border2px, borderRadius20px, centerImage } from "../../styles/styles";
+import {
+  BlueButton,
+  border2px,
+  borderRadius20px,
+  centerImage,
+  contentInputStyle,
+} from "../../styles/styles";
 import { getToday, isLocal, localReviewImagePath } from "../../utils/functions";
 import { postRecord } from "../../utils/itemFunctions";
 import { displayCenter, displayStartCenter } from "../../styles/displays";
+import { defaultShadow } from "../../styles/shadows";
 
 interface IProps {
   id: string | number;
@@ -21,8 +28,8 @@ interface FormValues {
 
 const Form = styled.form`
   ${borderRadius20px}
-  ${border2px}
   ${displayStartCenter}
+  ${defaultShadow}
 
   width: 100%;
   height: 200px;
@@ -36,12 +43,13 @@ const Form = styled.form`
 
 const Img = styled.div<{ bgImage: string }>`
   ${borderRadius20px}
-  ${border2px}
+  ${defaultShadow}
   ${displayCenter}
   ${centerImage}
   
   width: 180px;
   height: 180px;
+  padding: 2px;
 
   @media screen and (max-width: 600px) {
     width: 70px;
@@ -50,12 +58,10 @@ const Img = styled.div<{ bgImage: string }>`
 `;
 
 const ContentInput = styled.textarea`
-  ${borderRadius20px}
+  ${contentInputStyle}
 
   flex-grow: 1;
-  height: 80%;
   margin: 0 30px;
-  padding: 20px;
   font-size: 15px;
 `;
 
@@ -86,6 +92,7 @@ export default function RecordForm(props: IProps) {
 
       if (success) {
         alert("등록 성공");
+
         navigate("/list");
       } else {
         alert("등록 실패!!!");
@@ -131,13 +138,10 @@ export default function RecordForm(props: IProps) {
           <input type="file" accept="image/*" onChange={handleInputImage} />
         )}
       </Img>
-      <ContentInput {...register("content", { required: true })} />
-      <SubmitButton
-        width="200px"
-        height="100px"
-        fontSize="15px"
-        content="작성"
-      />
+      <ContentInput height="80%" {...register("content", { required: true })} />
+      <SubmitButton width="120px" height="70px" fontSize="15px">
+        작성
+      </SubmitButton>
     </Form>
   );
 }

@@ -73,3 +73,21 @@ export const BlueButton = css`
     );
   }
 `;
+
+export const contentInputStyle = css<{ width?: string; height?: string }>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+
+  font-family: monospace;
+  outline: none;
+  border: 1px solid #dadada;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f3f7fe;
+  transition: 0.3s;
+
+  &:focus {
+    border: 1px solid #3b82f6;
+    box-shadow: 0 0 0 4px #3b83f65f;
+  }
+`;

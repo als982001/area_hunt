@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { displayCenter } from "../../../styles/displays";
-import { activeShadow, buttonShadow } from "../../../styles/shadows";
+import { buttonShadow } from "../../../styles/shadows";
 import { BlueButton } from "../../../styles/styles";
 
 type ButtonType = {
@@ -9,6 +9,7 @@ type ButtonType = {
   height: string;
   fontSize: string;
   content?: string;
+  children?: string;
 };
 
 const Container = styled.button<ButtonType>`
@@ -28,7 +29,7 @@ export default function Button(props: ButtonType) {
       height={props.height}
       fontSize={props.fontSize}
     >
-      {props.content}
+      {props.children}
     </Container>
   );
 }

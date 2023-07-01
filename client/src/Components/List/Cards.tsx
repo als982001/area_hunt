@@ -28,6 +28,7 @@ const Title = styled.h3`
   font-size: 30px;
   font-weight: bold;
   padding-left: 100px;
+  background-color: #f1f6f9;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
@@ -110,10 +111,10 @@ export default function Cards({ location }: IProps) {
                 <Card item={data[visible]} key={visible + ""} />
               </Box>
             </AnimatePresence>
-            <SlideButton onClick={getNextCards} left="200px" isBefore={true} />
+            <SlideButton onClick={getNextCards} left="300px" isBefore={true} />
             <SlideButton
               onClick={getPreviosCards}
-              right="200px"
+              right="300px"
               isBefore={false}
             />
           </>

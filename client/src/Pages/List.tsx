@@ -50,7 +50,6 @@ export default function List({
           <Cards location={location} key={location} />
         ))
       )}
-
       <ToTop ref={btnRef}>
         <BsFillArrowUpSquareFill
           onClick={() => window.scrollTo(0, 0)}

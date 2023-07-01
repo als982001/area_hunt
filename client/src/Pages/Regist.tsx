@@ -14,14 +14,9 @@ import {
 } from "../styles/displays";
 import { handlePostItem } from "../utils/itemFunctions";
 import { isLocal, localAreaImagePath } from "../utils/functions";
-import {
-  AuthForm,
-  border1px,
-  border2px,
-  borderRadius20px,
-  centerImage,
-} from "../styles/styles";
+import { border2px, borderRadius20px, centerImage } from "../styles/styles";
 import JoinInput from "../Components/Auth/JoinInput";
+import { defaultShadow } from "../styles/shadows";
 
 interface FormValues {
   name: string;
@@ -60,9 +55,9 @@ const InputContainer = styled.section`
 
 const Img = styled.div<{ bgImage: string }>`
   ${borderRadius20px}
-  ${border2px}
   ${displayCenter}
   ${centerImage}
+  ${defaultShadow}
   
   width: 100%;
   height: 100%;
@@ -213,12 +208,9 @@ export default function Regist() {
             />
           </InputContainer>
           <div>
-            <Button
-              width="120px"
-              height="40px"
-              fontSize="14px"
-              content="등록하기"
-            />
+            <Button width="120px" height="40px" fontSize="14px">
+              등록하기
+            </Button>
           </div>
         </Inputs>
       </Form>
