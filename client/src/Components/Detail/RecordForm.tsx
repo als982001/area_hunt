@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 import SubmitButton from "../Global/Buttons/SubmitButton";
 import {
-  BlueButton,
-  border2px,
   borderRadius20px,
   centerImage,
   contentInputStyle,

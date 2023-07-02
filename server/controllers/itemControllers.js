@@ -58,7 +58,7 @@ export const postItem = async (req, res) => {
     const areaImage = req.file;
     const areaData = req.body;
 
-    dummyAreas.push({
+    dummyAreas.unshift({
       id: dummyAreas.length + 1,
       image: areaImage,
       ...areaData,

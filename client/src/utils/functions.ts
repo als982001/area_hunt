@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export let isLocal = false;
+export let isLocal = true;
 export const localAreaImagePath =
   "https://cdn.pixabay.com/photo/2013/07/18/10/56/railroad-163518_1280.jpg";
 export const localReviewImagePath =
@@ -60,4 +60,21 @@ export const getPhoneForm = (phone: string): string => {
   const formattedNumber = digits.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
 
   return formattedNumber;
+};
+
+export const makeIdxesArray = (
+  num: number,
+  visible: number,
+  offset: number
+): number[] => {
+  switch (num) {
+    case 1:
+      return [visible * offset];
+    case 2:
+      return [visible * offset, visible * offset + 1];
+    case 3:
+      return [visible * offset, visible * offset + 1, visible * offset + 2];
+    default:
+      return [];
+  }
 };

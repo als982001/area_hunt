@@ -4,14 +4,8 @@ import { RootState } from "../Redux/Stores";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { border2px, borderRadius20px, centerImage } from "../styles/styles";
-import {
-  displayCenter,
-  displayCenterStart,
-  displayStartCenter,
-  gridCenter,
-} from "../styles/displays";
-import { userInfo } from "os";
+import { borderRadius20px, centerImage } from "../styles/styles";
+import { displayCenter, displayCenterStart } from "../styles/displays";
 import { getPhoneForm } from "../utils/functions";
 
 const Wrapper = styled.div`

@@ -1,6 +1,7 @@
+import styled from "styled-components";
+
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { BsFillRocketFill } from "react-icons/bs";
-import styled from "styled-components";
 
 interface IProps {
   onClick: () => void;

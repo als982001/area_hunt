@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React, { useEffect } from "react";
-import Spinner from "../Global/Spinner";
 
 interface IProps {
   width: string;

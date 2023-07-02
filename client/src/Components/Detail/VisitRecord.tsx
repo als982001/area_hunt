@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import { border2px, borderRadius20px } from "../../styles/styles";
+import { borderRadius20px } from "../../styles/styles";
 import { displayStartCenter } from "../../styles/displays";
 import { fixedCenter } from "../../styles/positions";
 import { defaultShadow } from "../../styles/shadows";

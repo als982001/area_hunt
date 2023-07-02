@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../Global/Buttons/Button";
 import { updateItem } from "../../utils/itemFunctions";
 import { isLocal } from "../../utils/functions";
-import { border2px, borderRadius20px, centerImage } from "../../styles/styles";
+import { borderRadius20px, centerImage } from "../../styles/styles";
 import { fixedCenter } from "../../styles/positions";
 import {
   displayCenter,

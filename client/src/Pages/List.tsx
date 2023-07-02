@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import { useRef } from "react";
 
 import Cards from "../Components/List/Cards";
 import SearchResult from "../Components/List/SearchResult";
-import { displayCenter } from "../styles/displays";
-import { BsFillArrowUpSquareFill } from "react-icons/bs";
 import ToTopButton from "../Components/Global/Buttons/ToTopButton";
 
 interface IProps {
@@ -28,8 +25,6 @@ export default function List({
   searchFinished,
   setSearchFinished,
 }: IProps) {
-  const btnRef = useRef(null);
-
   return (
     <Wrapper>
       {searchFinished ? (

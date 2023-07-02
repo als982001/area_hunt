@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
-import { HiOutlinePencilAlt } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
 
@@ -16,7 +15,7 @@ import {
   displayStartCenter,
   gridCenter,
 } from "../styles/displays";
-import { AuthForm, border2px, borderRadius20px } from "../styles/styles";
+import { borderRadius20px } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
 import PencilButton from "../Components/Global/Buttons/PencilButton";
 

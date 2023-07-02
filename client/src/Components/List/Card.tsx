@@ -55,6 +55,20 @@ const Container = styled.div`
   &:active::after {
     transform: scale(0.8);
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 160px;
+    height: 240px;
+  }
+
+  @media screen and (max-width: 750px) {
+    width: 100px;
+    height: 200px;
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 80px;
+  }
 `;
 
 const Image = styled.img`
@@ -64,6 +78,10 @@ const Image = styled.img`
   place-items: center;
   border-radius: ${(props) => props.theme.borderRadius};
   background: black;
+
+  @media screen and (max-width: 750px) {
+    height: 70%;
+  }
 `;
 
 const Title = styled.span`

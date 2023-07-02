@@ -9,7 +9,7 @@ import NoData from "./NoData";
 import { getItemsByAddress } from "../../utils/itemFunctions";
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { absoluteCenter } from "../../styles/positions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface IProps {
   location: string;
@@ -40,14 +40,25 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Box = styled(motion.div)`
+const Box = styled(motion.div)<{ cardnum: number }>`
   ${absoluteCenter}
-  ${displayCenter}
 
-  width: 200px;
+  width: 70%;
   height: 300px;
   font-size: 30px;
+
+  display: grid;
+  grid-template-columns: ${(props) =>
+    props.cardnum === 0 || props.cardnum === 1
+      ? "1fr"
+      : props.cardnum === 2
+      ? "1fr 1fr"
+      : "1fr 1fr 1fr"};
+  justify-items: center;
+  align-items: center;
 `;
+
+const offset = 3;
 
 const box = {
   entry: (isBack: boolean) => ({
@@ -74,6 +85,7 @@ const box = {
 export default function Cards({ location }: IProps) {
   const [visible, setVisible] = useState(0);
   const [back, setBack] = useState(false);
+  const [boxNum, setBoxNum] = useState(0);
 
   const { data, isLoading } = useQuery<IArea[]>(`${location}Items`, () =>
     getItemsByAddress(location)
@@ -81,14 +93,23 @@ export default function Cards({ location }: IProps) {
 
   const getNextCards = () => {
     setBack(false);
-    setVisible((prev) =>
-      data ? (prev === data.length - 1 ? data.length - 1 : prev + 1) : 0
-    );
+    setVisible((prev) => (data ? (prev === boxNum ? boxNum : prev + 1) : 0));
   };
 
   const getPreviosCards = () => {
     setBack(true);
     setVisible((prev) => (prev === 0 ? 0 : prev - 1));
+  };
+
+  useEffect(() => {
+    setBoxNum(Math.floor((data?.length as number) / offset));
+  }, [data]);
+
+  const getMaxCardCount = (visible: number): number => {
+    if (data === undefined) {
+      return 0;
+    }
+    return data.length - visible * offset;
   };
 
   return (
@@ -107,14 +128,49 @@ export default function Cards({ location }: IProps) {
                 animate="center"
                 exit="exit"
                 key={visible}
+                cardnum={getMaxCardCount(visible)}
               >
-                <Card item={data[visible]} key={visible + ""} />
+                {getMaxCardCount(visible) === 0 && <span>🤗</span>}
+                {getMaxCardCount(visible) === 1 && (
+                  <Card
+                    item={data[visible * offset]}
+                    key={visible * offset + ""}
+                  />
+                )}
+                {getMaxCardCount(visible) === 2 && (
+                  <>
+                    <Card
+                      item={data[visible * offset]}
+                      key={visible * offset + ""}
+                    />
+                    <Card
+                      item={data[visible * offset + 1]}
+                      key={visible * offset + 1 + ""}
+                    />
+                  </>
+                )}
+                {getMaxCardCount(visible) >= 3 && (
+                  <>
+                    <Card
+                      item={data[visible * offset]}
+                      key={visible * offset + ""}
+                    />
+                    <Card
+                      item={data[visible * offset + 1]}
+                      key={visible * offset + 1 + ""}
+                    />
+                    <Card
+                      item={data[visible * offset + 2]}
+                      key={visible * offset + 2 + ""}
+                    />
+                  </>
+                )}
               </Box>
             </AnimatePresence>
-            <SlideButton onClick={getNextCards} left="300px" isBefore={true} />
+            <SlideButton onClick={getNextCards} pos="left" isBefore={true} />
             <SlideButton
               onClick={getPreviosCards}
-              right="300px"
+              pos="right"
               isBefore={false}
             />
           </>
