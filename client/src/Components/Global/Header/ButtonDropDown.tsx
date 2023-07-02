@@ -14,6 +14,7 @@ const Wrapper = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 10;
 
   @media screen and (min-width: 1001px) {
     // 1001px부터 시작

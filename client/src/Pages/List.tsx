@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import Cards from "../Components/List/Cards";
 import SearchResult from "../Components/List/SearchResult";
 import { displayCenter } from "../styles/displays";
 import { BsFillArrowUpSquareFill } from "react-icons/bs";
+import ToTopButton from "../Components/Global/Buttons/ToTopButton";
 
 interface IProps {
   keyword: string;
@@ -16,13 +17,6 @@ interface IProps {
 
 const Wrapper = styled.div`
   width: 100%;
-`;
-
-const ToTop = styled.div`
-  ${displayCenter}
-
-  width: 100%;
-  margin-top: 100px;
 `;
 
 const locations = ["서울", "강원", "충청", "경상", "전라", "제주"];
@@ -50,12 +44,7 @@ export default function List({
           <Cards location={location} key={location} />
         ))
       )}
-      <ToTop ref={btnRef}>
-        <BsFillArrowUpSquareFill
-          onClick={() => window.scrollTo(0, 0)}
-          size={"100px"}
-        />
-      </ToTop>
+      <ToTopButton onClick={() => window.scrollTo(0, 0)}></ToTopButton>
     </Wrapper>
   );
 }

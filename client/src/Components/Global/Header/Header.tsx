@@ -41,6 +41,10 @@ const Top = styled.form`
   grid-template-columns: 1fr 4fr 4fr;
   width: 80%;
   position: relative;
+
+  @media screen and (max-width: 450px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const Search = styled.div`
@@ -79,8 +83,7 @@ const Buttons = styled.div`
   height: 100%;
   ${displayEndCenter}
 
-  @media screen and (max-width: 1000px) {
-    // 1000px부터 시작
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `;
@@ -122,9 +125,7 @@ export default function Header({
           e.preventDefault();
         }}
       >
-        <Link to="/list">
-          <MainLogo logoSize={"40px"} />
-        </Link>
+        <MainLogo logoSize={"40px"} />
         <Search>
           <HiMagnifyingGlass
             size={"30px"}

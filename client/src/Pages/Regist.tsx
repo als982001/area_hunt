@@ -31,19 +31,31 @@ const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   padding-bottom: 100px;
+
+  @media screen and (max-width: 1024px) {
+    padding: 20px;
+  }
 `;
 
 const Form = styled.form`
   ${borderRadius20px}
 
   width: 800px;
-  height: 500px;
+  min-height: 500px;
   margin-top: 100px;
   background-color: #fff;
   padding: 15px;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: none;
+    grid-template-rows: 2fr 1fr;
+    gap: 10px;
+    padding: 20px;
+    margin-top: 0px;
+  }
 `;
 
 const InputContainer = styled.section`
