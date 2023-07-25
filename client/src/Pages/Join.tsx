@@ -13,6 +13,7 @@ import {
 } from "../styles/styles";
 import AuthButton from "../Components/Auth/AuthButton";
 import JoinInput from "../Components/Auth/JoinInput";
+import useJoin from "../Hooks/useJoin";
 
 interface FormValues {
   userId: string;
@@ -67,51 +68,8 @@ const Img = styled.div<{ bgImage: string }>`
 `;
 
 export default function Join() {
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
-
-  const navigate = useNavigate();
-
-  const { handleSubmit, control } = useForm<FormValues>({
-    defaultValues: {
-      userId: "",
-      password: "",
-      password2: "",
-      name: "",
-      phone: "",
-      email: "",
-    },
-    mode: "onChange",
-  });
-
-  const handleImagePost = (event: any) => {
-    if (event.target.files === null) {
-      return;
-    }
-
-    const imageFile = event.target.files[0];
-    setImage((prev) => imageFile);
-    setImageUrl((prev) => URL.createObjectURL(imageFile));
-  };
-
-  const handleStartJoin = async (data: FormValues) => {
-    if (image === null) {
-      alert("이미지를 등록해주세요.");
-      return;
-    }
-
-    const success = await handleJoin(image, data);
-
-    if (success) {
-      alert("회원가입에 성공했습니다.");
-      navigate("/login");
-      return;
-    } else {
-      alert("회원가입에 실패했습니다.");
-    }
-
-    return;
-  };
+  const { handleStartJoin, imageUrl, handleSubmit, handleImagePost, control } =
+    useJoin();
 
   return (
     <Wrapper>

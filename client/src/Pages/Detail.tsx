@@ -18,6 +18,7 @@ import {
 import { borderRadius20px } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
 import PencilButton from "../Components/Global/Buttons/PencilButton";
+import useDetail from "../Hooks/useDetail";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -130,55 +131,17 @@ const Overlay = styled.div`
 `;
 
 export default function Detail() {
-  const [showMap, setShowMap] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<IArea | null>(null);
-  const [update, setUpdate] = useState(false);
-
-  const navigate = useNavigate();
-  const { id } = useParams();
-
-  const userState = useSelector((state: RootState) => state.userReducer);
-
-  const handleShowMap = () => {
-    setShowMap((prev) => (prev === 1 ? 0 : 1));
-  };
-
-  useEffect(() => {
-    const idPattern = /^[0-9]{1,}$/;
-
-    if (id === undefined) {
-      navigate("/notfound");
-      return;
-    }
-
-    if (idPattern.test(id) === false) {
-      navigate("/notfound");
-      return;
-    }
-  }, [id]);
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading((prev) => true);
-
-      if (id) {
-        const result = await getItem(id);
-
-        setData((prev) => result);
-
-        if (result === null) {
-          navigate("/notfound");
-          return;
-        }
-      } else {
-        navigate("/notfound");
-        return;
-      }
-
-      setIsLoading((prev) => false);
-    })();
-  }, []);
+  const {
+    id,
+    isLoading,
+    showMap,
+    data,
+    setShowMap,
+    handleShowMap,
+    userState,
+    setUpdate,
+    update,
+  } = useDetail();
 
   return (
     <>

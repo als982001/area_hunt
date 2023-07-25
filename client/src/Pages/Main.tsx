@@ -191,13 +191,13 @@ export default function Main() {
           alt="main_img_01"
         />
       </Container>
-      {isLocal && (
+      {/*  {isLocal && (
         <Modal style={{ opacity: show ? 1 : 0 }}>
           <AiFillWarning size={"50px"} />
           <span>현재 서버와 연결되어 있지 않습니다.</span>
           <span>로컬의 더미 데이터를 이용합니다.</span>
         </Modal>
-      )}
+      )} */}
     </Wrapper>
   );
 }

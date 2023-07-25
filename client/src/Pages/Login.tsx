@@ -11,6 +11,7 @@ import { displayCenterStart } from "../styles/displays";
 import LoginInput from "../Components/Auth/LoginInput";
 import { AuthForm } from "../styles/styles";
 import AuthButton from "../Components/Auth/AuthButton";
+import useLogin from "../Hooks/useLogin";
 
 interface FormValues {
   userId: string;
@@ -49,37 +50,11 @@ const JoinLink = styled.h4`
 `;
 
 export default function Login() {
-  const userState = useSelector((state: RootState) => state.userReducer);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { handleSubmit, control } = useForm<FormValues>({
-    defaultValues: {
-      userId: "",
-      password: "",
-    },
-    mode: "onChange",
-  });
-
-  const handleLoginStart = async (data: FormValues) => {
-    const userInfo: IAccount | null = await handleStartLogin(data);
-
-    if (userInfo === null) {
-      alert("로그인에 실패했습니다.");
-    } else {
-      dispatch(handleLogin(userInfo));
-      navigate("/");
-    }
-
-    return;
-  };
+  const { handleSubmit, control, handleLoginStart, checkValidAccess } =
+    useLogin();
 
   useEffect(() => {
-    if (userState.login === true) {
-      navigate("/list");
-      return;
-    }
+    checkValidAccess();
   }, []);
 
   return (

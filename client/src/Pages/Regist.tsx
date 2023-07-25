@@ -12,6 +12,7 @@ import { handlePostItem } from "../utils/itemFunctions";
 import { isLocal, localAreaImagePath } from "../utils/functions";
 import { borderRadius20px, centerImage } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
+import useRegist from "../Hooks/useRegist";
 
 interface FormValues {
   name: string;
@@ -78,79 +79,17 @@ const Inputs = styled.div`
 `;
 
 export default function Regist() {
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(isLocal ? localAreaImagePath : "");
-
-  const userState = useSelector((state: RootState) => state.userReducer);
-
-  const navigate = useNavigate();
-
-  const { handleSubmit, control, reset } = useForm<FormValues>({
-    defaultValues: {
-      name: "",
-      address: "",
-      location: "",
-      content: "",
-    },
-    mode: "onChange",
-  });
-
-  const handleStartPost = async (data: FormValues) => {
-    if (isLocal) {
-      const success = await handlePostItem(
-        imageUrl,
-        data,
-        userState.userInfo.userId
-      );
-
-      if (success) {
-        alert("등록 완료");
-        navigate("/list");
-        return;
-      } else {
-        alert("등록 실패!!!");
-        reset();
-        return;
-      }
-    } else {
-      if (image === null) {
-        alert("이미지를 등록해주세요.");
-        return;
-      }
-
-      const success = await handlePostItem(
-        image,
-        data,
-        userState.userInfo.userId
-      );
-
-      if (success) {
-        alert("등록 완료");
-        navigate("/list");
-        return;
-      } else {
-        alert("등록 실패!!!");
-        reset();
-        return;
-      }
-    }
-  };
-
-  const handleImagePost = (event: any) => {
-    if (event.target.files === null) {
-      return;
-    }
-
-    const imageFile = event.target.files[0];
-    setImage((prev) => imageFile);
-    setImageUrl((prev) => URL.createObjectURL(imageFile));
-  };
+  const {
+    handleSubmit,
+    handleStartPost,
+    imageUrl,
+    handleImagePost,
+    control,
+    checkLogin,
+  } = useRegist();
 
   useEffect(() => {
-    if (userState.login === false) {
-      navigate("/login");
-      return;
-    }
+    checkLogin();
   }, []);
 
   return (
