@@ -1,11 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 import Button from "../Global/Buttons/Button";
-import { updateItem } from "../../utils/itemFunctions";
-import { isLocal } from "../../utils/functions";
 import { borderRadius20px, centerImage } from "../../styles/styles";
 import { fixedCenter } from "../../styles/positions";
 import {

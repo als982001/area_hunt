@@ -1,24 +1,11 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/Stores";
 
 import VisitRecord from "./VisitRecord";
 import RecordForm from "./RecordForm";
-import { getVisitRecords } from "../../utils/itemFunctions";
 import useGetReviews from "../../Hooks/useGetReviews";
 
 interface IProps {
   id: string | number;
-}
-
-interface IRecord {
-  id: number;
-  areaId: number;
-  imgPath: string;
-  name: string;
-  content: string;
-  date: string;
 }
 
 const Wrapper = styled.div`

@@ -1,9 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/Stores";
-import { useNavigate } from "react-router-dom";
 
 import SubmitButton from "../Global/Buttons/SubmitButton";
 import {
@@ -11,18 +6,13 @@ import {
   centerImage,
   contentInputStyle,
 } from "../../styles/styles";
-import { getToday, isLocal, localReviewImagePath } from "../../utils/functions";
-import { postRecord } from "../../utils/itemFunctions";
+import { isLocal } from "../../utils/functions";
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { defaultShadow } from "../../styles/shadows";
 import usePostReview from "../../Hooks/usePostReview";
 
 interface IProps {
   id: string | number;
-}
-
-interface FormValues {
-  content: string;
 }
 
 const Form = styled.form`
