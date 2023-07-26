@@ -1,22 +1,11 @@
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../Redux/Stores";
-import { handleLogin } from "../Redux/Actions";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
-
-import { handleStartLogin } from "../utils/MemberFunctions";
 import { displayCenterStart } from "../styles/displays";
 import LoginInput from "../Components/Auth/LoginInput";
 import { AuthForm } from "../styles/styles";
 import AuthButton from "../Components/Auth/AuthButton";
 import useLogin from "../Hooks/useLogin";
-
-interface FormValues {
-  userId: string;
-  password: string;
-}
 
 const Wrapper = styled.div`
   ${displayCenterStart}

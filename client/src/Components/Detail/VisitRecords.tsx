@@ -6,6 +6,7 @@ import { RootState } from "../../Redux/Stores";
 import VisitRecord from "./VisitRecord";
 import RecordForm from "./RecordForm";
 import { getVisitRecords } from "../../utils/itemFunctions";
+import useGetReviews from "../../Hooks/useGetReviews";
 
 interface IProps {
   id: string | number;
@@ -31,26 +32,12 @@ const Container = styled.div`
   margin-bottom: 100px;
 `;
 
-export default function VisitRecords(props: IProps) {
-  const [records, setRecords] = useState<IRecord[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const userState = useSelector((state: RootState) => state.userReducer);
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading((prev) => true);
-
-      const result = await getVisitRecords(props.id);
-      setRecords((prev) => result);
-
-      setIsLoading((prev) => false);
-    })();
-  }, []);
+export default function VisitRecords({ id }: IProps) {
+  const { userState, isLoading, records } = useGetReviews(id);
 
   return (
     <Wrapper>
-      {userState.login && <RecordForm id={props.id} />}
+      {userState.login && <RecordForm id={id} />}
       <Container>
         {isLoading ? (
           <h1>Loading...</h1>

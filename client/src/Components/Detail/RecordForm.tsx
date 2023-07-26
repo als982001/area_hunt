@@ -15,6 +15,7 @@ import { getToday, isLocal, localReviewImagePath } from "../../utils/functions";
 import { postRecord } from "../../utils/itemFunctions";
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { defaultShadow } from "../../styles/shadows";
+import usePostReview from "../../Hooks/usePostReview";
 
 interface IProps {
   id: string | number;
@@ -64,74 +65,20 @@ const ContentInput = styled.textarea`
 `;
 
 export default function RecordForm(props: IProps) {
-  const [image, setImage] = useState(null);
-  const [imagePath, setImagePath] = useState(
-    isLocal ? localReviewImagePath : ""
-  );
-
-  const navigate = useNavigate();
-
-  const { register, handleSubmit, reset } = useForm<FormValues>();
-
-  const userState = useSelector((state: RootState) => state.userReducer);
-
-  const handlePostRecord = async (data: FormValues) => {
-    const { content } = data;
-    const date = getToday();
-
-    const info = {
-      content,
-      name: userState.userInfo.name,
-      date,
-    };
-
-    if (isLocal) {
-      const success = await postRecord(imagePath, props.id, info);
-
-      if (success) {
-        alert("등록 성공");
-
-        navigate("/list");
-      } else {
-        alert("등록 실패!!!");
-        reset();
-      }
-    } else {
-      if (image === null) {
-        alert("이미지를 등록해주세요.");
-        return;
-      }
-
-      const success = await postRecord(image, props.id, info);
-
-      if (success) {
-        alert("등록 성공");
-        window.location.reload();
-      } else {
-        alert("등록 실패!!!");
-        reset();
-      }
-    }
-
-    return;
-  };
-
-  const handleInputImage = (event: any) => {
-    if (event.target.file === null) {
-      return;
-    }
-
-    const imageFile = event.target.files[0];
-    setImage((prev) => imageFile);
-    setImagePath((prev) => URL.createObjectURL(imageFile));
-  };
+  const {
+    handleSubmit,
+    handlePostRecord,
+    imageUrl,
+    handleInputImage,
+    register,
+  } = usePostReview(props.id);
 
   return (
     <Form
       encType="multipart/form-data"
       onSubmit={handleSubmit(handlePostRecord)}
     >
-      <Img bgImage={imagePath}>
+      <Img bgImage={imageUrl}>
         {isLocal === false && (
           <input type="file" accept="image/*" onChange={handleInputImage} />
         )}

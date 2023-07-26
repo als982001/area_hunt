@@ -10,6 +10,7 @@ import { getItemsByAddress } from "../../utils/itemFunctions";
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { absoluteCenter } from "../../styles/positions";
 import { useEffect, useState } from "react";
+import useHandleCardsAnimation from "../../Hooks/useHandleCardsAnimation";
 
 interface IProps {
   location: string;
@@ -83,34 +84,15 @@ const box = {
 };
 
 export default function Cards({ location }: IProps) {
-  const [visible, setVisible] = useState(0);
-  const [back, setBack] = useState(false);
-  const [boxNum, setBoxNum] = useState(0);
-
-  const { data, isLoading } = useQuery<IArea[]>(`${location}Items`, () =>
-    getItemsByAddress(location)
-  );
-
-  const getNextCards = () => {
-    setBack(false);
-    setVisible((prev) => (data ? (prev === boxNum ? boxNum : prev + 1) : 0));
-  };
-
-  const getPreviosCards = () => {
-    setBack(true);
-    setVisible((prev) => (prev === 0 ? 0 : prev - 1));
-  };
-
-  useEffect(() => {
-    setBoxNum(Math.floor((data?.length as number) / offset));
-  }, [data]);
-
-  const getMaxCardCount = (visible: number): number => {
-    if (data === undefined) {
-      return 0;
-    }
-    return data.length - visible * offset;
-  };
+  const {
+    isLoading,
+    data,
+    back,
+    visible,
+    getMaxCardCount,
+    getNextCards,
+    getPreviosCards,
+  } = useHandleCardsAnimation(location);
 
   return (
     <Wrapper>
