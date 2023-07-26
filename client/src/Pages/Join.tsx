@@ -1,10 +1,6 @@
 import styled from "styled-components";
 import { displayCenter, displayCenterStart } from "../styles/displays";
-import { useForm } from "react-hook-form";
-import { handleJoin } from "../utils/MemberFunctions";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import {
   AuthForm,
   border2px,
@@ -14,15 +10,6 @@ import {
 import AuthButton from "../Components/Auth/AuthButton";
 import JoinInput from "../Components/Auth/JoinInput";
 import useJoin from "../Hooks/useJoin";
-
-interface FormValues {
-  userId: string;
-  password: string;
-  password2: string;
-  name: string;
-  phone: string;
-  email: string;
-}
 
 const Wrapper = styled.div`
   ${displayCenterStart}

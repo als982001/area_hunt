@@ -8,18 +8,10 @@ import { RootState } from "../Redux/Stores";
 import RegistInput from "../Components/Regist/RegistInput";
 import Button from "../Components/Global/Buttons/Button";
 import { displayCenter, displayCenterStart } from "../styles/displays";
-import { handlePostItem } from "../utils/itemFunctions";
-import { isLocal, localAreaImagePath } from "../utils/functions";
+import { isLocal } from "../utils/functions";
 import { borderRadius20px, centerImage } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
 import useRegist from "../Hooks/useRegist";
-
-interface FormValues {
-  name: string;
-  address: string;
-  location: string;
-  content: string;
-}
 
 const Wrapper = styled.div`
   ${displayCenterStart}

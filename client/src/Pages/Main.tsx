@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
-import { AiFillWarning } from "react-icons/ai";
 import {
   displayCenter,
   displayCenterStart,
@@ -9,7 +8,6 @@ import {
 } from "../styles/displays";
 import { fixedCenter } from "../styles/positions";
 import { border2px, borderRadius20px } from "../styles/styles";
-import { isLocal } from "../utils/functions";
 
 const Wrapper = styled.div`
   width: 100%;

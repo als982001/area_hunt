@@ -1,15 +1,12 @@
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import { useQuery } from "react-query";
 
 import Spinner from "../Global/Spinner";
 import Card from "./Card";
 import SlideButton from "../Global/Buttons/SlideButton";
 import NoData from "./NoData";
-import { getItemsByAddress } from "../../utils/itemFunctions";
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { absoluteCenter } from "../../styles/positions";
-import { useEffect, useState } from "react";
 import useHandleCardsAnimation from "../../Hooks/useHandleCardsAnimation";
 
 interface IProps {
