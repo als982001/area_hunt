@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { handleJoin } from "../utils/MemberFunctions";
@@ -17,6 +17,8 @@ export default function useJoin() {
   const [imageUrl, setImageUrl] = useState("");
 
   const navigate = useNavigate();
+
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
@@ -59,5 +61,19 @@ export default function useJoin() {
     return;
   };
 
-  return { handleStartJoin, imageUrl, handleSubmit, handleImagePost, control };
+  const handleInputClick = () => {
+    if (imageInputRef.current) {
+      imageInputRef.current.click();
+    }
+  };
+
+  return {
+    handleStartJoin,
+    imageUrl,
+    handleSubmit,
+    handleImagePost,
+    control,
+    imageInputRef,
+    handleInputClick,
+  };
 }

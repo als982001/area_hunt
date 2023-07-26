@@ -39,6 +39,8 @@ const Img = styled.div<{ bgImage: string }>`
   width: 180px;
   height: 180px;
   padding: 2px;
+  cursor: pointer;
+  text-align: center;
 
   @media screen and (max-width: 600px) {
     width: 70px;
@@ -61,6 +63,8 @@ export default function RecordForm(props: IProps) {
     imageUrl,
     handleInputImage,
     register,
+    imageInputRef,
+    handleInputClick,
   } = usePostReview(props.id);
 
   return (
@@ -68,11 +72,20 @@ export default function RecordForm(props: IProps) {
       encType="multipart/form-data"
       onSubmit={handleSubmit(handlePostRecord)}
     >
-      <Img bgImage={imageUrl}>
-        {isLocal === false && (
-          <input type="file" accept="image/*" onChange={handleInputImage} />
-        )}
+      <Img bgImage={imageUrl} onClick={handleInputClick}>
+        {isLocal === false &&
+          imageUrl.length === 0 &&
+          "클릭하여 이미지를 등록해주세요."}
       </Img>
+      {isLocal === false && (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleInputImage}
+          style={{ display: "none" }}
+          ref={imageInputRef}
+        />
+      )}
       <ContentInput height="80%" {...register("content", { required: true })} />
       <SubmitButton width="120px" height="70px" fontSize="15px">
         작성

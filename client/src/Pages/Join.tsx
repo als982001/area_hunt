@@ -52,11 +52,19 @@ const Img = styled.div<{ bgImage: string }>`
   
   width: 50%;
   height: 150px;
+  cursor: pointer;
 `;
 
 export default function Join() {
-  const { handleStartJoin, imageUrl, handleSubmit, handleImagePost, control } =
-    useJoin();
+  const {
+    handleStartJoin,
+    imageUrl,
+    handleSubmit,
+    handleImagePost,
+    control,
+    imageInputRef,
+    handleInputClick,
+  } = useJoin();
 
   return (
     <Wrapper>
@@ -66,9 +74,16 @@ export default function Join() {
       >
         <Title>회원가입</Title>
         <InputContainer>
-          <Img bgImage={imageUrl}>
-            <input type="file" accept="image/*" onChange={handleImagePost} />
+          <Img bgImage={imageUrl} onClick={handleInputClick}>
+            {imageUrl.length === 0 && "클릭하여 이미지를 등록해주세요."}
           </Img>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImagePost}
+            style={{ display: "none" }}
+            ref={imageInputRef}
+          />
         </InputContainer>
         <InputContainer>
           <JoinInput

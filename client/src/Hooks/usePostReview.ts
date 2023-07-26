@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getToday, isLocal, localReviewImagePath } from "../utils/functions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,8 @@ export default function usePostReview(id: string | number) {
   const [imageUrl, setImageUrl] = useState(isLocal ? localReviewImagePath : "");
 
   const navigate = useNavigate();
+
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit, reset } = useForm<FormValues>();
 
@@ -71,11 +73,19 @@ export default function usePostReview(id: string | number) {
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };
 
+  const handleInputClick = () => {
+    if (imageInputRef.current) {
+      imageInputRef.current.click();
+    }
+  };
+
   return {
     handleSubmit,
     handlePostRecord,
     imageUrl,
     handleInputImage,
     register,
+    imageInputRef,
+    handleInputClick,
   };
 }

@@ -61,6 +61,7 @@ const Img = styled.div<{ bgImage: string }>`
   
   width: 100%;
   height: 100%;
+  cursor: pointer;
 `;
 
 const Inputs = styled.div`
@@ -78,6 +79,8 @@ export default function Regist() {
     handleImagePost,
     control,
     checkLogin,
+    imageInputRef,
+    handleInputClick,
   } = useRegist();
 
   useEffect(() => {
@@ -91,14 +94,17 @@ export default function Regist() {
         encType="multipart/form-data"
       >
         <InputContainer>
-          <Img bgImage={imageUrl}>
-            <input
-              disabled={isLocal}
-              type="file"
-              accept="image/*"
-              onChange={handleImagePost}
-            />
+          <Img bgImage={imageUrl} onClick={handleInputClick}>
+            {imageUrl.length === 0 && "클릭하여 이미지를 등록해주세요."}
           </Img>
+          <input
+            disabled={isLocal}
+            type="file"
+            accept="image/*"
+            onChange={handleImagePost}
+            style={{ display: "none" }}
+            ref={imageInputRef}
+          />
         </InputContainer>
         <Inputs>
           <InputContainer>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isLocal, localAreaImagePath } from "../utils/functions";
@@ -20,6 +20,8 @@ export default function useRegist() {
   const userState = useSelector((state: RootState) => state.userReducer);
 
   const navigate = useNavigate();
+
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const { handleSubmit, control, reset } = useForm<FormValues>({
     defaultValues: {
@@ -89,6 +91,12 @@ export default function useRegist() {
     }
   };
 
+  const handleInputClick = () => {
+    if (imageInputRef.current) {
+      imageInputRef.current.click();
+    }
+  };
+
   return {
     handleSubmit,
     handleStartPost,
@@ -96,5 +104,7 @@ export default function useRegist() {
     handleImagePost,
     control,
     checkLogin,
+    imageInputRef,
+    handleInputClick,
   };
 }
