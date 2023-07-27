@@ -10,7 +10,7 @@ import { absoluteCenter } from "../../styles/positions";
 import useHandleCardsAnimation from "../../Hooks/useHandleCardsAnimation";
 
 interface IProps {
-  location: string;
+  region: string;
 }
 
 const Wrapper = styled.div`
@@ -80,7 +80,7 @@ const box = {
   }),
 };
 
-export default function Cards({ location }: IProps) {
+export default function Cards({ region }: IProps) {
   const {
     isLoading,
     data,
@@ -89,11 +89,11 @@ export default function Cards({ location }: IProps) {
     getMaxCardCount,
     getNextCards,
     getPreviosCards,
-  } = useHandleCardsAnimation(location);
+  } = useHandleCardsAnimation(region);
 
   return (
     <Wrapper>
-      <Title>{`${location} 지역`}</Title>
+      <Title>{`${region} 지역   ${data?.length}개`}</Title>
       <Container>
         {isLoading || data === undefined ? (
           <Spinner />

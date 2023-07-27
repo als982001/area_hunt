@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../Redux/Stores";
+import { useEffect } from "react";
 
 import RegistInput from "../Components/Regist/RegistInput";
 import Button from "../Components/Global/Buttons/Button";

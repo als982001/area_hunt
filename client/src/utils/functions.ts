@@ -7,6 +7,7 @@ export const localReviewImagePath =
   "https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg";
 export const localUserImagePath =
   "https://cdn.pixabay.com/photo/2017/09/15/02/22/fantasy-2750995_1280.jpg";
+export const regions = ["서울", "강원", "충청", "경상", "전라", "제주"];
 
 // 현재 날짜를 문자열로 반환하는 함수
 // 예) "2023-05-06" 형태의 문자열을 반환합니다.
@@ -62,19 +63,10 @@ export const getPhoneForm = (phone: string): string => {
   return formattedNumber;
 };
 
-export const makeIdxesArray = (
-  num: number,
-  visible: number,
-  offset: number
-): number[] => {
-  switch (num) {
-    case 1:
-      return [visible * offset];
-    case 2:
-      return [visible * offset, visible * offset + 1];
-    case 3:
-      return [visible * offset, visible * offset + 1, visible * offset + 2];
-    default:
-      return [];
-  }
+export const isRegionIncluded = (address: string) => {
+  let included = regions.reduce((result, region) => {
+    return (result = result || address.includes(region));
+  }, false);
+
+  return included;
 };

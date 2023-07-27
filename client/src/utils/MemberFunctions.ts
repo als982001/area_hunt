@@ -1,7 +1,6 @@
 import axios from "axios";
 import { isLocal, localAreaImagePath } from "./functions";
 import { localAccounts } from "../Data/localAccounts";
-import { join } from "path";
 
 type loginType = {
   userId: string;

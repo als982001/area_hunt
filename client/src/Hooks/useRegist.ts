@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { isLocal, localAreaImagePath } from "../utils/functions";
+import {
+  isLocal,
+  isRegionIncluded,
+  localAreaImagePath,
+} from "../utils/functions";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { handlePostItem } from "../utils/itemFunctions";
@@ -34,6 +38,11 @@ export default function useRegist() {
   });
 
   const handleStartPost = async (data: FormValues) => {
+    if (isRegionIncluded(data.address) === false) {
+      alert("서울, 경기, 충청과 같은 지역명을 포함해주세요.");
+      return;
+    }
+
     if (isLocal) {
       const success = await handlePostItem(
         imageUrl,
