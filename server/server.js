@@ -12,12 +12,11 @@ import userRouter from "./src/routers/userRouter";
 import itemRouter from "./src/routers/itemrouter";
 import recordRouter from "./src/routers/recordRouter";
 import { testPrint } from "./src/middlewares";
+
 const cookieParser = require("cookie-parser");
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-const PORT = 4000;
-const HTTPS_PORT = PORT;
 const app = express();
 const logger = morgan("dev");
 
@@ -67,7 +66,4 @@ app.use("/records", recordRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 
-const handleListening = () =>
-  console.log(`✅ Server listenting on port http://localhost:${PORT} 🚀`);
-
-app.listen(PORT, handleListening);
+export default app;

@@ -1,5 +1,6 @@
 import { dummyAreas, dummyVisitRecords } from "../datas/dummyData";
 import path from "path";
+import Post from "../models/Post";
 
 const codes = {
   ok: 200,
