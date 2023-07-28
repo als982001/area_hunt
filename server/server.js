@@ -12,6 +12,7 @@ import userRouter from "./src/routers/userRouter";
 import itemRouter from "./src/routers/itemrouter";
 import recordRouter from "./src/routers/recordRouter";
 import { testPrint } from "./src/middlewares";
+import imageRouter from "./src/routers/imageRouter";
 
 const cookieParser = require("cookie-parser");
 
@@ -63,6 +64,7 @@ app.use(
 app.use("/user", userRouter);
 app.use("/items", itemRouter);
 app.use("/records", recordRouter);
+app.use("/image", imageRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 

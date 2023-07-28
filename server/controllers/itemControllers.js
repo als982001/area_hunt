@@ -1,6 +1,7 @@
 import { dummyAreas, dummyVisitRecords } from "../datas/dummyData";
 import path from "path";
-import Post from "../models/Post";
+import Account from "../models/Account";
+import Test from "../models/Test";
 
 const codes = {
   ok: 200,
@@ -29,6 +30,19 @@ export const getItemsByAddress = async (req, res) => {
 };
 
 export const getItem = async (req, res) => {
+  try {
+    const tests = await Test.find();
+
+    if (tests.length === 0) {
+      const newTest = await Test.create({
+        content: "으하하하하!!!",
+      });
+    }
+  } catch (error) {
+    console.log("못찾음!");
+    console.log(error);
+  }
+
   const { id } = req.params;
 
   const item = dummyAreas.find((area) => area.id === +id);
