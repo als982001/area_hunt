@@ -15,6 +15,7 @@ import { borderRadius20px } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
 import PencilButton from "../Components/Global/Buttons/PencilButton";
 import useDetail from "../Hooks/useDetail";
+import { IPlace } from "../utils/types";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -157,14 +158,7 @@ export default function Detail() {
                     setShowMap={setShowMap}
                   />
                 ) : (
-                  <Img
-                    src={
-                      data?.image.path.includes("uploads")
-                        ? `${process.env.REACT_APP_BACK}/${data?.image.path}`
-                        : `${data?.image.path}`
-                    }
-                    alt="area_img"
-                  />
+                  <Img src={data?.imageUrl} alt="area_img" />
                 )}
               </ImgOrMap>
               <Infos>
@@ -207,7 +201,7 @@ export default function Detail() {
       {update && (
         <>
           <Overlay onClick={() => setUpdate((prev) => false)} />
-          <UpdateModal data={data as IArea} setUpdate={setUpdate} />
+          <UpdateModal data={data as IPlace} setUpdate={setUpdate} />
         </>
       )}
     </>

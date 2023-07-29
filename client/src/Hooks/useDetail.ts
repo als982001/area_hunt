@@ -3,11 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../Redux/Stores";
 import { useSelector } from "react-redux";
 import { getItem } from "../utils/itemFunctions";
+import { IPlace } from "../utils/types";
 
 export default function useDetail() {
   const [showMap, setShowMap] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<IArea | null>(null);
+  const [data, setData] = useState<IPlace | null>(null);
   const [update, setUpdate] = useState(false);
 
   const navigate = useNavigate();

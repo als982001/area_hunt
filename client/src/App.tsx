@@ -17,6 +17,7 @@ import NotFound from "./Pages/NotFound";
 import { handleAuth, handleLogout } from "./Redux/Actions";
 import { handleLoginCheck } from "./utils/MemberFunctions";
 import { isLocal } from "./utils/functions";
+import { IPlace } from "./utils/types";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -34,7 +35,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const [keyword, setKeyword] = useState("");
-  const [searchResult, setSearchResult] = useState<IArea[]>([]);
+  const [searchResult, setSearchResult] = useState<IPlace[]>([]);
   const [searchFinished, setSearchFinished] = useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function App() {
     setKeyword((prev) => event.target.value);
   };
 
-  const handleSetSearchResult = async (result: IArea[]) => {
+  const handleSetSearchResult = async (result: IPlace[]) => {
     setSearchResult((prev) => [...result]);
   };
 

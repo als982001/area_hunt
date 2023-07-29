@@ -4,11 +4,12 @@ import Cards from "../Components/List/Cards";
 import SearchResult from "../Components/List/SearchResult";
 import ToTopButton from "../Components/Global/Buttons/ToTopButton";
 import { regions } from "../utils/functions";
+import { IPlace } from "../utils/types";
 
 interface IProps {
   keyword: string;
-  searchResult: IArea[];
-  setSearchResult: React.Dispatch<React.SetStateAction<IArea[]>>;
+  searchResult: IPlace[];
+  setSearchResult: React.Dispatch<React.SetStateAction<IPlace[]>>;
   searchFinished: boolean;
   setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }

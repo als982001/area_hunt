@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { absoluteHorizontalCenter } from "../../styles/positions";
+import { IPlace } from "../../utils/types";
 
 const Container = styled.div`
   ${displayCenter}
@@ -104,26 +105,19 @@ const Location = styled.span`
 `;
 
 interface IProps {
-  item: IArea;
+  item: IPlace;
 }
 
 export default function Card(props: IProps) {
   const naviage = useNavigate();
 
   const showDetail = () => {
-    naviage(`/${props.item.id}`);
+    naviage(`/${props.item._id.toString()}`);
   };
 
   return (
     <Container onClick={showDetail}>
-      <Image
-        src={
-          props.item.image.path.includes("uploads")
-            ? `${process.env.REACT_APP_BACK}/${props.item.image.path}`
-            : `${props.item.image.path}`
-        }
-        alt="Image"
-      />
+      <Image src={props.item.imageUrl} alt="Image" />
       <Title>{props.item.name}</Title>
       <Location>{props.item.location}</Location>
     </Container>

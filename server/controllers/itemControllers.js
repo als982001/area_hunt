@@ -23,35 +23,25 @@ export const getAllAreas = async (req, res) => {
 export const getItemsByAddress = async (req, res) => {
   const { address } = req.params;
 
-  const itemsByAddress = dummyAreas.filter((area) =>
-    area.address.includes(address)
-  );
+  const places = await Place.find({ address: new RegExp(address, "i") });
 
-  return res.status(codes.ok).json(itemsByAddress);
+  return res.status(codes.ok).json(places);
 };
 
 export const getItem = async (req, res) => {
-  try {
-    const tests = await Test.find();
-
-    if (tests.length === 0) {
-      const newTest = await Test.create({
-        content: "으하하하하!!!",
-      });
-    }
-  } catch (error) {
-    console.log("못찾음!");
-    console.log(error);
-  }
-
   const { id } = req.params;
 
-  const item = dummyAreas.find((area) => area.id === +id);
+  try {
+    const place = await Place.findById(id);
 
-  if (item) {
-    return res.status(codes.ok).json(item);
-  } else {
-    return res.status(codes.notFound).end();
+    if (place) {
+      return res.status(codes.ok).json(place);
+    } else {
+      return res.status(codes.notFound).end();
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(codes.badRequest).end();
   }
 };
 

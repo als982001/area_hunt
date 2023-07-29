@@ -10,9 +10,10 @@ import {
 } from "../../styles/displays";
 import { defaultShadow } from "../../styles/shadows";
 import useUpdate from "../../Hooks/useUpdate";
+import { IPlace } from "../../utils/types";
 
 interface IProps {
-  data: IArea;
+  data: IPlace;
   setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

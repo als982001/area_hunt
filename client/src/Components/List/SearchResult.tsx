@@ -3,11 +3,12 @@ import styled from "styled-components";
 import Card from "./Card";
 import { border1px, borderRadius20px } from "../../styles/styles";
 import { activeShadow, buttonShadow } from "../../styles/shadows";
+import { IPlace } from "../../utils/types";
 
 interface IProps {
   keyword: string;
-  searchResult: IArea[];
-  setSearchResult: React.Dispatch<React.SetStateAction<IArea[]>>;
+  searchResult: IPlace[];
+  setSearchResult: React.Dispatch<React.SetStateAction<IPlace[]>>;
   setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -188,7 +189,7 @@ export default function SearchResult({
       </ResultHeader>
       <Container>
         {searchResult.map((item) => (
-          <Card item={item} key={item.id + ""} />
+          <Card item={item} key={item._id.toString() + ""} />
         ))}
       </Container>
     </Wrapper>

@@ -15,11 +15,12 @@ import {
   gridCenter,
 } from "../../../styles/displays";
 import MenuButton from "../Buttons/MenuButton";
+import { IPlace } from "../../../utils/types";
 
 interface IProps {
   keyword: string;
   handleSetKeyword: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSetSearchResult: (result: IArea[]) => void;
+  handleSetSearchResult: (result: IPlace[]) => void;
   setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

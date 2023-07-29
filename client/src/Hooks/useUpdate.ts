@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { isLocal } from "../utils/functions";
 import { updateItem } from "../utils/itemFunctions";
+import { IPlace } from "../utils/types";
 
-export default function useUpdate(data: IArea) {
+export default function useUpdate(data: IPlace) {
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(data.image.path);
+  const [imageUrl, setImageUrl] = useState(data.imageUrl);
 
   const navigate = useNavigate();
 
@@ -20,6 +21,9 @@ export default function useUpdate(data: IArea) {
   });
 
   const handleStartUpdate = async (event: any) => {
+    console.log("나중에");
+    return;
+    /*
     const { name, address, location, content } = event;
 
     const updatedInfo = {
@@ -55,6 +59,7 @@ export default function useUpdate(data: IArea) {
     }
 
     return;
+    */
   };
 
   const handleImagePost = (event: any) => {
