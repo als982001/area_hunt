@@ -1,9 +1,9 @@
 import express from "express";
 import { uploadFiles } from "../middlewares";
-import { postImage } from "../../controllers/imageControllers";
+import { getBucketUrl } from "../../controllers/imageControllers";
 
 const imageRouter = express.Router();
 
-imageRouter.post("/", uploadFiles.single("image"), postImage);
+imageRouter.get("/", uploadFiles.single("image"), getBucketUrl);
 
 export default imageRouter;

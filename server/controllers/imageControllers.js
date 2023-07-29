@@ -1,26 +1,25 @@
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import aws from "aws-sdk";
 
-export const postImage = async (req, res) => {
-  const client = new S3Client({
+export const getBucketUrl = async (req, res) => {
+  console.log("Get Bucket Url 시작!");
+
+  aws.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_KEY,
     region: "ap-northeast-2",
-    credentials: {
-      accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY,
-      secretAccessKey: process.env.NEXT_PUBLIC_SECRET_KEY,
-    },
+    signatureVersion: "v4",
   });
 
-  const command = new CreatePresignedPostCommand({
-    Bucket: process.env.NEXT_PUBLIC_BUCKET_NAME,
+  const s3 = new aws.S3();
+
+  const url = await s3.createPresignedPost({
+    Bucket: process.env.AWS_BUCKET,
+    Fields: { key: req.query.file },
     Expires: 60, // seconds
     Conditions: [
-      ["content-length-range", 0, 5242880], // up to 5 MB
+      ["content-length-range", 0, 5242880], //파일용량 1MB 까지 제한
     ],
-    Fields: {
-      key: req.query.file,
-    },
   });
-
-  const url = await client.send(command);
 
   res.status(200).json(url);
 };

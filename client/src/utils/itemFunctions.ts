@@ -70,12 +70,13 @@ export const getItem = async (id: string | number) => {
 };
 
 export const handlePostItem = async (
-  image: File | string,
+  imageUrl: string,
   data: IAreaData,
   userId: string
 ) => {
   try {
     if (isLocal) {
+      /*
       const newArea: IArea = {
         id: localAreas.length,
         image: {
@@ -96,18 +97,13 @@ export const handlePostItem = async (
       };
 
       localAreas.push(newArea);
+      */
 
       return true;
     } else {
-      const formData = new FormData();
+      const newPlace = { imageUrl, publisherId: userId, ...data };
 
-      formData.append("image", image);
-      formData.append("name", data.name);
-      formData.append("address", data.address);
-      formData.append("location", data.location);
-      formData.append("content", data.content);
-
-      await axios.post(`${process.env.REACT_APP_BACK}/items`, formData, {
+      await axios.post(`${process.env.REACT_APP_BACK}/items`, newPlace, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

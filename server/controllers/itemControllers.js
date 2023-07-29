@@ -2,6 +2,7 @@ import { dummyAreas, dummyVisitRecords } from "../datas/dummyData";
 import path from "path";
 import Account from "../models/Account";
 import Test from "../models/Test";
+import Place from "../models/Place";
 
 const codes = {
   ok: 200,
@@ -69,15 +70,10 @@ export const updateItem = async (req, res) => {
 };
 
 export const postItem = async (req, res) => {
-  try {
-    const areaImage = req.file;
-    const areaData = req.body;
+  const place = new Place(req.body);
 
-    dummyAreas.unshift({
-      id: dummyAreas.length + 1,
-      image: areaImage,
-      ...areaData,
-    });
+  try {
+    const newPlace = await place.save();
 
     return res.status(codes.ok).end();
   } catch (error) {

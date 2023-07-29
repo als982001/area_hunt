@@ -9,6 +9,7 @@ import {
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { handlePostItem } from "../utils/itemFunctions";
+import axios, { AxiosResponse } from "axios";
 
 interface FormValues {
   name: string;
@@ -18,7 +19,7 @@ interface FormValues {
 }
 
 export default function useRegist() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(isLocal ? localAreaImagePath : "");
 
   const userState = useSelector((state: RootState) => state.userReducer);
@@ -64,26 +65,54 @@ export default function useRegist() {
         alert("이미지를 등록해주세요.");
         return;
       }
+      console.log(data);
 
-      const success = await handlePostItem(
-        image,
-        data,
-        userState.userInfo.userId
+      let imageName = encodeURIComponent(image.name);
+
+      const imageUploadResponse: AxiosResponse<any, any> = await axios.get(
+        `http://localhost:4000/image?file=${imageName}`
       );
 
-      if (success) {
-        alert("등록 완료");
-        navigate("/list");
-        return;
+      //S3 업로드
+      const formData = new FormData();
+      Object.entries({
+        ...imageUploadResponse.data.fields,
+        file: image,
+      }).forEach(([key, value]) => {
+        formData.append(key, value as string | Blob);
+      });
+
+      let uploadResult = await fetch(imageUploadResponse.data.url, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (uploadResult.ok) {
+        let imageUrl = `${uploadResult.url}/${imageName}`;
+
+        const success = await handlePostItem(
+          imageUrl,
+          data,
+          userState.userInfo.userId
+        );
+
+        if (success) {
+          alert("등록 완료");
+          navigate("/list");
+          return;
+        } else {
+          alert("등록 실패!!!");
+          reset();
+          return;
+        }
       } else {
-        alert("등록 실패!!!");
-        reset();
+        alert("이미지 업로드에 실패했습니다.");
         return;
       }
     }
   };
 
-  const handleImagePost = (event: any) => {
+  const handleImagePost = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files === null) {
       return;
     }

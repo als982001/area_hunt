@@ -9,9 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.379.1",
     "@ffmpeg/core": "^0.10.0",
     "@ffmpeg/ffmpeg": "^0.10.1",
+    "aws-sdk": "^2.1424.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^5.0.0",
