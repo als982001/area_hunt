@@ -10,7 +10,7 @@ import MongoStore from "connect-mongo";
 import rootRouter from "./src/routers/rootRouter";
 import userRouter from "./src/routers/userRouter";
 import itemRouter from "./src/routers/itemrouter";
-import recordRouter from "./src/routers/recordRouter";
+import reviewRouter from "./src/routers/reviewRouter";
 import { testPrint } from "./src/middlewares";
 import imageRouter from "./src/routers/imageRouter";
 
@@ -63,7 +63,7 @@ app.use(
 
 app.use("/user", userRouter);
 app.use("/items", itemRouter);
-app.use("/records", recordRouter);
+app.use("/review", reviewRouter);
 app.use("/image", imageRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);

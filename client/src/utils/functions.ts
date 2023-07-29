@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export let isLocal = false;
 export const localAreaImagePath =
@@ -69,4 +69,31 @@ export const isRegionIncluded = (address: string) => {
   }, false);
 
   return included;
+};
+
+export const getImageUrl = async (imageName: string, image: File) => {
+  imageName = encodeURIComponent(imageName);
+
+  const imageUploadResponse: AxiosResponse<any, any> = await axios.get(
+    `http://localhost:4000/image?file=${imageName}`
+  );
+
+  const formData = new FormData();
+  Object.entries({
+    ...imageUploadResponse.data.fields,
+    file: image,
+  }).forEach(([key, value]) => {
+    formData.append(key, value as string | Blob);
+  });
+
+  let uploadResult = await fetch(imageUploadResponse.data.url, {
+    method: "POST",
+    body: formData,
+  });
+
+  if (uploadResult.ok) {
+    return `${uploadResult.url}/${imageName}`;
+  } else {
+    return null;
+  }
 };

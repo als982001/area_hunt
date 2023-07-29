@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
+  getImageUrl,
   isLocal,
   isRegionIncluded,
   localAreaImagePath,
@@ -9,7 +10,6 @@ import {
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { handlePostItem } from "../utils/itemFunctions";
-import axios, { AxiosResponse } from "axios";
 
 interface FormValues {
   name: string;
@@ -48,31 +48,10 @@ export default function useRegist() {
       alert("이미지를 등록해주세요.");
       return;
     }
-    console.log(data);
 
-    let imageName = encodeURIComponent(image.name);
+    const imageUrl = await getImageUrl(image.name, image);
 
-    const imageUploadResponse: AxiosResponse<any, any> = await axios.get(
-      `http://localhost:4000/image?file=${imageName}`
-    );
-
-    //S3 업로드
-    const formData = new FormData();
-    Object.entries({
-      ...imageUploadResponse.data.fields,
-      file: image,
-    }).forEach(([key, value]) => {
-      formData.append(key, value as string | Blob);
-    });
-
-    let uploadResult = await fetch(imageUploadResponse.data.url, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (uploadResult.ok) {
-      let imageUrl = `${uploadResult.url}/${imageName}`;
-
+    if (imageUrl) {
       const success = await handlePostItem(
         imageUrl,
         data,
@@ -92,27 +71,6 @@ export default function useRegist() {
       alert("이미지 업로드에 실패했습니다.");
       return;
     }
-    /*
-    if (isLocal) {
-      const success = await handlePostItem(
-        imageUrl,
-        data,
-        userState.userInfo.userId
-      );
-
-      if (success) {
-        alert("등록 완료");
-        navigate("/list");
-        return;
-      } else {
-        alert("등록 실패!!!");
-        reset();
-        return;
-      }
-    } else {
-      
-    }
-    */
   };
 
   const handleImagePost = (event: React.ChangeEvent<HTMLInputElement>) => {

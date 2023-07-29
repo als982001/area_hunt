@@ -3,6 +3,8 @@ import path from "path";
 import Account from "../models/Account";
 import Test from "../models/Test";
 import Place from "../models/Place";
+import Review from "../models/Review";
+import { ObjectId } from "mongodb";
 
 const codes = {
   ok: 200,
@@ -17,7 +19,9 @@ export const home = async (req, res) => {
 };
 
 export const getAllAreas = async (req, res) => {
-  return res.status(codes.ok).json(dummyAreas);
+  const places = new Place.find();
+
+  return res.status(codes.ok).json(places);
 };
 
 export const getItemsByAddress = async (req, res) => {
@@ -78,36 +82,41 @@ export const getImage = async (req, res) => {
   return res.send(filePath);
 };
 
-export const getVisitRecords = async (req, res) => {
+export const getVisitReviews = async (req, res) => {
   const { id } = req.params;
 
-  const records = dummyVisitRecords.filter((record) => record.areaId === +id);
+  const reviews = await Review.find({ placeId: new ObjectId(id) });
+  console.log(reviews);
 
-  if (records) {
-    return res.status(codes.ok).json(records);
+  if (reviews) {
+    return res.status(codes.ok).json(reviews);
   } else {
     return res.status(codes.notFound).end();
   }
 };
 
-export const postVisitRecords = async (req, res) => {
+export const postVisitReviews = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const image = req.file;
-    const info = JSON.parse(req.body.info);
-    const areaId = JSON.parse(req.body.areaId);
+    const place = await Place.findById(id);
 
-    dummyVisitRecords.push({
-      id: dummyVisitRecords.length + 1,
-      areaId: +areaId,
-      imgPath: image.path,
-      name: info.name,
-      content: info.content,
-      date: info.date,
-    });
+    if (place) {
+      const newReview = await Review.create({
+        placeId: new ObjectId(id),
+        placeId: place._id,
+        ...req.body,
+      });
 
-    return res.status(codes.ok).end();
+      place.reviews.push(newReview._id);
+      place.save();
+
+      return res.status(codes.ok).end();
+    } else {
+      return res
+        .status(codes.notFound)
+        .send("해당하는 장소를 찾을 수 없습니다.");
+    }
   } catch (error) {
     return res.status(400).send("Error");
   }

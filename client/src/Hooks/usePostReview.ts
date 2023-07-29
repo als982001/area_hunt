@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
-import { getToday, isLocal, localReviewImagePath } from "../utils/functions";
+import {
+  getImageUrl,
+  getToday,
+  isLocal,
+  localReviewImagePath,
+} from "../utils/functions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
@@ -10,8 +15,8 @@ interface FormValues {
   content: string;
 }
 
-export default function usePostReview(id: string | number) {
-  const [image, setImage] = useState(null);
+export default function usePostReview(id: string) {
+  const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(isLocal ? localReviewImagePath : "");
 
   const navigate = useNavigate();
@@ -32,24 +37,22 @@ export default function usePostReview(id: string | number) {
       date,
     };
 
-    if (isLocal) {
-      const success = await postRecord(imageUrl, id, info);
+    if (image === null) {
+      alert("이미지를 등록해주세요.");
+      return;
+    }
 
-      if (success) {
-        alert("등록 성공");
+    const imageUrl = await getImageUrl(image.name, image);
 
-        navigate("/list");
-      } else {
-        alert("등록 실패!!!");
-        reset();
-      }
-    } else {
-      if (image === null) {
-        alert("이미지를 등록해주세요.");
-        return;
-      }
+    if (imageUrl) {
+      const newRecord = {
+        imageUrl,
+        name: userState.userInfo.name,
+        content,
+        date,
+      };
 
-      const success = await postRecord(image, id, info);
+      const success = await postRecord(id, newRecord);
 
       if (success) {
         alert("등록 성공");
@@ -58,6 +61,9 @@ export default function usePostReview(id: string | number) {
         alert("등록 실패!!!");
         reset();
       }
+    } else {
+      alert("이미지 업로드에 실패했습니다.");
+      return;
     }
 
     return;

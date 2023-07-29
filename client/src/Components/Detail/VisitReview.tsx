@@ -5,16 +5,10 @@ import { borderRadius20px } from "../../styles/styles";
 import { displayStartCenter } from "../../styles/displays";
 import { fixedCenter } from "../../styles/positions";
 import { defaultShadow } from "../../styles/shadows";
+import { IReview } from "../../utils/types";
 
 interface IProps {
-  record: {
-    id: number;
-    areaId: number;
-    imgPath: string;
-    name: string;
-    content: string;
-    date: string;
-  };
+  review: IReview;
   key: string;
 }
 
@@ -73,7 +67,7 @@ const Modal = styled.img`
   z-index: 10;
 `;
 
-export default function VisitRecord(props: IProps) {
+export default function VisitReview(props: IProps) {
   const [bigImg, setBigImg] = useState(false);
 
   const handleBigImg = (isBig: boolean) => {
@@ -84,31 +78,20 @@ export default function VisitRecord(props: IProps) {
     <>
       <Container>
         <Img
-          src={
-            props.record.imgPath.includes("uploads")
-              ? `${process.env.REACT_APP_BACK}/${props.record.imgPath}`
-              : `${props.record.imgPath}`
-          }
+          src={props.review.imageUrl}
           alt="visit_img"
           onClick={() => handleBigImg(true)}
         />
         <Infos>
-          <Info alignItems="center">{props.record.name}</Info>
-          <Info alignItems="start">{props.record.content}</Info>
-          <Info alignItems="center">{props.record.date}</Info>
+          <Info alignItems="center">{props.review.name}</Info>
+          <Info alignItems="start">{props.review.content}</Info>
+          <Info alignItems="center">{props.review.date}</Info>
         </Infos>
       </Container>
       {bigImg && (
         <>
           <Overlay onClick={() => handleBigImg(false)} />
-          <Modal
-            src={
-              props.record.imgPath.includes("uploads")
-                ? `${process.env.REACT_APP_BACK}/${props.record.imgPath}`
-                : `${props.record.imgPath}`
-            }
-            alt="big_visit_img"
-          />
+          <Modal src={props.review.imageUrl} alt="big_visit_img" />
         </>
       )}
     </>

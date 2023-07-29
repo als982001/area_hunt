@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import VisitRecord from "./VisitRecord";
+import VisitReview from "./VisitReview";
 import RecordForm from "./RecordForm";
 import useGetReviews from "../../Hooks/useGetReviews";
 
 interface IProps {
-  id: string | number;
+  id: string;
 }
 
 const Wrapper = styled.div`
@@ -20,7 +20,7 @@ const Container = styled.div`
 `;
 
 export default function VisitRecords({ id }: IProps) {
-  const { userState, isLoading, records } = useGetReviews(id);
+  const { userState, isLoading, reviews } = useGetReviews(id);
 
   return (
     <Wrapper>
@@ -29,8 +29,8 @@ export default function VisitRecords({ id }: IProps) {
         {isLoading ? (
           <h1>Loading...</h1>
         ) : (
-          records.map((record) => (
-            <VisitRecord key={record.id + ""} record={record} />
+          reviews.map((review) => (
+            <VisitReview key={review._id.toString()} review={review} />
           ))
         )}
       </Container>

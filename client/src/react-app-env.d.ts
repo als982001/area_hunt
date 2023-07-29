@@ -41,12 +41,3 @@ interface IAccount {
   phone: string;
   email: string;
 }
-
-interface IReview {
-  id: number;
-  areaId: number;
-  imgPath: string;
-  name: string;
-  content: string;
-  date: string;
-}

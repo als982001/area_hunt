@@ -12,7 +12,7 @@ import { defaultShadow } from "../../styles/shadows";
 import usePostReview from "../../Hooks/usePostReview";
 
 interface IProps {
-  id: string | number;
+  id: string;
 }
 
 const Form = styled.form`
