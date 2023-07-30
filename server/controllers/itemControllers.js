@@ -1,7 +1,6 @@
 import { dummyAreas, dummyVisitRecords } from "../datas/dummyData";
 import path from "path";
 import Account from "../models/Account";
-import Test from "../models/Test";
 import Place from "../models/Place";
 import Review from "../models/Review";
 import { ObjectId } from "mongodb";
@@ -75,13 +74,6 @@ export const postItem = async (req, res) => {
   }
 };
 
-export const getImage = async (req, res) => {
-  const { filename } = req.params;
-  const filePath = path.join(__dirname, "../uploads", filename);
-
-  return res.send(filePath);
-};
-
 export const getVisitReviews = async (req, res) => {
   const { id } = req.params;
 
@@ -104,7 +96,6 @@ export const postVisitReviews = async (req, res) => {
     if (place) {
       const newReview = await Review.create({
         placeId: new ObjectId(id),
-        placeId: place._id,
         ...req.body,
       });
 

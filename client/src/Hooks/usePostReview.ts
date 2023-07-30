@@ -31,12 +31,6 @@ export default function usePostReview(id: string) {
     const { content } = data;
     const date = getToday();
 
-    const info = {
-      content,
-      name: userState.userInfo.name,
-      date,
-    };
-
     if (image === null) {
       alert("이미지를 등록해주세요.");
       return;

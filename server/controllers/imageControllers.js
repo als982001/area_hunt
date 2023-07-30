@@ -1,8 +1,6 @@
 import aws from "aws-sdk";
 
 export const getBucketUrl = async (req, res) => {
-  console.log("Get Bucket Url 시작!");
-
   aws.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_KEY,
@@ -17,7 +15,7 @@ export const getBucketUrl = async (req, res) => {
     Fields: { key: req.query.file },
     Expires: 60, // seconds
     Conditions: [
-      ["content-length-range", 0, 5242880], //파일용량 1MB 까지 제한
+      ["content-length-range", 0, 5242880], //파일용량 5MB 까지 제한
     ],
   });
 
