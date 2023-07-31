@@ -60,16 +60,6 @@ export const updateItem = async (req, res) => {
 
   await Place.findByIdAndUpdate(updatedPlace._id, updatedPlace);
 
-  /*
-  const image = req.file;
-  const updatedData = JSON.parse(req.body.data);
-
-  dummyAreas[updatedData.id] = {
-    image,
-    ...updatedData,
-  };
-  */
-
   return res.status(200).end();
 };
 
@@ -126,7 +116,12 @@ export const postVisitReviews = async (req, res) => {
 export const getItemsByKeyword = async (req, res) => {
   const { keyword } = req.query;
 
-  const result = dummyAreas.filter((item) => item.name.includes(keyword));
+  // const result = dummyAreas.filter((item) => item.name.includes(keyword));
+  const result = await Place.find({
+    name: {
+      $regex: new RegExp(keyword, "i"),
+    },
+  });
 
   return res.status(codes.ok).json(result);
 };

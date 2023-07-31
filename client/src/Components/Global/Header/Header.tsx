@@ -111,6 +111,7 @@ export default function Header({
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Enter") {
+      console.log(keyword);
       const result = await getItemsByKeyword(keyword);
 
       handleSetSearchResult(result);
