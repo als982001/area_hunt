@@ -25,8 +25,6 @@ export default function useLogin() {
   });
 
   const handleLoginStart = async (data: FormValues) => {
-    console.log(data);
-
     const userInfo: IAccount | null = await handleStartLogin(data);
 
     if (userInfo === null) {
@@ -38,8 +36,6 @@ export default function useLogin() {
   };
 
   const checkValidAccess = () => {
-    console.log(userState);
-
     if (userState.login === true) {
       console.log("로그인 하셧네여");
       navigate("/list");

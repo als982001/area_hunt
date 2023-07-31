@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { isLocal } from "../utils/functions";
+import { getImageUrl, isLocal } from "../utils/functions";
 import { updateItem } from "../utils/itemFunctions";
 import { IPlace } from "../utils/types";
 
 export default function useUpdate(data: IPlace) {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(data.imageUrl);
 
   const navigate = useNavigate();
@@ -20,46 +20,37 @@ export default function useUpdate(data: IPlace) {
     },
   });
 
-  const handleStartUpdate = async (event: any) => {
-    console.log("나중에");
-    return;
-    /*
-    const { name, address, location, content } = event;
+  const handleStartUpdate = async (event: { [key: string]: string }) => {
+    if (image) {
+      const newImageUrl = await getImageUrl(image.name, image);
 
-    const updatedInfo = {
-      id: data.id,
-      name,
-      address,
-      location,
-      content,
-      publisherId: data.publisherId,
-    };
-
-    if (isLocal) {
-      const success = await updateItem(imageUrl, updatedInfo);
-
-      if (success) {
-        navigate("/list");
+      if (newImageUrl) {
+        setImageUrl(newImageUrl);
       } else {
-        alert("정보가 업데이트되지 않았습니다.");
-      }
-    } else {
-      if (image === null) {
-        alert("이미지를 수정해주세요.");
+        alert("이미지 업로드에 실패했습니다.");
         return;
-      }
-
-      const success = await updateItem(image, updatedInfo);
-
-      if (success) {
-        window.location.reload();
-      } else {
-        alert("정보가 업데이트되지 않았습니다.");
       }
     }
 
+    const updatedPlace: IPlace = {
+      _id: data._id,
+      imageUrl,
+      name: event.name,
+      address: event.address,
+      location: event.location,
+      content: event.content,
+      publisherId: data.publisherId,
+      reviews: data.reviews,
+    };
+
+    const success = await updateItem(updatedPlace);
+
+    if (success) {
+      window.location.reload();
+    } else {
+      alert("정보가 업데이트되지 않았습니다.");
+    }
     return;
-    */
   };
 
   const handleImagePost = (event: any) => {

@@ -1,5 +1,6 @@
 import { isLocal, localAreaImagePath } from "./functions";
 import axios from "axios";
+import { IPlace } from "./types";
 
 interface IAreaData {
   name: string;
@@ -75,16 +76,11 @@ export const handlePostItem = async (
   }
 };
 
-export const updateItem = async (image: File | string, data: IUpdate) => {
+export const updateItem = async (updatedPlace: IPlace) => {
   try {
-    const formData = new FormData();
-
-    formData.append("image", image);
-    formData.append("data", JSON.stringify(data));
-
     const response = await axios.patch(
-      `${process.env.REACT_APP_BACK}/items/${data.id}`,
-      formData,
+      `${process.env.REACT_APP_BACK}/items/${updatedPlace._id.toString()}`,
+      updatedPlace,
       {
         headers: {
           "Content-Type": "multipart/form-data",

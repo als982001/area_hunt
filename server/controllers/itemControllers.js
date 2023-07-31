@@ -50,7 +50,17 @@ export const getItem = async (req, res) => {
 
 export const updateItem = async (req, res) => {
   const { id } = req.params;
+  const updatedPlace = req.body;
 
+  const place = await Place.exists({ _id: updatedPlace._id });
+
+  if (!place) {
+    return res.status(codes.forbidden).send("데이터를 찾을 수 없습니다.");
+  }
+
+  await Place.findByIdAndUpdate(updatedPlace._id, updatedPlace);
+
+  /*
   const image = req.file;
   const updatedData = JSON.parse(req.body.data);
 
@@ -58,8 +68,9 @@ export const updateItem = async (req, res) => {
     image,
     ...updatedData,
   };
+  */
 
-  return res.end();
+  return res.status(200).end();
 };
 
 export const postItem = async (req, res) => {
@@ -78,7 +89,6 @@ export const getVisitReviews = async (req, res) => {
   const { id } = req.params;
 
   const reviews = await Review.find({ placeId: new ObjectId(id) });
-  console.log(reviews);
 
   if (reviews) {
     return res.status(codes.ok).json(reviews);
