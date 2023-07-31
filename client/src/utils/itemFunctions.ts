@@ -9,15 +9,6 @@ interface IAreaData {
   content: string;
 }
 
-interface IUpdate {
-  id: number;
-  name: string;
-  address: string;
-  location: string;
-  content: string;
-  publisherId: string;
-}
-
 export const getAllItems = async () => {
   try {
     const response = await axios.get(`${process.env.REACT_APP_BACK}/items`);

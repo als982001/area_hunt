@@ -19,3 +19,23 @@ export interface IReview {
   content: string;
   date: string;
 }
+
+export interface IAccount {
+  _id: mongoose.Types.ObjectId;
+  imageUrl: string;
+  name: string;
+  userId: string;
+  password: string;
+  phone: string;
+  email: string;
+  __v?: any;
+}
+
+export interface IJoinInfo {
+  imageUrl: string;
+  name: string;
+  userId: string;
+  password: string;
+  phone: string;
+  email: string;
+}

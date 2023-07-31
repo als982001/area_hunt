@@ -1,27 +1,17 @@
 import axios from "axios";
-import { isLocal, localAreaImagePath } from "./functions";
+import { isLocal } from "./functions";
+import { IJoinInfo } from "./types";
 
 type loginType = {
   userId: string;
   password: string;
 };
 
-interface IJoinInfo {
-  userId: string;
-  password: string;
-  password2: string;
-  name: string;
-  phone: string;
-  email: string;
-}
-
 export const handleStartLogin = async (loginInfo: loginType) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BACK}/user/login`,
-      {
-        loginInfo,
-      }
+      loginInfo
     );
 
     return response.data;
@@ -31,20 +21,11 @@ export const handleStartLogin = async (loginInfo: loginType) => {
   }
 };
 
-export const handleJoin = async (image: File, joinInfo: IJoinInfo) => {
+export const handleJoin = async (newAccount: IJoinInfo) => {
   try {
-    const formData = new FormData();
-
-    formData.append("image", image);
-    formData.append("userId", joinInfo.userId);
-    formData.append("password", joinInfo.password);
-    formData.append("name", joinInfo.name);
-    formData.append("phone", joinInfo.phone);
-    formData.append("email", joinInfo.email);
-
     const response = await axios.post(
       `${process.env.REACT_APP_BACK}/user/join`,
-      formData,
+      newAccount,
       {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -53,8 +34,11 @@ export const handleJoin = async (image: File, joinInfo: IJoinInfo) => {
     );
 
     return true;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+    if (error.response.data) {
+      alert(error.response.data);
+    }
     return false;
   }
 };

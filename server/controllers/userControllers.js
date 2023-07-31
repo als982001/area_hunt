@@ -1,4 +1,5 @@
 import axios from "axios";
+import Account from "../models/Account";
 import { dummyAccounts } from "../datas/dummyAccounts";
 import { generateToken, verifyToken } from "./helper/tokenFunctions";
 require("dotenv").config();
@@ -33,23 +34,23 @@ const refreshCookieOption = {
 };
 
 export const login = async (req, res) => {
-  const { userId, password } = req.body.loginInfo;
+  const { userId, password } = req.body;
 
-  const userInfo = dummyAccounts.find(
-    (account) => account.userId === userId && account.password === password
-  );
+  const account = await Account.findOne({ userId, password });
 
-  if (userInfo === undefined) {
-    res.status(codes.unauthorized).send("Not Authorized");
-    return;
+  if (account) {
+    const { accessToken, refreshToken } = generateToken(
+      { id: account.userId, email: account.email },
+      true
+    );
+
+    res.cookie("refresh_jwt", refreshToken, refreshCookieOption);
+    res.cookie("access_jwt", accessToken, cookieOption);
+
+    res.redirect("userInfo");
+  } else {
+    return res.status(codes.unauthorized).send("Not Authorized");
   }
-
-  const { accessToken, refreshToken } = generateToken(userInfo, true);
-
-  res.cookie("refresh_jwt", refreshToken, refreshCookieOption);
-  res.cookie("access_jwt", accessToken, cookieOption);
-
-  res.redirect("userInfo");
 };
 
 export const logout = (req, res) => {
@@ -64,7 +65,7 @@ export const logout = (req, res) => {
   return res.status(205).send("Logged Out Successfully");
 };
 
-export const checkUserInfo = (req, res) => {
+export const checkUserInfo = async (req, res) => {
   const { cookies } = req;
 
   const accessToken = cookies.access_jwt;
@@ -73,13 +74,17 @@ export const checkUserInfo = (req, res) => {
 
   if (accessPayload) {
     const { id } = accessPayload;
-    const userInfo = dummyAccounts.find((account) => account.id === id);
 
-    if (!userInfo) {
+    const userInfo = await Account.findOne({ userId: id });
+
+    if (userInfo) {
+      const checkedUserInfo = { ...userInfo.toObject() };
+      delete checkedUserInfo.password;
+
+      return res.json(checkedUserInfo);
+    } else {
       return res.status(401).send("Not Authorized");
     }
-
-    return res.json({ ...userInfo, password: "알려주지않는다." });
   } else if (refreshToken) {
     const refreshPayload = verifyToken(REFRESH, refreshToken);
 
@@ -88,34 +93,35 @@ export const checkUserInfo = (req, res) => {
     }
 
     const { id } = refreshPayload;
-    const userInfo = dummyAccounts.find((account) => account.id === id);
+    const userInfo = await Account.findOne({ userId: id });
 
     const { accessToken } = generateToken(userInfo);
 
     res.cookie("access_jwt", accessToken, cookieOption);
 
-    return res.json({ ...userInfo, password: "알려주지않는다." });
+    const checkedUserInfo = { ...userInfo.toObject() };
+    delete checkedUserInfo.password;
+
+    return res.json(checkedUserInfo);
   }
 
   return res.status(401).send("Not Authorized");
 };
 
-export const join = (req, res) => {
-  const userImg = req.file;
-  const joinInfo = req.body;
+export const join = async (req, res) => {
+  const newAccount = req.body;
 
-  const { userId, password } = joinInfo;
+  const account = await Account.exists({
+    $or: [{ userId: newAccount.userId }, { email: newAccount.email }],
+  });
 
-  const userInfo = dummyAccounts.find((account) => account.userId === userId);
-
-  if (userInfo === undefined) {
-    const newAccount = { id: dummyAccounts.length, userImg, ...joinInfo };
-    dummyAccounts.push(newAccount);
-
-    res.status(codes.ok).end();
-  } else {
-    res.status(codes.unauthorized).send("동일한 ID가 존재합니다.");
+  if (account) {
+    return res.status(codes.forbidden).json("이미 존재하는 게정입니다.");
   }
+
+  await Account.create(newAccount);
+
+  res.status(codes.ok).end();
 };
 
 export const kakaoLogin = async (req, res) => {

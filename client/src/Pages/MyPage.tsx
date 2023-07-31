@@ -110,6 +110,8 @@ export default function MyPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(userState);
+
     if (userState.login === false) {
       navigate("/");
       return;
@@ -120,13 +122,7 @@ export default function MyPage() {
     <Wrapper>
       <Card>
         <ImgBox className="imgbox">
-          <Img
-            bgImage={
-              userState.userInfo.userImg.path.includes("pixabay")
-                ? `${userState.userInfo.userImg.path}`
-                : `${process.env.REACT_APP_BACK}/${userState.userInfo.userImg.path}`
-            }
-          ></Img>
+          <Img bgImage={userState.userInfo.imageUrl}></Img>
         </ImgBox>
         <Details>
           <Title>{`ID: ${userState.userInfo.userId}`}</Title>

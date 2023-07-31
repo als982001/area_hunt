@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { handleJoin } from "../utils/MemberFunctions";
+import { getImageUrl } from "../utils/functions";
+import { IJoinInfo } from "../utils/types";
 
 interface FormValues {
   userId: string;
@@ -13,7 +15,7 @@ interface FormValues {
 }
 
 export default function useJoin() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
 
   const navigate = useNavigate();
@@ -48,14 +50,30 @@ export default function useJoin() {
       return;
     }
 
-    const success = await handleJoin(image, data);
+    const accountImageUrl = await getImageUrl(image.name, image);
 
-    if (success) {
-      alert("회원가입에 성공했습니다.");
-      navigate("/login");
-      return;
+    if (accountImageUrl) {
+      const newAccount: IJoinInfo = {
+        imageUrl: accountImageUrl,
+        name: data.name,
+        userId: data.userId,
+        password: data.password,
+        phone: data.phone,
+        email: data.email,
+      };
+
+      const success = await handleJoin(newAccount);
+
+      if (success) {
+        alert("회원가입에 성공했습니다.");
+        navigate("/login");
+        return;
+      } else {
+        alert("회원가입에 실패했습니다.");
+      }
     } else {
-      alert("회원가입에 실패했습니다.");
+      alert("이미지 등록에 실패했습니다.");
+      return;
     }
 
     return;
