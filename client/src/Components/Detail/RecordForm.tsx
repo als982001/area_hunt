@@ -24,8 +24,9 @@ const Form = styled.form`
   margin-bottom: 20px;
   padding: 10px;
 
-  @media screen and (max-width: 600px) {
-    height: 150px;
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    height: auto;
   }
 `;
 
@@ -40,11 +41,6 @@ const Img = styled.div<{ bgImage: string }>`
   padding: 2px;
   cursor: pointer;
   text-align: center;
-
-  @media screen and (max-width: 600px) {
-    width: 70px;
-    height: 70px;
-  }
 `;
 
 const ContentInput = styled.textarea`
@@ -53,6 +49,10 @@ const ContentInput = styled.textarea`
   flex-grow: 1;
   margin: 0 30px;
   font-size: 15px;
+
+  @media screen and (max-width: 450px) {
+    margin: 30px 0;
+  }
 `;
 
 export default function RecordForm(props: IProps) {
