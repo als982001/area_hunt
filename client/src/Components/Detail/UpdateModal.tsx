@@ -28,8 +28,20 @@ const Container = styled.form`
   background-color: white;
   z-index: 10;
   grid-template-columns: 1fr 1fr;
+  gap: 20px;
   justify-items: center;
   box-shadow: floralwhite 0px 19px 38px, ghostwhite 0px 15px 12px;
+
+  @media screen and (max-width: 1000px) {
+    width: 70vw;
+    height: 80vh;
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 10px 0;
+  }
 `;
 
 const Img = styled.div<{ bgImage: string }>`
@@ -41,6 +53,10 @@ const Img = styled.div<{ bgImage: string }>`
   width: 100%;
   height: 100%;
   max-height: 100%;
+
+  @media screen and (max-width: 450px) {
+    width: 80%;
+  }
 `;
 
 const Infos = styled.div`
@@ -48,15 +64,20 @@ const Infos = styled.div`
   ${displayCenter}
   ${defaultShadow}
 
-  width: 80%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
+
+  @media screen and (max-width: 450px) {
+    width: 80%;
+    padding: 10px 0;
+  }
 `;
 
 const InfoSpace = styled.div`
   ${displayStartCenter}
   width: 80%;
-  height: 50px;
+  max-height: 50px;
   margin: 20px 0;
   border-bottom: 1px solid gray;
 `;
@@ -68,11 +89,15 @@ const Label = styled.label`
   height: 100%;
   font-size: 20px;
   font-weight: bold;
+
+  @media screen and (max-width: 450px) {
+    display: none;
+  }
 `;
 
 const Input = styled.input`
   ${displayStartCenter}
-
+  width: 80%;
   height: 100%;
   font-size: 18px;
   font-weight: 400;
@@ -87,6 +112,8 @@ export default function UpdateModal({ data, setUpdate }: IProps) {
     imageUrl,
     handleImagePost,
     register,
+    imageInputRef,
+    handleInputClick,
   } = useUpdate(data);
 
   return (
@@ -94,15 +121,14 @@ export default function UpdateModal({ data, setUpdate }: IProps) {
       encType="multipart/form-data"
       onSubmit={handleSubmit(handleStartUpdate)}
     >
-      <Img
-        bgImage={
-          imageUrl.includes("uploads")
-            ? `${process.env.REACT_APP_BACK}/${imageUrl}`
-            : `${imageUrl}`
-        }
-      >
-        <input type="file" accept="image/&*" onChange={handleImagePost} />
-      </Img>
+      <Img bgImage={imageUrl} onClick={handleInputClick} />
+      <input
+        type="file"
+        accept="image/&*"
+        style={{ display: "none" }}
+        onChange={handleImagePost}
+        ref={imageInputRef}
+      />
       <Infos>
         <InfoSpace>
           <Label>이름</Label>

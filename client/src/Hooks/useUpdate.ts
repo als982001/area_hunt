@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../utils/functions";
@@ -9,7 +9,7 @@ export default function useUpdate(data: IPlace) {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(data.imageUrl);
 
-  const navigate = useNavigate();
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -63,11 +63,19 @@ export default function useUpdate(data: IPlace) {
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };
 
+  const handleInputClick = () => {
+    if (imageInputRef.current) {
+      imageInputRef.current.click();
+    }
+  };
+
   return {
     handleSubmit,
     handleStartUpdate,
     imageUrl,
     handleImagePost,
     register,
+    imageInputRef,
+    handleInputClick,
   };
 }

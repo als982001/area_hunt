@@ -17,6 +17,8 @@ import PencilButton from "../Components/Global/Buttons/PencilButton";
 import useDetail from "../Hooks/useDetail";
 import { IPlace } from "../utils/types";
 
+const haha = "450px";
+
 const Wrapper = styled.div`
   width: 100%;
   ${displayCenterStart}
@@ -30,22 +32,21 @@ const Container = styled.div`
 `;
 
 const Area = styled.div`
-  ${gridCenter}
   ${borderRadius20px}
   ${defaultShadow}
   
   width: 100%;
   height: 500px;
+  display: grid;
+  align-items: center;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
 
-  background-color: #fff;
-
   @media screen and (max-width: 1000px) {
+    height: 1000px;
+    padding: 50px 0;
     grid-template-columns: none;
     grid-template-rows: 1fr 1fr;
-    width: 80%;
-    padding: 50px 0;
   }
 `;
 
@@ -94,6 +95,10 @@ const Label = styled.label`
   height: 100%;
   font-size: 20px;
   font-weight: bold;
+
+  @media screen and (max-width: 450px) {
+    display: none;
+  }
 `;
 
 const Info = styled.h4`
