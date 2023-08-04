@@ -16,7 +16,6 @@ import NotFound from "./Pages/NotFound";
 
 import { handleAuth, handleLogout } from "./Redux/Actions";
 import { handleLoginCheck } from "./utils/MemberFunctions";
-import { isLocal } from "./utils/functions";
 import { IPlace } from "./utils/types";
 
 const Wrapper = styled.div`
@@ -49,8 +48,6 @@ function App() {
   };
 
   const authHandler = async () => {
-    if (isLocal === false) return;
-
     try {
       const result = await handleLoginCheck();
 

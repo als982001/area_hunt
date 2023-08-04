@@ -1,12 +1,7 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  getImageUrl,
-  isLocal,
-  isRegionIncluded,
-  localAreaImagePath,
-} from "../utils/functions";
+import { getImageUrl, isRegionIncluded } from "../utils/functions";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { handlePostItem } from "../utils/itemFunctions";
@@ -20,7 +15,7 @@ interface FormValues {
 
 export default function useRegist() {
   const [image, setImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(isLocal ? localAreaImagePath : "");
+  const [imageUrl, setImageUrl] = useState("");
 
   const userState = useSelector((state: RootState) => state.userReducer);
 

@@ -1,10 +1,5 @@
 import { useRef, useState } from "react";
-import {
-  getImageUrl,
-  getToday,
-  isLocal,
-  localReviewImagePath,
-} from "../utils/functions";
+import { getImageUrl, getToday } from "../utils/functions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
@@ -17,7 +12,7 @@ interface FormValues {
 
 export default function usePostReview(id: string) {
   const [image, setImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState(isLocal ? localReviewImagePath : "");
+  const [imageUrl, setImageUrl] = useState("");
 
   const navigate = useNavigate();
 

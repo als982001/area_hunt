@@ -1,5 +1,4 @@
 import axios from "axios";
-import { isLocal } from "./functions";
 import { IJoinInfo } from "./types";
 
 type loginType = {
@@ -45,14 +44,11 @@ export const handleJoin = async (newAccount: IJoinInfo) => {
 
 export const handleLoginCheck = async () => {
   try {
-    if (isLocal) {
-    } else {
-      const response = await axios.get(
-        `${process.env.REACT_APP_BACK}/user/userInfo`
-      );
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK}/user/userInfo`
+    );
 
-      return response.data;
-    }
+    return response.data;
   } catch (error: any) {
     console.log("Login status is invalid or the token has expired.");
     return null;

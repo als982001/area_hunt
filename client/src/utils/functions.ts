@@ -1,14 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 
-export let isLocal = false;
-export const localAreaImagePath =
-  "https://cdn.pixabay.com/photo/2013/07/18/10/56/railroad-163518_1280.jpg";
-export const localReviewImagePath =
-  "https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg";
-export const localUserImagePath =
-  "https://cdn.pixabay.com/photo/2017/09/15/02/22/fantasy-2750995_1280.jpg";
-export const regions = ["서울", "강원", "충청", "경상", "전라", "제주"];
-
 // 현재 날짜를 문자열로 반환하는 함수
 // 예) "2023-05-06" 형태의 문자열을 반환합니다.
 export const getToday: () => string = () => {
@@ -64,8 +55,10 @@ export const getPhoneForm = (phone: string): string => {
 };
 
 export const isRegionIncluded = (address: string) => {
-  let included = regions.reduce((result, region) => {
-    return (result = result || address.includes(region));
+  const locations = ["서울", "강원", "충청", "경상", "전라", "제주"];
+
+  let included = locations.reduce((result, location) => {
+    return (result = result || address.includes(location));
   }, false);
 
   return included;

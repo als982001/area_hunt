@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import RegistInput from "../Components/Regist/RegistInput";
 import Button from "../Components/Global/Buttons/Button";
 import { displayCenter, displayCenterStart } from "../styles/displays";
-import { isLocal } from "../utils/functions";
 import { borderRadius20px, centerImage } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
 import useRegist from "../Hooks/useRegist";
@@ -94,7 +93,6 @@ export default function Regist() {
             {imageUrl.length === 0 && "클릭하여 이미지를 등록해주세요."}
           </Img>
           <input
-            disabled={isLocal}
             type="file"
             accept="image/*"
             onChange={handleImagePost}

@@ -6,7 +6,6 @@ import {
   centerImage,
   contentInputStyle,
 } from "../../styles/styles";
-import { isLocal } from "../../utils/functions";
 import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { defaultShadow } from "../../styles/shadows";
 import usePostReview from "../../Hooks/usePostReview";
@@ -73,19 +72,15 @@ export default function RecordForm(props: IProps) {
       onSubmit={handleSubmit(handlePostRecord)}
     >
       <Img bgImage={imageUrl} onClick={handleInputClick}>
-        {isLocal === false &&
-          imageUrl.length === 0 &&
-          "클릭하여 이미지를 등록해주세요."}
+        {imageUrl.length === 0 && "클릭하여 이미지를 등록해주세요."}
       </Img>
-      {isLocal === false && (
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleInputImage}
-          style={{ display: "none" }}
-          ref={imageInputRef}
-        />
-      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleInputImage}
+        style={{ display: "none" }}
+        ref={imageInputRef}
+      />
       <ContentInput height="80%" {...register("content", { required: true })} />
       <SubmitButton width="120px" height="70px" fontSize="15px">
         작성

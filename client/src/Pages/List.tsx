@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Cards from "../Components/List/Cards";
 import SearchResult from "../Components/List/SearchResult";
 import ToTopButton from "../Components/Global/Buttons/ToTopButton";
-import { regions } from "../utils/functions";
 import { IPlace } from "../utils/types";
 
 interface IProps {
@@ -25,6 +24,8 @@ export default function List({
   searchFinished,
   setSearchFinished,
 }: IProps) {
+  const locations = ["서울", "강원", "충청", "경상", "전라", "제주"];
+
   return (
     <Wrapper>
       {searchFinished ? (
@@ -35,7 +36,9 @@ export default function List({
           setSearchFinished={setSearchFinished}
         />
       ) : (
-        regions.map((region) => <Cards region={region} key={region} />)
+        locations.map((location) => (
+          <Cards location={location} key={location} />
+        ))
       )}
       <ToTopButton onClick={() => window.scrollTo(0, 0)}></ToTopButton>
     </Wrapper>

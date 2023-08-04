@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { getImageUrl, isLocal } from "../utils/functions";
+import { getImageUrl } from "../utils/functions";
 import { updateItem } from "../utils/itemFunctions";
 import { IPlace } from "../utils/types";
 

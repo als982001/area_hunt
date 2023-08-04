@@ -1,4 +1,3 @@
-import { isLocal, localAreaImagePath } from "./functions";
 import axios from "axios";
 import { IPlace } from "./types";
 
