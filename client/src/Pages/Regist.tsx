@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   padding-bottom: 100px;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1000px) {
     padding: 20px;
   }
 `;
@@ -32,7 +32,7 @@ const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1000px) {
     grid-template-columns: none;
     grid-template-rows: 2fr 1fr;
     gap: 10px;

@@ -54,3 +54,15 @@ export const handleLoginCheck = async () => {
     return null;
   }
 };
+
+export const startLogout = async () => {
+  try {
+    await axios.post(`${process.env.REACT_APP_BACK}/user/logout`);
+
+    return true;
+  } catch (error) {
+    console.log(error);
+
+    return false;
+  }
+};

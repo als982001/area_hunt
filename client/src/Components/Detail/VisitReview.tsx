@@ -7,6 +7,9 @@ import { fixedCenter } from "../../styles/positions";
 import { defaultShadow } from "../../styles/shadows";
 import { IReview } from "../../utils/types";
 
+import { CiCircleRemove } from "react-icons/ci";
+import useEditReview from "../../Hooks/useEditReview";
+
 interface IProps {
   review: IReview;
   key: string;
@@ -29,6 +32,7 @@ const Img = styled.img<{ onClick?: () => void }>`
 
   width: 200px;
   height: 200px;
+  cursor: pointer;
 `;
 
 const Infos = styled.div`
@@ -67,31 +71,44 @@ const Modal = styled.img`
   z-index: 10;
 `;
 
-export default function VisitReview(props: IProps) {
-  const [bigImg, setBigImg] = useState(false);
+const RemoveBtn = styled(CiCircleRemove)`
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+`;
 
-  const handleBigImg = (isBig: boolean) => {
-    setBigImg((prev) => isBig);
-  };
+export default function VisitReview({ review }: IProps) {
+  const { bigImg, handleBigImg, userState, handleRemoveReview } =
+    useEditReview(review);
 
   return (
     <>
       <Container>
         <Img
-          src={props.review.imageUrl}
+          src={review.imageUrl}
           alt="visit_img"
           onClick={() => handleBigImg(true)}
         />
         <Infos>
-          <Info alignItems="center">{props.review.name}</Info>
-          <Info alignItems="start">{props.review.content}</Info>
-          <Info alignItems="center">{props.review.date}</Info>
+          <Info alignItems="center">
+            {review.name}
+            {userState.login && userState.userInfo.name === review.name && (
+              <RemoveBtn
+                onClick={() => {
+                  handleRemoveReview(review._id);
+                }}
+              />
+            )}
+          </Info>
+          <Info alignItems="start">{review.content}</Info>
+          <Info alignItems="center">{review.date}</Info>
         </Infos>
       </Container>
       {bigImg && (
         <>
           <Overlay onClick={() => handleBigImg(false)} />
-          <Modal src={props.review.imageUrl} alt="big_visit_img" />
+          <Modal src={review.imageUrl} alt="big_visit_img" />
         </>
       )}
     </>

@@ -16,6 +16,7 @@ import {
 } from "../../../styles/displays";
 import MenuButton from "../Buttons/MenuButton";
 import { IPlace } from "../../../utils/types";
+import { startLogout } from "../../../utils/MemberFunctions";
 
 interface IProps {
   keyword: string;
@@ -100,10 +101,19 @@ export default function Header({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleStartLogout = () => {
+  const handleStartLogout = async () => {
     alert("로그아웃 했습니다.");
-    dispatch(handleLogout());
-    navigate("/");
+
+    const success = await startLogout();
+
+    if (success) {
+      dispatch(handleLogout());
+      navigate("/");
+    } else {
+      alert("로그아웃에 실패했습니다.");
+      return;
+    }
+
     return;
   };
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IPlace } from "./types";
+import mongoose from "mongoose";
 
 interface IAreaData {
   name: string;
@@ -137,5 +138,18 @@ export const getItemsByKeyword = async (keyword: string) => {
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+export const removeReview = async (_id: mongoose.Types.ObjectId | string) => {
+  try {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_BACK}/review/delete?_id=${_id}`
+    );
+
+    return response.status;
+  } catch (error: any) {
+    alert(error.response.data);
+    return error.response.status;
   }
 };
