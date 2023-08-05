@@ -18,6 +18,7 @@ const Container = styled.div`
   padding-bottom: 60px;
   border-radius: ${(props) => props.theme.borderRadius};
   position: relative;
+  margin: 0 50px;
 
   &::after {
     ${displayStartCenter}
@@ -57,18 +58,14 @@ const Container = styled.div`
     transform: scale(0.8);
   }
 
-  @media screen and (max-width: 1024px) {
-    width: 160px;
-    height: 240px;
+  @media screen and (max-width: 1000px) {
+    width: 120px;
+    height: 180px;
+    margin: 0 20px;
   }
 
-  @media screen and (max-width: 750px) {
-    width: 100px;
-    height: 200px;
-  }
-
-  @media screen and (max-width: 400px) {
-    width: 80px;
+  @media screen and (max-width: 450px) {
+    margin: 10px 0;
   }
 `;
 
@@ -79,10 +76,6 @@ const Image = styled.img`
   place-items: center;
   border-radius: ${(props) => props.theme.borderRadius};
   background: black;
-
-  @media screen and (max-width: 750px) {
-    height: 70%;
-  }
 `;
 
 const Title = styled.span`

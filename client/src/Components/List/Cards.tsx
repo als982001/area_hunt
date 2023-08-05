@@ -18,6 +18,11 @@ const Wrapper = styled.div`
   height: 450px;
   display: grid;
   grid-template-rows: 1fr 4fr;
+
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    height: 700px;
+  }
 `;
 
 const Title = styled.h3`
@@ -44,16 +49,14 @@ const Box = styled(motion.div)<{ cardnum: number }>`
   width: 70%;
   height: 300px;
   font-size: 30px;
-
-  display: grid;
-  grid-template-columns: ${(props) =>
-    props.cardnum === 0 || props.cardnum === 1
-      ? "1fr"
-      : props.cardnum === 2
-      ? "1fr 1fr"
-      : "1fr 1fr 1fr"};
-  justify-items: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    height: 500px;
+  }
 `;
 
 const offset = 3;

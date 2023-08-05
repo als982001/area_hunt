@@ -25,7 +25,7 @@ const Button = styled.button<{ pos: string }>`
   left: ${(props) => props.pos === "left" && "100px"};
   right: ${(props) => props.pos === "right" && "100px"};
 
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1000px) {
     left: ${(props) => props.pos === "left" && "50px"};
     right: ${(props) => props.pos === "right" && "50px"};
   }
@@ -33,9 +33,6 @@ const Button = styled.button<{ pos: string }>`
   @media screen and (max-width: 750px) {
     width: 40px;
     height: 40px;
-
-    left: ${(props) => props.pos === "left" && "0px"};
-    right: ${(props) => props.pos === "right" && "0px"};
   }
 
   &:active {
