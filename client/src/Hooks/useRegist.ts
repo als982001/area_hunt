@@ -34,6 +34,12 @@ export default function useRegist() {
   });
 
   const handleStartPost = async (data: FormValues) => {
+    if (userState.login === false) {
+      alert("로그인 후 이용 가능한 서비스입니다.");
+      navigate("/login");
+      return;
+    }
+
     if (isRegionIncluded(data.address) === false) {
       alert("서울, 경기, 충청과 같은 지역명을 포함해주세요.");
       return;

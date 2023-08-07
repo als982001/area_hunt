@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import { useState } from "react";
 
-import { borderRadius20px } from "../../styles/styles";
+import { borderRadius20px, contentInputStyle } from "../../styles/styles";
 import { displayStartCenter } from "../../styles/displays";
 import { fixedCenter } from "../../styles/positions";
 import { defaultShadow } from "../../styles/shadows";
 import { IReview } from "../../utils/types";
 
-import { CiCircleRemove } from "react-icons/ci";
 import useEditReview from "../../Hooks/useEditReview";
+import PencilButton from "../Global/Buttons/PencilButton";
+import DeleteButton from "../Global/Buttons/DeleteButton";
+import UpdateCircleButton from "../Global/Buttons/UpdateCircleButton";
 
 interface IProps {
   review: IReview;
@@ -52,6 +53,18 @@ const Info = styled.div<{ alignItems: string }>`
   font-weight: 500;
 `;
 
+const UpdateAndDelete = styled.section<{ update: boolean }>`
+  width: 100px;
+  display: flex;
+  justify-content: ${(props) => (props.update ? "start" : "space-around")};
+  margin-left: 10px;
+`;
+
+const UpdateInput = styled.textarea<{ width: string; height: string }>`
+  ${contentInputStyle}
+  margin-left: 20px;
+`;
+
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
@@ -71,16 +84,15 @@ const Modal = styled.img`
   z-index: 10;
 `;
 
-const RemoveBtn = styled(CiCircleRemove)`
-  width: 30px;
-  height: 30px;
-  margin-left: 10px;
-  cursor: pointer;
-`;
-
 export default function VisitReview({ review }: IProps) {
-  const { bigImg, handleBigImg, userState, handleRemoveReview } =
-    useEditReview(review);
+  const {
+    bigImg,
+    handleBigImg,
+    userState,
+    handleRemoveReview,
+    update,
+    setUpdate,
+  } = useEditReview(review);
 
   return (
     <>
@@ -94,14 +106,38 @@ export default function VisitReview({ review }: IProps) {
           <Info alignItems="center">
             {review.name}
             {userState.login && userState.userInfo.name === review.name && (
-              <RemoveBtn
-                onClick={() => {
-                  handleRemoveReview(review._id);
-                }}
-              />
+              <UpdateAndDelete update={update}>
+                {update ? (
+                  <UpdateCircleButton
+                    onClick={() => {
+                      setUpdate(false);
+                    }}
+                    size={"20px"}
+                  />
+                ) : (
+                  <>
+                    <PencilButton
+                      onClick={() => {
+                        setUpdate(true);
+                      }}
+                      size={"20px"}
+                    />
+                    <DeleteButton
+                      onClick={() => {
+                        handleRemoveReview(review._id);
+                      }}
+                      size={"20px"}
+                    />
+                  </>
+                )}
+              </UpdateAndDelete>
             )}
           </Info>
-          <Info alignItems="start">{review.content}</Info>
+          {update ? (
+            <UpdateInput width="90%" height="100%" />
+          ) : (
+            <Info alignItems="start">{review.content}</Info>
+          )}
           <Info alignItems="center">{review.date}</Info>
         </Infos>
       </Container>

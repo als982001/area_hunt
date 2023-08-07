@@ -22,22 +22,3 @@ interface IArea {
   content: string;
   publisherId: string;
 }
-
-interface IAccount {
-  id: number;
-  userImg: {
-    fieldname: string;
-    originalname: string;
-    encoding: string;
-    mimetype: string;
-    destination: string;
-    filename: string;
-    path: string;
-    size: number;
-  };
-  userId: string;
-  password: string;
-  name: string;
-  phone: string;
-  email: string;
-}

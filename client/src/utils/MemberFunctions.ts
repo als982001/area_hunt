@@ -50,7 +50,6 @@ export const handleLoginCheck = async () => {
 
     return response.data;
   } catch (error: any) {
-    console.log("Login status is invalid or the token has expired.");
     return null;
   }
 };

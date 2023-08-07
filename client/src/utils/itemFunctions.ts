@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, isAxiosError } from "axios";
 import { IPlace } from "./types";
 import mongoose from "mongoose";
 
@@ -86,6 +86,21 @@ export const updateItem = async (updatedPlace: IPlace) => {
   }
 };
 
+export const removePlace = async (placeId: string) => {
+  try {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_BACK}/items/delete?id=${placeId}`
+    );
+    return response.status;
+  } catch (error: any) {
+    if (error.response.status) {
+      return error.response.status;
+    } else {
+      return 400;
+    }
+  }
+};
+
 export const getVisitRecords = async (placeId: string) => {
   try {
     const response = await axios.get(
@@ -149,7 +164,10 @@ export const removeReview = async (_id: mongoose.Types.ObjectId | string) => {
 
     return response.status;
   } catch (error: any) {
-    alert(error.response.data);
-    return error.response.status;
+    if (error.response.status) {
+      return error.response.status;
+    } else {
+      return 400;
+    }
   }
 };

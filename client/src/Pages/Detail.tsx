@@ -16,6 +16,7 @@ import { defaultShadow } from "../styles/shadows";
 import PencilButton from "../Components/Global/Buttons/PencilButton";
 import useDetail from "../Hooks/useDetail";
 import { IPlace } from "../utils/types";
+import { AiFillDelete } from "react-icons/ai";
 
 const haha = "450px";
 
@@ -122,6 +123,22 @@ const SwitchSpace = styled.div`
   margin-top: 10px;
 `;
 
+const UpdateAndRemove = styled.div`
+  width: 150px;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+`;
+
+const RemoveBtn = styled(AiFillDelete)`
+  cursor: pointer;
+`;
+
 const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
@@ -143,6 +160,7 @@ export default function Detail() {
     userState,
     setUpdate,
     update,
+    handleRemovePlace,
   } = useDetail();
 
   return (
@@ -191,12 +209,20 @@ export default function Detail() {
               </SwitchSpace>
               {userState.login === true &&
                 userState.userInfo.userId === data?.publisherId && (
-                  <PencilButton
-                    onClick={() => {
-                      setUpdate((prev) => true);
-                    }}
-                    size="35px"
-                  />
+                  <UpdateAndRemove>
+                    <PencilButton
+                      onClick={() => {
+                        setUpdate((prev) => true);
+                      }}
+                      size="35px"
+                    />
+                    <RemoveBtn
+                      onClick={() => {
+                        handleRemovePlace(id as string);
+                      }}
+                      size="35px"
+                    />
+                  </UpdateAndRemove>
                 )}
             </SettingButtons>
             <VisitRecords id={id as string} />

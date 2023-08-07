@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../Redux/Stores";
 import { useSelector } from "react-redux";
-import { getItem } from "../utils/itemFunctions";
+import { getItem, removePlace } from "../utils/itemFunctions";
 import { IPlace } from "../utils/types";
+import mongoose from "mongoose";
 
 export default function useDetail() {
   const [showMap, setShowMap] = useState(0);
@@ -56,6 +57,19 @@ export default function useDetail() {
     })();
   }, []);
 
+  const handleRemovePlace = async (placeId: string) => {
+    const status = await removePlace(placeId);
+
+    if (status === 200) {
+      alert("삭제되었습니다.");
+      navigate("/list");
+      return;
+    } else {
+      alert("삭제에 실패했습니다.");
+      return;
+    }
+  };
+
   return {
     id,
     isLoading,
@@ -66,5 +80,6 @@ export default function useDetail() {
     userState,
     setUpdate,
     update,
+    handleRemovePlace,
   };
 }

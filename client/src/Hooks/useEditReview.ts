@@ -7,6 +7,7 @@ import { removeReview } from "../utils/itemFunctions";
 
 export default function useEditReview(review: IReview) {
   const [bigImg, setBigImg] = useState(false);
+  const [update, setUpdate] = useState(false);
 
   const userState = useSelector((state: RootState) => state.userReducer);
 
@@ -23,5 +24,12 @@ export default function useEditReview(review: IReview) {
     }
   };
 
-  return { bigImg, handleBigImg, userState, handleRemoveReview };
+  return {
+    bigImg,
+    handleBigImg,
+    userState,
+    handleRemoveReview,
+    update,
+    setUpdate,
+  };
 }

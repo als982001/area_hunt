@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { handleStartLogin } from "../utils/MemberFunctions";
 import { handleLogin } from "../Redux/Actions";
 import { useNavigate } from "react-router-dom";
+import { IAccount } from "../utils/types";
 
 interface FormValues {
   userId: string;
@@ -37,7 +38,6 @@ export default function useLogin() {
 
   const checkValidAccess = () => {
     if (userState.login === true) {
-      console.log("로그인 하셧네여");
       navigate("/list");
       return;
     }

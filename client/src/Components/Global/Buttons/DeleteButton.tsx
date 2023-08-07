@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { HiOutlinePencilAlt } from "react-icons/hi";
 import { displayCenter } from "../../../styles/displays";
+import { AiFillDelete } from "react-icons/ai";
 
 interface IProps {
   size: string;
-  onClick: () => void;
+  onClick: () => any;
 }
 
 const Container = styled.section`
@@ -18,10 +18,10 @@ const Container = styled.section`
     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 `;
 
-export default function PencilButton(props: IProps) {
+export default function DeleteButton({ size, onClick }: IProps) {
   return (
     <Container>
-      <HiOutlinePencilAlt onClick={props.onClick} size={props.size} />
+      <AiFillDelete onClick={onClick} size={size} />
     </Container>
   );
 }

@@ -1,4 +1,5 @@
 import { AUTH, LOGIN, LOGOUT } from "../Actions";
+import { IAccount } from "../../utils/types";
 
 export interface UserState {
   login: Boolean;
