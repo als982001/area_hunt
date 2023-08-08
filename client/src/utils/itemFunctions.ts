@@ -1,5 +1,5 @@
 import axios, { AxiosError, isAxiosError } from "axios";
-import { IPlace } from "./types";
+import { IPlace, IReview } from "./types";
 import mongoose from "mongoose";
 
 interface IAreaData {
@@ -160,6 +160,23 @@ export const removeReview = async (_id: mongoose.Types.ObjectId | string) => {
   try {
     const response = await axios.delete(
       `${process.env.REACT_APP_BACK}/review/delete?_id=${_id}`
+    );
+
+    return response.status;
+  } catch (error: any) {
+    if (error.response.status) {
+      return error.response.status;
+    } else {
+      return 400;
+    }
+  }
+};
+
+export const updateReview = async (updatedReview: IReview) => {
+  try {
+    const response = await axios.patch(
+      `${process.env.REACT_APP_BACK}/review/${updatedReview._id}`,
+      updatedReview
     );
 
     return response.status;

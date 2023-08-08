@@ -92,16 +92,38 @@ export default function VisitReview({ review }: IProps) {
     handleRemoveReview,
     update,
     setUpdate,
+    updatedContent,
+    setUpdatedContent,
+    handleUpdateReview,
+    imageInputRef,
+    handleInputClick,
+    handleImagePost,
+    imageUrl,
   } = useEditReview(review);
 
   return (
     <>
       <Container>
         <Img
-          src={review.imageUrl}
+          src={imageUrl}
           alt="visit_img"
-          onClick={() => handleBigImg(true)}
+          onClick={() => {
+            if (update) {
+              handleInputClick();
+            } else {
+              handleBigImg(true);
+            }
+          }}
         />
+        {update && (
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            ref={imageInputRef}
+            onChange={handleImagePost}
+          />
+        )}
         <Infos>
           <Info alignItems="center">
             {review.name}
@@ -110,7 +132,7 @@ export default function VisitReview({ review }: IProps) {
                 {update ? (
                   <UpdateCircleButton
                     onClick={() => {
-                      setUpdate(false);
+                      handleUpdateReview();
                     }}
                     size={"20px"}
                   />
@@ -134,7 +156,14 @@ export default function VisitReview({ review }: IProps) {
             )}
           </Info>
           {update ? (
-            <UpdateInput width="90%" height="100%" />
+            <UpdateInput
+              width="90%"
+              height="100%"
+              value={updatedContent}
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                setUpdatedContent(event.target.value);
+              }}
+            />
           ) : (
             <Info alignItems="start">{review.content}</Info>
           )}
