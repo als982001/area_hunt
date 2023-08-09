@@ -10,8 +10,11 @@ export const handleStartLogin = async (loginInfo: loginType) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BACK}/user/login`,
-      loginInfo
+      loginInfo,
+      { withCredentials: true }
     );
+
+    console.log(response);
 
     return response.data;
   } catch (error) {
