@@ -28,6 +28,9 @@ export interface IAccount {
   password: string;
   phone: string;
   email: string;
+  role: string;
+  places: mongoose.Types.ObjectId[];
+  reviews: mongoose.Types.ObjectId[];
   __v?: any;
 }
 

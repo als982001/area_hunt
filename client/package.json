@@ -52,7 +52,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && aws s3 sync ./build s3://areahunt --profile=jm"
+    "deploy": "npm run build && aws s3 sync ./build s3://area-hunt --profile=jm"
   },
   "eslintConfig": {
     "extends": [

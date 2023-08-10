@@ -9,17 +9,6 @@ interface IAreaData {
   content: string;
 }
 
-export const getAllItems = async () => {
-  try {
-    const response = await axios.get(`${process.env.REACT_APP_BACK}/items`);
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-
 export const getItemsByAddress = async (address: string) => {
   try {
     const response = await axios.get(
@@ -29,6 +18,20 @@ export const getItemsByAddress = async (address: string) => {
     return response.data;
   } catch (error) {
     console.log(error);
+    return [];
+  }
+};
+
+export const getPlacesByUser = async (
+  userId: mongoose.Types.ObjectId | string
+) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK}/items/user/${userId}`
+    );
+
+    return response.data;
+  } catch (error) {
     return [];
   }
 };
@@ -114,6 +117,20 @@ export const getVisitRecords = async (placeId: string) => {
   }
 };
 
+export const getReviewsByUser = async (
+  userId: mongoose.Types.ObjectId | string
+) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK}/review/user/${userId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    return [];
+  }
+};
+
 export const postRecord = async (
   placeId: string,
   review: {
@@ -133,8 +150,6 @@ export const postRecord = async (
         },
       }
     );
-
-    console.log(response);
 
     return true;
   } catch (error) {

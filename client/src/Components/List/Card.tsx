@@ -5,7 +5,12 @@ import { displayCenter, displayStartCenter } from "../../styles/displays";
 import { absoluteHorizontalCenter } from "../../styles/positions";
 import { IPlace } from "../../utils/types";
 
-const Container = styled.div`
+interface IProps {
+  item: IPlace;
+  mypage: boolean;
+}
+
+const Container = styled.div<{ mypage: boolean }>`
   ${displayCenter}
 
   width: 200px;
@@ -18,7 +23,7 @@ const Container = styled.div`
   padding-bottom: 60px;
   border-radius: ${(props) => props.theme.borderRadius};
   position: relative;
-  margin: 0 50px;
+  margin: ${(props) => props.mypage === false && " 0 50px"};
 
   &::after {
     ${displayStartCenter}
@@ -97,10 +102,6 @@ const Location = styled.span`
   color: #000;
 `;
 
-interface IProps {
-  item: IPlace;
-}
-
 export default function Card(props: IProps) {
   const naviage = useNavigate();
 
@@ -109,7 +110,7 @@ export default function Card(props: IProps) {
   };
 
   return (
-    <Container onClick={showDetail}>
+    <Container onClick={showDetail} mypage={props.mypage}>
       <Image src={props.item.imageUrl} alt="Image" />
       <Title>{props.item.name}</Title>
       <Location>{props.item.location}</Location>

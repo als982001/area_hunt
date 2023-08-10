@@ -5,13 +5,17 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { borderRadius20px, centerImage } from "../styles/styles";
-import { displayCenter, displayCenterStart } from "../styles/displays";
+import { displayCenter } from "../styles/displays";
 import { getPhoneForm } from "../utils/functions";
+import MyReviews from "../Components/MyPage/MyReviews";
+import MyPlaces from "../Components/MyPage/MyPlaces";
 
 const Wrapper = styled.div`
-  ${displayCenterStart}
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
+  padding-bottom: 500px;
 `;
 
 const Card = styled.div`
@@ -118,6 +122,8 @@ export default function MyPage() {
     }
   }, []);
 
+  console.log(userState);
+
   return (
     <Wrapper>
       <Card>
@@ -131,6 +137,8 @@ export default function MyPage() {
           <Caption>{userState.userInfo.email}</Caption>
         </Details>
       </Card>
+      <MyPlaces userInfo={userState.userInfo} />
+      <MyReviews userInfo={userState.userInfo} />
     </Wrapper>
   );
 }

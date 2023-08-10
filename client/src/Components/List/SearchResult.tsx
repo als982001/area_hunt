@@ -189,7 +189,7 @@ export default function SearchResult({
       </ResultHeader>
       <Container>
         {searchResult.map((item) => (
-          <Card item={item} key={item._id.toString() + ""} />
+          <Card item={item} key={item._id.toString() + ""} mypage={false} />
         ))}
       </Container>
     </Wrapper>
