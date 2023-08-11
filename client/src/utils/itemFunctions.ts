@@ -131,8 +131,9 @@ export const getReviewsByUser = async (
   }
 };
 
-export const postRecord = async (
+export const postReview = async (
   placeId: string,
+  userId: string,
   review: {
     imageUrl: string;
     name: string;
@@ -142,7 +143,7 @@ export const postRecord = async (
 ) => {
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_BACK}/review/${placeId}`,
+      `${process.env.REACT_APP_BACK}/review?placeId=${placeId}&userId=${userId}`,
       review,
       {
         headers: {
@@ -174,7 +175,7 @@ export const getItemsByKeyword = async (keyword: string) => {
 export const removeReview = async (_id: mongoose.Types.ObjectId | string) => {
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_BACK}/review/delete?_id=${_id}`
+      `${process.env.REACT_APP_BACK}/review/delete/${_id}`
     );
 
     return response.status;

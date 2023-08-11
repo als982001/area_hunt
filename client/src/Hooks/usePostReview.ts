@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { useSelector } from "react-redux";
-import { postRecord } from "../utils/itemFunctions";
+import { postReview } from "../utils/itemFunctions";
 
 interface FormValues {
   content: string;
@@ -41,7 +41,7 @@ export default function usePostReview(id: string) {
         date,
       };
 
-      const success = await postRecord(id, newRecord);
+      const success = await postReview(id, userState.userInfo._id, newRecord);
 
       if (success) {
         alert("등록 성공");

@@ -12,7 +12,6 @@ const Wrapper = styled.section`
   width: 100%;
   max-width: 1000px;
   height: auto;
-  background-color: pink;
   margin-top: 100px;
 `;
 

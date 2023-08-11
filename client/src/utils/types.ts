@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 export interface IPlace {
   _id: mongoose.Types.ObjectId;
@@ -18,6 +18,7 @@ export interface IReview {
   name: string;
   content: string;
   date: string;
+  reviewer: mongoose.Types.ObjectId;
 }
 
 export interface IAccount {
