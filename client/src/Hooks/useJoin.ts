@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { handleJoin } from "../utils/mmemberFunctions";
+import { handleJoin } from "../utils/memberFunctions";
 import { getImageUrl } from "../utils/functions";
 import { IJoinInfo } from "../utils/types";
 

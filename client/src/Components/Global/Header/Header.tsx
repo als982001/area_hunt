@@ -16,7 +16,7 @@ import {
 } from "../../../styles/displays";
 import MenuButton from "../Buttons/MenuButton";
 import { IPlace } from "../../../utils/types";
-import { startLogout } from "../../../utils/mmemberFunctions";
+import { startLogout } from "../../../utils/memberFunctions";
 
 interface IProps {
   keyword: string;
