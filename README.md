@@ -1,6 +1,6 @@
 # 🖼️ area_hunt : 일상 속 숨겨진 장소를 찾아서
 
-## http://areahunt.s3-website.ap-northeast-2.amazonaws.com/
+## http://area-hunt.s3-website.ap-northeast-2.amazonaws.com/
 
 ## 다른 사람들은 모르는, 주변의 멋진 장소들을 공유하는 서비스<br>
 
