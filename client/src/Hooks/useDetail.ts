@@ -58,7 +58,7 @@ export default function useDetail() {
   }, []);
 
   const handleRemovePlace = async (placeId: string) => {
-    const status = await removePlace(placeId);
+    const status = await deletePlace(placeId, userState.userInfo);
 
     if (status === 200) {
       alert("삭제되었습니다.");

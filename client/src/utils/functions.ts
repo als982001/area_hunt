@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { IAccount } from "./types";
 
 // 현재 날짜를 문자열로 반환하는 함수
 // 예) "2023-05-06" 형태의 문자열을 반환합니다.
@@ -91,4 +92,12 @@ export const getImageUrl = async (imageName: string, image: File) => {
   } else {
     return null;
   }
+};
+
+export const isAdmin = (userInfo: IAccount | null) => {
+  if (userInfo === null) {
+    return false;
+  }
+
+  return userInfo.role === "admin";
 };

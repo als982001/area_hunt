@@ -17,6 +17,8 @@ import PencilButton from "../Components/Global/Buttons/PencilButton";
 import useDetail from "../Hooks/useDetail";
 import { IPlace } from "../utils/types";
 import { AiFillDelete } from "react-icons/ai";
+import { userInfo } from "os";
+import { isAdmin } from "../utils/functions";
 
 const haha = "450px";
 
@@ -207,23 +209,24 @@ export default function Detail() {
               <SwitchSpace>
                 <MapImgToggle onClick={handleShowMap} showMap={showMap} />
               </SwitchSpace>
-              {userState.login === true &&
-                userState.userInfo.userId === data?.publisherId && (
-                  <UpdateAndRemove>
-                    <PencilButton
-                      onClick={() => {
-                        setUpdate((prev) => true);
-                      }}
-                      size="35px"
-                    />
-                    <RemoveBtn
-                      onClick={() => {
-                        handleRemovePlace(id as string);
-                      }}
-                      size="35px"
-                    />
-                  </UpdateAndRemove>
-                )}
+              {(isAdmin(userState.userInfo) ||
+                (userState.login === true &&
+                  userState.userInfo.userId === data?.publisherId)) && (
+                <UpdateAndRemove>
+                  <PencilButton
+                    onClick={() => {
+                      setUpdate((prev) => true);
+                    }}
+                    size="35px"
+                  />
+                  <RemoveBtn
+                    onClick={() => {
+                      handleRemovePlace(id as string);
+                    }}
+                    size="35px"
+                  />
+                </UpdateAndRemove>
+              )}
             </SettingButtons>
             <VisitRecords id={id as string} />
           </Container>

@@ -15,7 +15,7 @@ import Join from "./Pages/Join";
 import NotFound from "./Pages/NotFound";
 
 import { handleAuth, handleLogout } from "./Redux/Actions";
-import { handleLoginCheck } from "./utils/MemberFunctions";
+import { handleLoginCheck } from "./utils/mmemberFunctions";
 import { IPlace } from "./utils/types";
 
 const Wrapper = styled.div`
