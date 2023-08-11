@@ -47,8 +47,7 @@ const Container = styled.section`
 `;
 
 export default function MyReviews({ userInfo }: IProps) {
-  const { showAll, setShowAll, isLoading, data, getSliceIdx } =
-    useMyReviews(userInfo);
+  const { showAll, setShowAll, isLoading, data, getSliceIdx } = useMyReviews();
 
   useEffect(() => {
     console.log(data);

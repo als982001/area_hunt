@@ -1,13 +1,17 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../utils/functions";
-import { updateItem } from "../utils/itemFunctions";
 import { IPlace } from "../utils/types";
+import { updatePlace } from "../utils/placeFunctions";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/Stores";
+import userReducer from "../Redux/Reducers/userReducer";
 
 export default function useUpdate(data: IPlace) {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState(data.imageUrl);
+
+  const userState = useSelector((state: RootState) => state.userReducer);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -25,7 +29,7 @@ export default function useUpdate(data: IPlace) {
       const newImageUrl = await getImageUrl(image.name, image);
 
       if (newImageUrl) {
-        setImageUrl(newImageUrl);
+        await setImageUrl(newImageUrl);
       } else {
         alert("이미지 업로드에 실패했습니다.");
         return;
@@ -43,7 +47,7 @@ export default function useUpdate(data: IPlace) {
       reviews: data.reviews,
     };
 
-    const success = await updateItem(updatedPlace);
+    const success = await updatePlace(updatedPlace, userState.userInfo._id);
 
     if (success) {
       window.location.reload();
@@ -59,6 +63,7 @@ export default function useUpdate(data: IPlace) {
     }
 
     const imageFile = event.target.files[0];
+
     setImage((prev) => imageFile);
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };

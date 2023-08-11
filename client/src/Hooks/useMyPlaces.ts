@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
-import { IAccount, IPlace } from "../utils/types";
-import { getPlacesByUser } from "../utils/itemFunctions";
+import { useState } from "react";
+import { IPlace } from "../utils/types";
+import { getPlacesByUser } from "../utils/placeFunctions";
 import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/Stores";
 
-export default function useMyPlaces(userInfo: IAccount) {
+export default function useMyPlaces() {
+  const userState = useSelector((state: RootState) => state.userReducer);
+
   const [showAll, setShowAll] = useState<boolean>(false);
   const { data, isLoading } = useQuery<IPlace[]>("myPlaces", () =>
-    getPlacesByUser(userInfo._id)
+    getPlacesByUser(userState.userInfo._id)
   );
 
   const getSliceIdx = () => {

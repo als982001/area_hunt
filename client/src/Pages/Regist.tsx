@@ -69,7 +69,7 @@ const Inputs = styled.div`
 export default function Regist() {
   const {
     handleSubmit,
-    handleStartPost,
+    handlePostPlace,
     imageUrl,
     handleImagePost,
     control,
@@ -85,7 +85,7 @@ export default function Regist() {
   return (
     <Wrapper>
       <Form
-        onSubmit={handleSubmit(handleStartPost)}
+        onSubmit={handleSubmit(handlePostPlace)}
         encType="multipart/form-data"
       >
         <InputContainer>

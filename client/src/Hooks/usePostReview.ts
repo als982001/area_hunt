@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { useSelector } from "react-redux";
-import { postReview } from "../utils/itemFunctions";
+import { postReview } from "../utils/reviewFunctions";
 
 interface FormValues {
   content: string;
@@ -33,26 +33,26 @@ export default function usePostReview(id: string) {
 
     const imageUrl = await getImageUrl(image.name, image);
 
-    if (imageUrl) {
-      const newRecord = {
-        imageUrl,
-        name: userState.userInfo.name,
-        content,
-        date,
-      };
-
-      const success = await postReview(id, userState.userInfo._id, newRecord);
-
-      if (success) {
-        alert("등록 성공");
-        window.location.reload();
-      } else {
-        alert("등록 실패!!!");
-        reset();
-      }
-    } else {
+    if (!imageUrl) {
       alert("이미지 업로드에 실패했습니다.");
       return;
+    }
+
+    const newRecord = {
+      imageUrl,
+      name: userState.userInfo.name,
+      content,
+      date,
+    };
+
+    const success = await postReview(id, userState.userInfo._id, newRecord);
+
+    if (success) {
+      alert("등록 성공");
+      window.location.reload();
+    } else {
+      alert("등록 실패!!!");
+      reset();
     }
 
     return;
@@ -64,6 +64,7 @@ export default function usePostReview(id: string) {
     }
 
     const imageFile = event.target.files[0];
+
     setImage((prev) => imageFile);
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };

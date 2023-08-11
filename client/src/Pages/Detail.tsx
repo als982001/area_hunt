@@ -17,10 +17,7 @@ import PencilButton from "../Components/Global/Buttons/PencilButton";
 import useDetail from "../Hooks/useDetail";
 import { IPlace } from "../utils/types";
 import { AiFillDelete } from "react-icons/ai";
-import { userInfo } from "os";
 import { isAdmin } from "../utils/functions";
-
-const haha = "450px";
 
 const Wrapper = styled.div`
   width: 100%;

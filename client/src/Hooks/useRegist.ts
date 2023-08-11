@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getImageUrl, isRegionIncluded } from "../utils/functions";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
-import { handlePostItem } from "../utils/itemFunctions";
+import { postPlace } from "../utils/placeFunctions";
 
 interface FormValues {
   name: string;
@@ -33,7 +33,7 @@ export default function useRegist() {
     mode: "onChange",
   });
 
-  const handleStartPost = async (data: FormValues) => {
+  const handlePostPlace = async (data: FormValues) => {
     if (userState.login === false) {
       alert("로그인 후 이용 가능한 서비스입니다.");
       navigate("/login");
@@ -52,24 +52,22 @@ export default function useRegist() {
 
     const imageUrl = await getImageUrl(image.name, image);
 
-    if (imageUrl) {
-      const success = await handlePostItem(
-        imageUrl,
-        data,
-        userState.userInfo.userId
-      );
-
-      if (success) {
-        alert("등록 완료");
-        navigate("/list");
-        return;
-      } else {
-        alert("등록 실패!!!");
-        reset();
-        return;
-      }
-    } else {
+    if (!imageUrl) {
       alert("이미지 업로드에 실패했습니다.");
+      return;
+    }
+
+    const place = { ...data, imageUrl };
+
+    const success = await postPlace(place, userState.userInfo.userId);
+
+    if (success) {
+      alert("등록 완료");
+      navigate("/list");
+      return;
+    } else {
+      alert("등록 실패!!!");
+      reset();
       return;
     }
   };
@@ -80,6 +78,7 @@ export default function useRegist() {
     }
 
     const imageFile = event.target.files[0];
+
     setImage((prev) => imageFile);
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };
@@ -99,7 +98,7 @@ export default function useRegist() {
 
   return {
     handleSubmit,
-    handleStartPost,
+    handlePostPlace,
     imageUrl,
     handleImagePost,
     control,

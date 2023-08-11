@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { getItemsByAddress } from "../utils/itemFunctions";
 import { IPlace } from "../utils/types";
+import { getPlacesByAddress } from "../utils/placeFunctions";
 
 export default function useHandleCardsAnimation(location: string) {
   const offset = 3;
@@ -11,7 +11,7 @@ export default function useHandleCardsAnimation(location: string) {
   const [boxNum, setBoxNum] = useState(0);
 
   const { data, isLoading } = useQuery<IPlace[]>(`${location}Items`, () =>
-    getItemsByAddress(location)
+    getPlacesByAddress(location)
   );
 
   const getNextCards = () => {

@@ -49,8 +49,7 @@ const Container = styled.section`
 `;
 
 export default function MyPlaces({ userInfo }: IProps) {
-  const { showAll, setShowAll, isLoading, data, getSliceIdx } =
-    useMyPlaces(userInfo);
+  const { showAll, setShowAll, isLoading, data, getSliceIdx } = useMyPlaces();
 
   return (
     <Wrapper>

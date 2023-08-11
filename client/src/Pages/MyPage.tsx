@@ -114,15 +114,11 @@ export default function MyPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userState);
-
     if (userState.login === false) {
       navigate("/");
       return;
     }
   }, []);
-
-  console.log(userState);
 
   return (
     <Wrapper>

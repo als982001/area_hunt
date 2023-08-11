@@ -90,7 +90,7 @@ export default function VisitReview({ review }: IProps) {
     bigImg,
     handleBigImg,
     userState,
-    handleRemoveReview,
+    handleDeleteReview,
     update,
     setUpdate,
     updatedContent,
@@ -148,7 +148,7 @@ export default function VisitReview({ review }: IProps) {
                       />
                       <DeleteButton
                         onClick={() => {
-                          handleRemoveReview(review._id);
+                          handleDeleteReview(review._id);
                         }}
                         size={"20px"}
                       />

@@ -7,7 +7,6 @@ import { inputShadow } from "../../../styles/shadows";
 import MainLogo from "../Logos/MainLogo";
 import { RootState } from "../../../Redux/Stores";
 import { handleLogout } from "../../../Redux/Actions";
-import { getItemsByKeyword } from "../../../utils/itemFunctions";
 import ButtonDropDown from "./ButtonDropDown";
 import {
   displayCenter,
@@ -17,6 +16,7 @@ import {
 import MenuButton from "../Buttons/MenuButton";
 import { IPlace } from "../../../utils/types";
 import { startLogout } from "../../../utils/memberFunctions";
+import { getPlacesByKeyword } from "../../../utils/placeFunctions";
 
 interface IProps {
   keyword: string;
@@ -122,7 +122,7 @@ export default function Header({
   ) => {
     if (event.key === "Enter") {
       console.log(keyword);
-      const result = await getItemsByKeyword(keyword);
+      const result = await getPlacesByKeyword(keyword);
 
       handleSetSearchResult(result);
       setSearchFinished(true);

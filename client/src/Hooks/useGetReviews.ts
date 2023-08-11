@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
-import { getVisitRecords } from "../utils/itemFunctions";
 import { IReview } from "../utils/types";
+import { getReviews } from "../utils/reviewFunctions";
 
 export default function useGetReviews(id: string) {
   const [reviews, setReviews] = useState<IReview[]>([]);
@@ -14,7 +14,7 @@ export default function useGetReviews(id: string) {
     (async () => {
       setIsLoading((prev) => true);
 
-      const result = await getVisitRecords(id);
+      const result = await getReviews(id);
       setReviews((prev) => result);
 
       setIsLoading((prev) => false);

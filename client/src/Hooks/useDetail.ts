@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { RootState } from "../Redux/Stores";
 import { useSelector } from "react-redux";
-import { getItem, removePlace } from "../utils/itemFunctions";
 import { IPlace } from "../utils/types";
-import mongoose from "mongoose";
+import { deletePlace, getPlace } from "../utils/placeFunctions";
 
 export default function useDetail() {
   const [showMap, setShowMap] = useState(0);
@@ -21,26 +20,12 @@ export default function useDetail() {
     setShowMap((prev) => (prev === 1 ? 0 : 1));
   };
 
-  const checkId = () => {
-    const idPattern = /^[0-9]{1,}$/;
-
-    if (id === undefined) {
-      navigate("/notfound");
-      return;
-    }
-
-    if (idPattern.test(id) === false) {
-      navigate("/notfound");
-      return;
-    }
-  };
-
   useEffect(() => {
     (async () => {
       setIsLoading((prev) => true);
 
       if (id) {
-        const result = await getItem(id);
+        const result = await getPlace(id);
 
         setData((prev) => result);
 
@@ -58,7 +43,7 @@ export default function useDetail() {
   }, []);
 
   const handleRemovePlace = async (placeId: string) => {
-    const status = await deletePlace(placeId, userState.userInfo);
+    const status = await deletePlace(placeId, userState.userInfo._id);
 
     if (status === 200) {
       alert("삭제되었습니다.");

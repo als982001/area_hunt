@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
 import { IReview } from "../utils/types";
 import mongoose from "mongoose";
-import { removeReview, updateReview } from "../utils/itemFunctions";
 import { getImageUrl } from "../utils/functions";
+import { deleteReview, updateReview } from "../utils/reviewFunctions";
 
 export default function useEditReview(review: IReview) {
   const [bigImg, setBigImg] = useState(false);
@@ -27,8 +27,8 @@ export default function useEditReview(review: IReview) {
     }
   };
 
-  const handleRemoveReview = async (_id: mongoose.Types.ObjectId | string) => {
-    const status = await removeReview(_id);
+  const handleDeleteReview = async (_id: mongoose.Types.ObjectId | string) => {
+    const status = await deleteReview(_id, userState.userInfo._id);
 
     if (status === 204) {
       alert("삭제에 성공했습니다.");
@@ -50,7 +50,7 @@ export default function useEditReview(review: IReview) {
 
     const updatedReview = { ...review, content: updatedContent };
 
-    const status = await updateReview(updatedReview);
+    const status = await updateReview(updatedReview, userState.userInfo._id);
 
     if (status === 200) {
       alert("수정되었습니다.");
@@ -69,8 +69,6 @@ export default function useEditReview(review: IReview) {
 
     const imageFile = event.target.files[0];
 
-    console.log(imageFile);
-
     setImage(imageFile);
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };
@@ -79,7 +77,7 @@ export default function useEditReview(review: IReview) {
     bigImg,
     handleBigImg,
     userState,
-    handleRemoveReview,
+    handleDeleteReview,
     update,
     setUpdate,
     updatedContent,
