@@ -10,6 +10,7 @@ import useEditReview from "../../Hooks/useEditReview";
 import PencilButton from "../Global/Buttons/PencilButton";
 import DeleteButton from "../Global/Buttons/DeleteButton";
 import UpdateCircleButton from "../Global/Buttons/UpdateCircleButton";
+import { useEffect } from "react";
 
 interface IProps {
   review: IReview;
@@ -127,33 +128,34 @@ export default function VisitReview({ review }: IProps) {
         <Infos>
           <Info alignItems="center">
             {review.name}
-            {userState.login && userState.userInfo.name === review.name && (
-              <UpdateAndDelete update={update}>
-                {update ? (
-                  <UpdateCircleButton
-                    onClick={() => {
-                      handleUpdateReview();
-                    }}
-                    size={"20px"}
-                  />
-                ) : (
-                  <>
-                    <PencilButton
+            {userState.login &&
+              userState.userInfo._id === review.reviewerId && (
+                <UpdateAndDelete update={update}>
+                  {update ? (
+                    <UpdateCircleButton
                       onClick={() => {
-                        setUpdate(true);
+                        handleUpdateReview();
                       }}
                       size={"20px"}
                     />
-                    <DeleteButton
-                      onClick={() => {
-                        handleRemoveReview(review._id);
-                      }}
-                      size={"20px"}
-                    />
-                  </>
-                )}
-              </UpdateAndDelete>
-            )}
+                  ) : (
+                    <>
+                      <PencilButton
+                        onClick={() => {
+                          setUpdate(true);
+                        }}
+                        size={"20px"}
+                      />
+                      <DeleteButton
+                        onClick={() => {
+                          handleRemoveReview(review._id);
+                        }}
+                        size={"20px"}
+                      />
+                    </>
+                  )}
+                </UpdateAndDelete>
+              )}
           </Info>
           {update ? (
             <UpdateInput

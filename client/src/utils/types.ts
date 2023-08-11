@@ -18,7 +18,7 @@ export interface IReview {
   name: string;
   content: string;
   date: string;
-  reviewer: mongoose.Types.ObjectId;
+  reviewerId: mongoose.Types.ObjectId;
 }
 
 export interface IAccount {
