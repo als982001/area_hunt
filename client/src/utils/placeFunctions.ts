@@ -2,6 +2,18 @@ import axios from "axios";
 import { IPlace } from "./types";
 import mongoose from "mongoose";
 
+export const getPlacesFromIndex = async (startIndex: string | number) => {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BACK}/place/startIndex/${startIndex}`
+    );
+
+    return response.data;
+  } catch (error) {
+    return [];
+  }
+};
+
 export const getPlacesByAddress = async (address: string) => {
   try {
     const response = await axios.get(

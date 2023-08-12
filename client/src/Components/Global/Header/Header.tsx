@@ -17,13 +17,8 @@ import MenuButton from "../Buttons/MenuButton";
 import { IPlace } from "../../../utils/types";
 import { startLogout } from "../../../utils/memberFunctions";
 import { getPlacesByKeyword } from "../../../utils/placeFunctions";
-
-interface IProps {
-  keyword: string;
-  handleSetKeyword: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSetSearchResult: (result: IPlace[]) => void;
-  setSearchFinished: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { useState } from "react";
+import useHeader from "../../../Hooks/useHeader";
 
 const Container = styled.header`
   ${gridCenter}
@@ -38,7 +33,7 @@ const Container = styled.header`
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
 
-const Top = styled.form`
+const Top = styled.section`
   ${gridCenter}
 
   grid-template-columns: 1fr 4fr 4fr;
@@ -91,15 +86,12 @@ const Buttons = styled.div`
   }
 `;
 
-export default function Header({
-  keyword,
-  handleSetKeyword,
-  handleSetSearchResult,
-  setSearchFinished,
-}: IProps) {
+export default function Header() {
   const userState = useSelector((state: RootState) => state.userReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { keyword, handleSetKeyword, handleGetPlacesByKeyword } = useHeader();
 
   const handleStartLogout = async () => {
     alert("로그아웃 했습니다.");
@@ -117,27 +109,9 @@ export default function Header({
     return;
   };
 
-  const handleEnterKeyword = async (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === "Enter") {
-      console.log(keyword);
-      const result = await getPlacesByKeyword(keyword);
-
-      handleSetSearchResult(result);
-      setSearchFinished(true);
-
-      navigate("/list");
-    }
-  };
-
   return (
     <Container>
-      <Top
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <Top>
         <MainLogo logoSize={"40px"} />
         <Search>
           <HiMagnifyingGlass
@@ -145,9 +119,10 @@ export default function Header({
             style={{ position: "absolute", left: "10px" }}
           />
           <Input
+            value={keyword}
             onChange={handleSetKeyword}
             placeholder="이름을 검색해보세요."
-            onKeyDown={handleEnterKeyword}
+            onKeyDown={handleGetPlacesByKeyword}
           />
         </Search>
         <Buttons>

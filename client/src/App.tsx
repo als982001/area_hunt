@@ -17,6 +17,8 @@ import NotFound from "./Pages/NotFound";
 import { handleAuth, handleLogout } from "./Redux/Actions";
 import { handleLoginCheck } from "./utils/memberFunctions";
 import { IPlace } from "./utils/types";
+import Locations from "./Pages/Locations";
+import Search from "./Pages/Search";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -33,19 +35,7 @@ const Container = styled.main`
 axios.defaults.withCredentials = true;
 
 function App() {
-  const [keyword, setKeyword] = useState("");
-  const [searchResult, setSearchResult] = useState<IPlace[]>([]);
-  const [searchFinished, setSearchFinished] = useState<boolean>(false);
-
   const dispatch = useDispatch();
-
-  const handleSetKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword((prev) => event.target.value);
-  };
-
-  const handleSetSearchResult = async (result: IPlace[]) => {
-    setSearchResult((prev) => [...result]);
-  };
 
   const authHandler = async () => {
     try {
@@ -63,27 +53,13 @@ function App() {
 
   return (
     <Wrapper>
-      <Header
-        keyword={keyword}
-        handleSetKeyword={handleSetKeyword}
-        handleSetSearchResult={handleSetSearchResult}
-        setSearchFinished={setSearchFinished}
-      />
+      <Header />
       <Container>
         <Routes>
+          <Route path="/search" element={<Search />} />
+          <Route path="/list" element={<List />} />
           <Route path="/regist" element={<Regist />} />
-          <Route
-            path="/list"
-            element={
-              <List
-                keyword={keyword}
-                searchResult={searchResult}
-                setSearchResult={setSearchResult}
-                searchFinished={searchFinished}
-                setSearchFinished={setSearchFinished}
-              />
-            }
-          />
+          <Route path="/locations" element={<Locations />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
