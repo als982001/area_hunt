@@ -56,7 +56,20 @@ export const getPhoneForm = (phone: string): string => {
 };
 
 export const isRegionIncluded = (address: string) => {
-  const locations = ["서울", "강원", "충청", "경상", "전라", "제주"];
+  const locations = [
+    "서울",
+    "강원",
+    "충청",
+    "경상",
+    "전라",
+    "제주",
+    "부산",
+    "대구",
+    "인천",
+    "광주",
+    "대전",
+    "울산",
+  ];
 
   let included = locations.reduce((result, location) => {
     return (result = result || address.includes(location));

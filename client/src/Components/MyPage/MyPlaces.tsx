@@ -68,7 +68,7 @@ export default function MyPlaces({ userInfo }: IProps) {
           data
             ?.slice(0, getSliceIdx())
             .map((place) => (
-              <Card key={place._id.toString()} item={place} mypage={true} />
+              <Card key={place._id.toString()} place={place} mypage={true} />
             ))
         )}
       </Container>

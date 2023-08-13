@@ -20,8 +20,6 @@ export const getPlacesByAddress = async (address: string) => {
       `${process.env.REACT_APP_BACK}/place/address/${address}`
     );
 
-    console.log(response);
-
     return response.data;
   } catch (error) {
     console.log(error);

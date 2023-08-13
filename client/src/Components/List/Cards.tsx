@@ -115,7 +115,7 @@ export default function Cards({ location }: IProps) {
                 {getMaxCardCount(visible) === 0 && <span>🤗</span>}
                 {getMaxCardCount(visible) === 1 && (
                   <Card
-                    item={data[visible * offset]}
+                    place={data[visible * offset]}
                     key={visible * offset + ""}
                     mypage={false}
                   />
@@ -123,12 +123,12 @@ export default function Cards({ location }: IProps) {
                 {getMaxCardCount(visible) === 2 && (
                   <>
                     <Card
-                      item={data[visible * offset]}
+                      place={data[visible * offset]}
                       key={visible * offset + ""}
                       mypage={false}
                     />
                     <Card
-                      item={data[visible * offset + 1]}
+                      place={data[visible * offset + 1]}
                       key={visible * offset + 1 + ""}
                       mypage={false}
                     />
@@ -137,17 +137,17 @@ export default function Cards({ location }: IProps) {
                 {getMaxCardCount(visible) >= 3 && (
                   <>
                     <Card
-                      item={data[visible * offset]}
+                      place={data[visible * offset]}
                       key={visible * offset + ""}
                       mypage={false}
                     />
                     <Card
-                      item={data[visible * offset + 1]}
+                      place={data[visible * offset + 1]}
                       key={visible * offset + 1 + ""}
                       mypage={false}
                     />
                     <Card
-                      item={data[visible * offset + 2]}
+                      place={data[visible * offset + 2]}
                       key={visible * offset + 2 + ""}
                       mypage={false}
                     />

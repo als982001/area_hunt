@@ -6,7 +6,7 @@ import { absoluteHorizontalCenter } from "../../styles/positions";
 import { IPlace } from "../../utils/types";
 
 interface IProps {
-  item: IPlace;
+  place: IPlace;
   mypage: boolean;
 }
 
@@ -102,18 +102,18 @@ const Location = styled.span`
   color: #000;
 `;
 
-export default function Card(props: IProps) {
+export default function Card({ place, mypage }: IProps) {
   const naviage = useNavigate();
 
   const showDetail = () => {
-    naviage(`/${props.item._id.toString()}`);
+    naviage(`/${place._id.toString()}`);
   };
 
   return (
-    <Container onClick={showDetail} mypage={props.mypage}>
-      <Image src={props.item.imageUrl} alt="Image" />
-      <Title>{props.item.name}</Title>
-      <Location>{props.item.location}</Location>
+    <Container onClick={showDetail} mypage={mypage}>
+      <Image src={place.imageUrl} alt="Image" />
+      <Title>{place.name}</Title>
+      <Location>{place.location}</Location>
     </Container>
   );
 }

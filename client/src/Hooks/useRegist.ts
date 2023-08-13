@@ -59,7 +59,7 @@ export default function useRegist() {
 
     const place = { ...data, imageUrl };
 
-    const success = await postPlace(place, userState.userInfo.userId);
+    const success = await postPlace(place, userState.userInfo._id);
 
     if (success) {
       alert("등록 완료");

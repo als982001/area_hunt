@@ -185,7 +185,7 @@ export default function Search() {
           "로딩중"
         ) : data ? (
           data.map((place) => (
-            <Card item={place} key={place._id.toString()} mypage={false} />
+            <Card place={place} key={place._id.toString()} mypage={false} />
           ))
         ) : (
           <>"없음!"</>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { BsFillRocketFill } from "react-icons/bs";
+import React from "react";
 
 interface IProps {
   onClick: () => void;
@@ -55,15 +56,21 @@ const TextTwo = styled.span`
   transform: translateY(-50%);
 `;
 
-export default function ToTopButton(props: IProps) {
-  return (
-    <Button onClick={props.onClick}>
-      <TextOne className="text-one">
-        <AiOutlineArrowUp size={"30px"} />
-      </TextOne>
-      <TextTwo className="text-two">
-        <BsFillRocketFill size={"30px"} />
-      </TextTwo>
-    </Button>
-  );
-}
+const ToTopButton = React.forwardRef<HTMLButtonElement, Omit<IProps, "ref">>(
+  (props, ref) => {
+    return (
+      <Button onClick={props.onClick} ref={ref}>
+        <TextOne className="text-one">
+          <AiOutlineArrowUp size={"30px"} />
+        </TextOne>
+        <TextTwo className="text-two">
+          <BsFillRocketFill size={"30px"} />
+        </TextTwo>
+      </Button>
+    );
+  }
+);
+
+ToTopButton.displayName = "ToTopButton";
+
+export default ToTopButton;
