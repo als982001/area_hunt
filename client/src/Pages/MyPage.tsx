@@ -53,6 +53,11 @@ const Card = styled.div`
   &:hover .imgbox {
     bottom: 200px;
   }
+
+  @media screen and (max-width: 450px) {
+    width: 300px;
+    height: 450px;
+  }
 `;
 
 const ImgBox = styled.div`

@@ -13,6 +13,14 @@ const Wrapper = styled.section`
   max-width: 1000px;
   height: auto;
   margin-top: 100px;
+
+  @media screen and (max-width: 1000px) {
+    padding: 0 100px;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 0 10px;
+  }
 `;
 
 const Header = styled.section`
@@ -46,6 +54,14 @@ const Container = styled.section`
   justify-items: center;
   align-items: center;
   gap: 50px;
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default function MyPlaces({ userInfo }: IProps) {
@@ -54,7 +70,7 @@ export default function MyPlaces({ userInfo }: IProps) {
   return (
     <Wrapper>
       <Header>
-        <Title>내가 등록한 장소들</Title>
+        <Title>내 장소들</Title>
         {showAll ? (
           <HideBtn onClick={() => setShowAll(false)} />
         ) : (

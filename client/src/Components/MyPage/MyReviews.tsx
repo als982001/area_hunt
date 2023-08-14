@@ -14,6 +14,14 @@ const Wrapper = styled.section`
   max-width: 1000px;
   height: auto;
   margin-top: 100px;
+
+  @media screen and (max-width: 1000px) {
+    padding: 0 100px;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 0 10px;
+  }
 `;
 
 const Header = styled.section`
@@ -56,7 +64,7 @@ export default function MyReviews({ userInfo }: IProps) {
   return (
     <Wrapper>
       <Header>
-        <Title>내가 등록한 리뷰들</Title>
+        <Title>내 리뷰들</Title>
         {showAll ? (
           <HideBtn onClick={() => setShowAll(false)} />
         ) : (

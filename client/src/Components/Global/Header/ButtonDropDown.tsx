@@ -79,6 +79,16 @@ export default function ButtonDropDown() {
                 리스트
               </MenuButton>
             </Link>
+            <Link to="/locations">
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                지역별
+              </MenuButton>
+            </Link>
             <Link to="/mypage">
               <MenuButton
                 margin="2px 0"
@@ -110,7 +120,17 @@ export default function ButtonDropDown() {
                 리스트
               </MenuButton>
             </Link>
-            <Link to="join">
+            <Link to="/locations">
+              <MenuButton
+                margin="2px 0"
+                width="120px"
+                height="40px"
+                fontSize="14px"
+              >
+                지역별
+              </MenuButton>
+            </Link>
+            <Link to="/join">
               <MenuButton
                 margin="2px 0"
                 width="120px"
@@ -120,7 +140,7 @@ export default function ButtonDropDown() {
                 회원가입
               </MenuButton>
             </Link>
-            <Link to="login">
+            <Link to="/login">
               <MenuButton
                 margin="2px 0"
                 width="120px"

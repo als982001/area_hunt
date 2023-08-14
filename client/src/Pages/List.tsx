@@ -8,12 +8,22 @@ import { useEffect, useRef } from "react";
 const Wrapper = styled.div`
   width: 100%;
   padding: 0 100px;
+
+  @media screen and (max-width: 450px) {
+    padding: 0 0;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 30px;
   font-weight: bold;
   margin: 50px 0;
+
+  @media screen and (max-width: 450px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Container = styled.section`
@@ -21,6 +31,14 @@ const Container = styled.section`
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   row-gap: 100px;
+
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export default function List() {
