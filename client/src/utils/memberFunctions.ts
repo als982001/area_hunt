@@ -6,7 +6,7 @@ type loginType = {
   password: string;
 };
 
-export const handleStartLogin = async (loginInfo: loginType) => {
+export const login = async (loginInfo: loginType) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BACK}/user/login`,
@@ -23,7 +23,7 @@ export const handleStartLogin = async (loginInfo: loginType) => {
   }
 };
 
-export const handleJoin = async (newAccount: IJoinInfo) => {
+export const join = async (newAccount: IJoinInfo) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_BACK}/user/join`,
@@ -45,7 +45,7 @@ export const handleJoin = async (newAccount: IJoinInfo) => {
   }
 };
 
-export const handleLoginCheck = async () => {
+export const loginCheck = async () => {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_BACK}/user/userInfo`
@@ -57,7 +57,7 @@ export const handleLoginCheck = async () => {
   }
 };
 
-export const startLogout = async () => {
+export const logout = async () => {
   try {
     await axios.post(`${process.env.REACT_APP_BACK}/user/logout`);
 

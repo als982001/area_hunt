@@ -57,7 +57,7 @@ const Img = styled.div<{ bgImage: string }>`
 
 export default function Join() {
   const {
-    handleStartJoin,
+    handleJoin,
     imageUrl,
     handleSubmit,
     handleImagePost,
@@ -68,10 +68,7 @@ export default function Join() {
 
   return (
     <Wrapper>
-      <Form
-        encType="multipart/form-data"
-        onSubmit={handleSubmit(handleStartJoin)}
-      >
+      <Form encType="multipart/form-data" onSubmit={handleSubmit(handleJoin)}>
         <Title>회원가입</Title>
         <InputContainer>
           <Img bgImage={imageUrl} onClick={handleInputClick}>

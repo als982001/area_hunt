@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { handleJoin } from "../utils/memberFunctions";
 import { getImageUrl } from "../utils/functions";
 import { IJoinInfo } from "../utils/types";
+import { join } from "../utils/memberFunctions";
 
 interface FormValues {
   userId: string;
@@ -44,7 +44,7 @@ export default function useJoin() {
     setImageUrl((prev) => URL.createObjectURL(imageFile));
   };
 
-  const handleStartJoin = async (data: FormValues) => {
+  const handleJoin = async (data: FormValues) => {
     if (image === null) {
       alert("이미지를 등록해주세요.");
       return;
@@ -62,7 +62,7 @@ export default function useJoin() {
         email: data.email,
       };
 
-      const success = await handleJoin(newAccount);
+      const success = await join(newAccount);
 
       if (success) {
         alert("회원가입에 성공했습니다.");
@@ -86,7 +86,7 @@ export default function useJoin() {
   };
 
   return {
-    handleStartJoin,
+    handleJoin,
     imageUrl,
     handleSubmit,
     handleImagePost,

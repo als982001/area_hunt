@@ -6,7 +6,6 @@ import { inputShadow } from "../../../styles/shadows";
 
 import MainLogo from "../Logos/MainLogo";
 import { RootState } from "../../../Redux/Stores";
-import { handleLogout } from "../../../Redux/Actions";
 import ButtonDropDown from "./ButtonDropDown";
 import {
   displayCenter,
@@ -14,11 +13,8 @@ import {
   gridCenter,
 } from "../../../styles/displays";
 import MenuButton from "../Buttons/MenuButton";
-import { IPlace } from "../../../utils/types";
-import { startLogout } from "../../../utils/memberFunctions";
-import { getPlacesByKeyword } from "../../../utils/placeFunctions";
-import { useState } from "react";
 import useHeader from "../../../Hooks/useHeader";
+import UserButton from "./UserButton";
 
 const Container = styled.header`
   ${gridCenter}
@@ -88,26 +84,8 @@ const Buttons = styled.div`
 
 export default function Header() {
   const userState = useSelector((state: RootState) => state.userReducer);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { keyword, handleSetKeyword, handleGetPlacesByKeyword } = useHeader();
-
-  const handleStartLogout = async () => {
-    alert("로그아웃 했습니다.");
-
-    const success = await startLogout();
-
-    if (success) {
-      dispatch(handleLogout());
-      navigate("/");
-    } else {
-      alert("로그아웃에 실패했습니다.");
-      return;
-    }
-
-    return;
-  };
 
   return (
     <Container>
@@ -148,24 +126,17 @@ export default function Header() {
                   리스트
                 </MenuButton>
               </Link>
-              <Link to="/mypage">
+              <Link to="/locations">
                 <MenuButton
                   margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
                 >
-                  내정보
+                  지역별
                 </MenuButton>
               </Link>
-              <MenuButton
-                width="120px"
-                height="40px"
-                fontSize="14px"
-                onClick={() => handleStartLogout()}
-              >
-                로그아웃
-              </MenuButton>
+              <UserButton />
             </>
           ) : (
             <>
@@ -179,26 +150,17 @@ export default function Header() {
                   리스트
                 </MenuButton>
               </Link>
-              <Link to="join">
+              <Link to="/locations">
                 <MenuButton
                   margin="0 10px"
                   width="120px"
                   height="40px"
                   fontSize="14px"
                 >
-                  회원가입
+                  지역별
                 </MenuButton>
               </Link>
-              <Link to="login">
-                <MenuButton
-                  margin="0 10px"
-                  width="120px"
-                  height="40px"
-                  fontSize="14px"
-                >
-                  로그인
-                </MenuButton>
-              </Link>
+              <UserButton />
             </>
           )}
         </Buttons>

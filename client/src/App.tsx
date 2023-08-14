@@ -15,7 +15,7 @@ import Join from "./Pages/Join";
 import NotFound from "./Pages/NotFound";
 
 import { handleAuth, handleLogout } from "./Redux/Actions";
-import { handleLoginCheck } from "./utils/memberFunctions";
+import { loginCheck } from "./utils/memberFunctions";
 import { IPlace } from "./utils/types";
 import Locations from "./Pages/Locations";
 import Search from "./Pages/Search";
@@ -39,7 +39,7 @@ function App() {
 
   const authHandler = async () => {
     try {
-      const result = await handleLoginCheck();
+      const result = await loginCheck();
 
       dispatch(handleAuth(result));
     } catch (err) {

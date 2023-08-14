@@ -39,8 +39,7 @@ const JoinLink = styled.h4`
 `;
 
 export default function Login() {
-  const { handleSubmit, control, handleLoginStart, checkValidAccess } =
-    useLogin();
+  const { handleSubmit, control, startLogin, checkValidAccess } = useLogin();
 
   useEffect(() => {
     checkValidAccess();
@@ -48,7 +47,7 @@ export default function Login() {
 
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit(handleLoginStart)}>
+      <Form onSubmit={handleSubmit(startLogin)}>
         <Title>로그인</Title>
         <InputContainer>
           <LoginInput

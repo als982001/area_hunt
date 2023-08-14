@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
 import { useForm } from "react-hook-form";
-import { handleStartLogin } from "../utils/memberFunctions";
+import { login } from "../utils/memberFunctions";
 import { handleLogin } from "../Redux/Actions";
 import { useNavigate } from "react-router-dom";
 import { IAccount } from "../utils/types";
@@ -25,8 +25,8 @@ export default function useLogin() {
     mode: "onChange",
   });
 
-  const handleLoginStart = async (data: FormValues) => {
-    const userInfo: IAccount | null = await handleStartLogin(data);
+  const startLogin = async (data: FormValues) => {
+    const userInfo: IAccount | null = await login(data);
 
     if (userInfo === null) {
       alert("로그인에 실패했습니다.");
@@ -47,7 +47,7 @@ export default function useLogin() {
     userState,
     handleSubmit,
     control,
-    handleLoginStart,
+    startLogin,
     checkValidAccess,
   };
 }
