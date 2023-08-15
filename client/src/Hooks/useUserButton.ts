@@ -17,7 +17,7 @@ export default function useUserInfo() {
     const result = await logout();
 
     if (result.status === 205) {
-      toast.success(result.data);
+      toast.success("로그아웃 했습니다.");
       dispatch(handleLogout());
       navigate("/");
     } else {

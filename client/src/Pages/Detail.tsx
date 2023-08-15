@@ -18,8 +18,6 @@ import useDetail from "../Hooks/useDetail";
 import { IPlace } from "../utils/types";
 import { AiFillDelete } from "react-icons/ai";
 import { isAdmin } from "../utils/functions";
-import { ToastContainer } from "react-toastify";
-import DefaultToast from "../Components/Global/Toasts/DefaultToast";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -210,7 +208,7 @@ export default function Detail() {
               </SwitchSpace>
               {(isAdmin(userState.userInfo) ||
                 (userState.login === true &&
-                  userState.userInfo.userId === data?.publisherId)) && (
+                  userState.userInfo._id.toString() === data?.publisherId)) && (
                 <UpdateAndRemove>
                   <PencilButton
                     onClick={() => {
