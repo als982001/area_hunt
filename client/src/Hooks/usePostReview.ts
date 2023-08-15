@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import { getImageUrl, getToday } from "../utils/functions";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { useSelector } from "react-redux";
 import { postReview } from "../utils/reviewFunctions";
+import { toast } from "react-toastify";
 
 interface FormValues {
   content: string;
@@ -13,8 +13,6 @@ interface FormValues {
 export default function usePostReview(id: string) {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
-
-  const navigate = useNavigate();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -27,14 +25,14 @@ export default function usePostReview(id: string) {
     const date = getToday();
 
     if (image === null) {
-      alert("이미지를 등록해주세요.");
+      toast("이미지를 등록해주세요.");
       return;
     }
 
     const imageUrl = await getImageUrl(image.name, image);
 
     if (!imageUrl) {
-      alert("이미지 업로드에 실패했습니다.");
+      toast("이미지 업로드에 실패했습니다.");
       return;
     }
 
@@ -45,13 +43,13 @@ export default function usePostReview(id: string) {
       date,
     };
 
-    const success = await postReview(id, userState.userInfo._id, newRecord);
+    const result = await postReview(id, userState.userInfo._id, newRecord);
 
-    if (success) {
-      alert("등록 성공");
+    if (result.status === 200) {
+      toast.success(result.data);
       window.location.reload();
     } else {
-      alert("등록 실패!!!");
+      toast.error(result.data);
       reset();
     }
 

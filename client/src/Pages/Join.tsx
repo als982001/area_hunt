@@ -10,6 +10,9 @@ import {
 import AuthButton from "../Components/Auth/AuthButton";
 import JoinInput from "../Components/Auth/JoinInput";
 import useJoin from "../Hooks/useJoin";
+import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import DefaultToast from "../Components/Global/Toasts/DefaultToast";
 
 const Wrapper = styled.div`
   ${displayCenterStart}
@@ -64,7 +67,12 @@ export default function Join() {
     control,
     imageInputRef,
     handleInputClick,
+    checkLogin,
   } = useJoin();
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   return (
     <Wrapper>

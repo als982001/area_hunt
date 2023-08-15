@@ -84,26 +84,8 @@ const Content = styled.h4`
   }
 `;
 
-const Modal = styled.div`
-  ${border2px}
-  ${borderRadius20px}
-  ${displayCenter}
-  ${fixedCenter}
-  
-  width: 500px;
-  height: 200px;
-  padding: 20px;
-  background-color: white;
-  flex-direction: column;
-  transition: all 3s linear;
-
-  & span {
-    font-size: 20px;
-    font-weight: bold;
-  }
-`;
-
 export default function Main() {
+  /*
   const [show, setShow] = useState(true);
 
   useEffect(() => {
@@ -120,6 +102,7 @@ export default function Main() {
 
     return () => clearInterval(interval);
   }, []);
+  */
 
   return (
     <Wrapper>

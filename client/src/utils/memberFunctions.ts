@@ -14,12 +14,9 @@ export const login = async (loginInfo: loginType) => {
       { withCredentials: true }
     );
 
-    console.log(response);
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return null;
+    return { status: response.status, data: response.data };
+  } catch (error: any) {
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -35,13 +32,9 @@ export const join = async (newAccount: IJoinInfo) => {
       }
     );
 
-    return true;
+    return { status: response.status, data: response.data };
   } catch (error: any) {
-    console.log(error);
-    if (error.response.data) {
-      alert(error.response.data);
-    }
-    return false;
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -59,12 +52,12 @@ export const loginCheck = async () => {
 
 export const logout = async () => {
   try {
-    await axios.post(`${process.env.REACT_APP_BACK}/user/logout`);
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACK}/user/logout`
+    );
 
-    return true;
-  } catch (error) {
-    console.log(error);
-
-    return false;
+    return { status: response.status, data: response.data };
+  } catch (error: any) {
+    return { status: error.response.status, data: error.response.data };
   }
 };

@@ -7,6 +7,8 @@ import { RootState } from "../../../Redux/Stores";
 import { handleLogout } from "../../../Redux/Actions";
 
 import MenuButton from "../Buttons/MenuButton";
+import { toast } from "react-toastify";
+import { logout } from "../../../utils/memberFunctions";
 
 const Wrapper = styled.div`
   width: 120px;
@@ -39,10 +41,18 @@ export default function ButtonDropDown() {
     setDrop((prev) => isDrop);
   };
 
-  const handleStartLogout = () => {
-    alert("로그아웃 했습니다.");
-    dispatch(handleLogout());
-    navigate("/");
+  const startLogout = async () => {
+    const result = await logout();
+
+    if (result.status === 205) {
+      toast.success(result.data);
+      dispatch(handleLogout());
+      navigate("/");
+    } else {
+      toast.error("로그아웃에 실패했습니다.");
+      return;
+    }
+
     return;
   };
 
@@ -103,7 +113,7 @@ export default function ButtonDropDown() {
               width="120px"
               height="40px"
               fontSize="14px"
-              onClick={() => handleStartLogout()}
+              onClick={() => startLogout()}
             >
               로그아웃
             </MenuButton>

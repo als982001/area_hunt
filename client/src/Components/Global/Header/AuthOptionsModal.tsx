@@ -1,8 +1,4 @@
-import { BiUserCircle } from "react-icons/bi";
 import styled from "styled-components";
-import { centerImage } from "../../../styles/styles";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../Redux/Stores";
 import useUserInfo from "../../../Hooks/useUserButton";
 import { defaultShadow } from "../../../styles/shadows";
 
@@ -10,15 +6,31 @@ const Modal = styled.section`
   ${defaultShadow}
   width: 200px;
   height: 200px;
-  position: absolute;
+  position: fixed;
   background-color: whitesmoke;
-  top: 60px;
-  left: -75px;
+  top: 90px;
+  right: 50px;
   margin: 0 auto;
   border-radius: 20px;
   display: grid;
   grid-template-rows: 1fr 1fr;
   z-index: 20;
+
+  animation: userModalAnimation 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  @keyframes userModalAnimation {
+    0% {
+      transform: translateX(200px);
+    }
+    60% {
+      transform: translateX(-15px);
+    }
+    80% {
+      transform: translateX(8px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
 `;
 
 const Space = styled.section<{ isTop?: boolean }>`

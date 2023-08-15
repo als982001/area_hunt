@@ -16,9 +16,11 @@ import NotFound from "./Pages/NotFound";
 
 import { handleAuth, handleLogout } from "./Redux/Actions";
 import { loginCheck } from "./utils/memberFunctions";
-import { IPlace } from "./utils/types";
 import Locations from "./Pages/Locations";
 import Search from "./Pages/Search";
+import Test from "./Pages/Test";
+import "react-toastify/dist/ReactToastify.css";
+import DefaultToast from "./Components/Global/Toasts/DefaultToast";
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -64,10 +66,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
           <Route path="/notfound" element={<NotFound />} />
+          <Route path="/test" element={<Test />} />
           <Route path="/:id" element={<Detail />} />
           <Route path="/" element={<Main />} />
         </Routes>
       </Container>
+      <DefaultToast />
     </Wrapper>
   );
 }

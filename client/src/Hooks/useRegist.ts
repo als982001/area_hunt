@@ -5,6 +5,7 @@ import { getImageUrl, isRegionIncluded } from "../utils/functions";
 import { useForm } from "react-hook-form";
 import { RootState } from "../Redux/Stores";
 import { postPlace } from "../utils/placeFunctions";
+import { toast } from "react-toastify";
 
 interface FormValues {
   name: string;
@@ -35,38 +36,38 @@ export default function useRegist() {
 
   const handlePostPlace = async (data: FormValues) => {
     if (userState.login === false) {
-      alert("로그인 후 이용 가능한 서비스입니다.");
+      toast.warning("로그인 후 이용 가능한 서비스입니다.");
       navigate("/login");
       return;
     }
 
     if (isRegionIncluded(data.address) === false) {
-      alert("서울, 경기, 충청과 같은 지역명을 포함해주세요.");
+      toast.warning("서울, 경기, 충청 등 지역명을 포함해주세요.");
       return;
     }
 
     if (image === null) {
-      alert("이미지를 등록해주세요.");
+      toast.warning("이미지를 등록해주세요.");
       return;
     }
 
     const imageUrl = await getImageUrl(image.name, image);
 
     if (!imageUrl) {
-      alert("이미지 업로드에 실패했습니다.");
+      toast.error("이미지 업로드에 실패했습니다.");
       return;
     }
 
     const place = { ...data, imageUrl };
 
-    const success = await postPlace(place, userState.userInfo._id);
+    const result = await postPlace(place, userState.userInfo._id);
 
-    if (success) {
-      alert("등록 완료");
+    if (result.status === 200) {
+      toast.success(result.data);
       navigate("/list");
       return;
     } else {
-      alert("등록 실패!!!");
+      toast.error(result.data);
       reset();
       return;
     }

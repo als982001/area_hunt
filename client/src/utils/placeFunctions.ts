@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IPlace } from "./types";
 import mongoose from "mongoose";
+import { toast } from "react-toastify";
 
 export const getPlacesFromIndex = async (startIndex: string | number) => {
   try {
@@ -9,7 +10,13 @@ export const getPlacesFromIndex = async (startIndex: string | number) => {
     );
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response) {
+      toast.error(error.response.data);
+    } else {
+      toast.error("나중에 다시 시도해주세요.");
+    }
+
     return [];
   }
 };
@@ -21,8 +28,13 @@ export const getPlacesByAddress = async (address: string) => {
     );
 
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    if (error.response) {
+      toast.error(error.response.data);
+    } else {
+      toast.error("나중에 다시 시도해주세요.");
+    }
+
     return [];
   }
 };
@@ -36,7 +48,13 @@ export const getPlacesByUser = async (
     );
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response) {
+      toast.error(error.response.data);
+    } else {
+      toast.error("나중에 다시 시도해주세요.");
+    }
+
     return [];
   }
 };
@@ -47,10 +65,9 @@ export const getPlace = async (id: string) => {
       `${process.env.REACT_APP_BACK}/place/${id}`
     );
 
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    return null;
+    return { status: response.status, data: response.data };
+  } catch (error: any) {
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -65,7 +82,7 @@ export const postPlace = async (
   userId: string
 ) => {
   try {
-    await axios.post(
+    const response = await axios.post(
       `${process.env.REACT_APP_BACK}/place`,
       { place, publisherId: userId },
       {
@@ -75,10 +92,9 @@ export const postPlace = async (
       }
     );
 
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
+    return { status: response.status, data: response.data };
+  } catch (error: any) {
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -97,10 +113,9 @@ export const updatePlace = async (
       }
     );
 
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
+    return { status: response.status, data: response.data };
+  } catch (error: any) {
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -112,13 +127,9 @@ export const deletePlace = async (
     const response = await axios.delete(
       `${process.env.REACT_APP_BACK}/place/delete?id=${placeId}&userId=${userId}`
     );
-    return response.status;
+    return { status: response.status, data: response.data };
   } catch (error: any) {
-    if (error.response.status) {
-      return error.response.status;
-    } else {
-      return 400;
-    }
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -129,8 +140,13 @@ export const getPlacesByKeyword = async (keyword: string) => {
     );
 
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    if (error.response) {
+      toast.error(error.response.data);
+    } else {
+      toast.error("나중에 다시 시도해주세요.");
+    }
+
     return [];
   }
 };

@@ -5,6 +5,7 @@ import { IReview } from "../utils/types";
 import mongoose from "mongoose";
 import { getImageUrl } from "../utils/functions";
 import { deleteReview, updateReview } from "../utils/reviewFunctions";
+import { toast } from "react-toastify";
 
 export default function useEditReview(review: IReview) {
   const [bigImg, setBigImg] = useState(false);
@@ -28,11 +29,13 @@ export default function useEditReview(review: IReview) {
   };
 
   const handleDeleteReview = async (_id: mongoose.Types.ObjectId | string) => {
-    const status = await deleteReview(_id, userState.userInfo._id);
+    const result = await deleteReview(_id, userState.userInfo._id);
 
-    if (status === 204) {
-      alert("삭제에 성공했습니다.");
+    if (result.status === 204) {
+      toast.success(result.data);
       window.location.reload();
+    } else {
+      toast.error(result.data);
     }
   };
 
@@ -41,7 +44,7 @@ export default function useEditReview(review: IReview) {
       const uploadedImageUrl = await getImageUrl(image.name, image);
 
       if (uploadedImageUrl === null) {
-        alert("이미지 업로드에 실패했습니다.");
+        toast("이미지 업로드에 실패했습니다.");
         return;
       }
 
@@ -50,15 +53,13 @@ export default function useEditReview(review: IReview) {
 
     const updatedReview = { ...review, content: updatedContent };
 
-    const status = await updateReview(updatedReview, userState.userInfo._id);
+    const result = await updateReview(updatedReview, userState.userInfo._id);
 
-    if (status === 200) {
-      alert("수정되었습니다.");
+    if (result.status === 200) {
+      toast.success(result.data);
       window.location.reload();
-      return;
     } else {
-      alert("수정이 실패했습니다.");
-      return;
+      toast.error(result.data);
     }
   };
 

@@ -151,7 +151,7 @@ const ClearButton = styled.button`
 `;
 
 export default function Search() {
-  const { keyword, data, isLoading } = useSearch();
+  const { keyword, data, isLoading, goToList } = useSearch();
 
   return (
     <Wrapper>
@@ -159,24 +159,18 @@ export default function Search() {
         <Title>
           {keyword ? `검색 단어: ${keyword}` : "단어가 입력되지 않음"}
         </Title>
-        <ClearButton
-          onClick={() => {
-            console.log("Clear!");
-          }}
-        >
+        <ClearButton onClick={goToList}>
           <div className="span-mother">
-            <span>결</span>
-            <span>과</span>
-            <span>초</span>
+            <span>전</span>
+            <span>부</span>
+            <span>보</span>
             <span>기</span>
-            <span>화</span>
           </div>
           <div className="span-mother2">
-            <span>결</span>
-            <span>과</span>
-            <span>초</span>
+            <span>전</span>
+            <span>부</span>
+            <span>보</span>
             <span>기</span>
-            <span>화</span>
           </div>
         </ClearButton>
       </ResultHeader>

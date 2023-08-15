@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IReview } from "./types";
 import mongoose from "mongoose";
+import { toast } from "react-toastify";
 
 export const getReviews = async (placeId: string) => {
   try {
@@ -9,8 +10,13 @@ export const getReviews = async (placeId: string) => {
     );
 
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    if (error.response) {
+      toast.error(error.response.data);
+    } else {
+      toast.error("나중에 다시 시도해주세요.");
+    }
+
     return [];
   }
 };
@@ -24,7 +30,13 @@ export const getReviewsByUser = async (
     );
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    if (error.response) {
+      toast.error(error.response.data);
+    } else {
+      toast.error("나중에 다시 시도해주세요.");
+    }
+
     return [];
   }
 };
@@ -50,10 +62,9 @@ export const postReview = async (
       }
     );
 
-    return true;
-  } catch (error) {
-    console.log(error);
-    return false;
+    return { status: response.status, data: response.data };
+  } catch (error: any) {
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -66,13 +77,9 @@ export const deleteReview = async (
       `${process.env.REACT_APP_BACK}/review/delete?id=${_id}&userId=${userId}`
     );
 
-    return response.status;
+    return { status: response.status, data: response.data };
   } catch (error: any) {
-    if (error.response.status) {
-      return error.response.status;
-    } else {
-      return 400;
-    }
+    return { status: error.response.status, data: error.response.data };
   }
 };
 
@@ -86,12 +93,8 @@ export const updateReview = async (
       { updatedReview, userId }
     );
 
-    return response.status;
+    return { status: response.status, data: response.data };
   } catch (error: any) {
-    if (error.response.status) {
-      return error.response.status;
-    } else {
-      return 400;
-    }
+    return { status: error.response.status, data: error.response.data };
   }
 };

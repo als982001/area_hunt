@@ -18,6 +18,8 @@ import useDetail from "../Hooks/useDetail";
 import { IPlace } from "../utils/types";
 import { AiFillDelete } from "react-icons/ai";
 import { isAdmin } from "../utils/functions";
+import { ToastContainer } from "react-toastify";
+import DefaultToast from "../Components/Global/Toasts/DefaultToast";
 
 const Wrapper = styled.div`
   width: 100%;

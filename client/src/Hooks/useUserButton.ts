@@ -4,6 +4,7 @@ import { useState } from "react";
 import { logout } from "../utils/memberFunctions";
 import { handleLogout } from "../Redux/Actions";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function useUserInfo() {
   const [show, setShow] = useState(false);
@@ -13,15 +14,14 @@ export default function useUserInfo() {
   const navigate = useNavigate();
 
   const startLogout = async () => {
-    alert("로그아웃 했습니다.");
+    const result = await logout();
 
-    const success = await logout();
-
-    if (success) {
+    if (result.status === 205) {
+      toast.success(result.data);
       dispatch(handleLogout());
       navigate("/");
     } else {
-      alert("로그아웃에 실패했습니다.");
+      toast.error("로그아웃에 실패했습니다.");
       return;
     }
 

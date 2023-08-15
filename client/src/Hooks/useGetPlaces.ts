@@ -45,7 +45,5 @@ export default function useGetPlaces() {
     })();
   }, [startIndex]);
 
-  useEffect(() => {}, [startIndex]);
-
   return { places, addIndex, isLoading };
 }

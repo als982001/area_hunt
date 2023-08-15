@@ -10,7 +10,6 @@ import useEditReview from "../../Hooks/useEditReview";
 import PencilButton from "../Global/Buttons/PencilButton";
 import DeleteButton from "../Global/Buttons/DeleteButton";
 import UpdateCircleButton from "../Global/Buttons/UpdateCircleButton";
-import { useEffect } from "react";
 
 interface IProps {
   review: IReview;

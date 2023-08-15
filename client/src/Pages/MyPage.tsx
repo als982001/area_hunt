@@ -116,14 +116,10 @@ const Caption = styled.span`
 
 export default function MyPage() {
   const userState = useSelector((state: RootState) => state.userReducer);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (userState.login === false) {
-      navigate("/");
-      return;
-    }
-  }, []);
+  if (userState.login === false) {
+    window.location.href = "/login";
+  }
 
   return (
     <Wrapper>

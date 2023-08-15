@@ -5,7 +5,7 @@ import { IPlace } from "../utils/types";
 import { updatePlace } from "../utils/placeFunctions";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
-import userReducer from "../Redux/Reducers/userReducer";
+import { toast } from "react-toastify";
 
 export default function useUpdate(data: IPlace) {
   const [image, setImage] = useState<File | null>(null);
@@ -31,7 +31,7 @@ export default function useUpdate(data: IPlace) {
       if (newImageUrl) {
         await setImageUrl(newImageUrl);
       } else {
-        alert("이미지 업로드에 실패했습니다.");
+        toast.error("이미지 업로드에 실패했습니다.");
         return;
       }
     }
@@ -47,13 +47,14 @@ export default function useUpdate(data: IPlace) {
       reviews: data.reviews,
     };
 
-    const success = await updatePlace(updatedPlace, userState.userInfo._id);
+    const result = await updatePlace(updatedPlace, userState.userInfo._id);
 
-    if (success) {
+    if (result.status === 200) {
       window.location.reload();
     } else {
-      alert("정보가 업데이트되지 않았습니다.");
+      toast.error(result.data);
     }
+
     return;
   };
 

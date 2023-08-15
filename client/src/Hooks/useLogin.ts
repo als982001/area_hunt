@@ -5,10 +5,16 @@ import { login } from "../utils/memberFunctions";
 import { handleLogin } from "../Redux/Actions";
 import { useNavigate } from "react-router-dom";
 import { IAccount } from "../utils/types";
+import { toast } from "react-toastify";
 
 interface FormValues {
   userId: string;
   password: string;
+}
+
+interface IResult {
+  status: Number;
+  data: IAccount | String;
 }
 
 export default function useLogin() {
@@ -26,13 +32,14 @@ export default function useLogin() {
   });
 
   const startLogin = async (data: FormValues) => {
-    const userInfo: IAccount | null = await login(data);
+    const result: IResult = await login(data);
 
-    if (userInfo === null) {
-      alert("로그인에 실패했습니다.");
-    } else {
-      dispatch(handleLogin(userInfo));
+    if (result.status === 200) {
+      dispatch(handleLogin(result.data as IAccount));
       navigate("/");
+    } else {
+      const errorMessage = result.data as string;
+      toast.error(errorMessage);
     }
   };
 

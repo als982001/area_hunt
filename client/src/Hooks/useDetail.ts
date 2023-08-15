@@ -4,6 +4,7 @@ import { RootState } from "../Redux/Stores";
 import { useSelector } from "react-redux";
 import { IPlace } from "../utils/types";
 import { deletePlace, getPlace } from "../utils/placeFunctions";
+import { toast } from "react-toastify";
 
 export default function useDetail() {
   const [showMap, setShowMap] = useState(0);
@@ -27,7 +28,7 @@ export default function useDetail() {
       if (id) {
         const result = await getPlace(id);
 
-        setData((prev) => result);
+        setData((prev) => result.data);
 
         if (result === null) {
           navigate("/notfound");
@@ -43,14 +44,13 @@ export default function useDetail() {
   }, []);
 
   const handleRemovePlace = async (placeId: string) => {
-    const status = await deletePlace(placeId, userState.userInfo._id);
+    const result = await deletePlace(placeId, userState.userInfo._id);
 
-    if (status === 200) {
-      alert("삭제되었습니다.");
+    if (result.status === 200) {
+      toast.success(result.data);
       navigate("/list");
-      return;
     } else {
-      alert("삭제에 실패했습니다.");
+      toast.error(result.data);
       return;
     }
   };

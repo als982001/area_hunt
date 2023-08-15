@@ -7,6 +7,7 @@ import { displayCenter, displayCenterStart } from "../styles/displays";
 import { borderRadius20px, centerImage } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
 import useRegist from "../Hooks/useRegist";
+import DefaultToast from "../Components/Global/Toasts/DefaultToast";
 
 const Wrapper = styled.div`
   ${displayCenterStart}

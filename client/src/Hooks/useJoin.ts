@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { getImageUrl } from "../utils/functions";
 import { IJoinInfo } from "../utils/types";
 import { join } from "../utils/memberFunctions";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/Stores";
 
 interface FormValues {
   userId: string;
@@ -14,11 +17,18 @@ interface FormValues {
   email: string;
 }
 
+interface IResult {
+  status: number;
+  data: string;
+}
+
 export default function useJoin() {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
 
   const navigate = useNavigate();
+
+  const userState = useSelector((state: RootState) => state.userReducer);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
 
@@ -46,7 +56,7 @@ export default function useJoin() {
 
   const handleJoin = async (data: FormValues) => {
     if (image === null) {
-      alert("이미지를 등록해주세요.");
+      toast.warning("이미지를 등록해주세요.");
       return;
     }
 
@@ -62,17 +72,16 @@ export default function useJoin() {
         email: data.email,
       };
 
-      const success = await join(newAccount);
+      const result: IResult = await join(newAccount);
 
-      if (success) {
-        alert("회원가입에 성공했습니다.");
+      if (result.status === 200) {
+        toast.success(result.data);
         navigate("/login");
-        return;
       } else {
-        alert("회원가입에 실패했습니다.");
+        toast.error(result.data);
       }
     } else {
-      alert("이미지 등록에 실패했습니다.");
+      toast.error("이미지 등록에 실패했습니다.");
       return;
     }
 
@@ -85,6 +94,12 @@ export default function useJoin() {
     }
   };
 
+  const checkLogin = () => {
+    if (userState.login === true) {
+      navigate("/list");
+    }
+  };
+
   return {
     handleJoin,
     imageUrl,
@@ -93,5 +108,6 @@ export default function useJoin() {
     control,
     imageInputRef,
     handleInputClick,
+    checkLogin,
   };
 }
