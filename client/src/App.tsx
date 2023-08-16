@@ -66,7 +66,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/join" element={<Join />} />
           <Route path="/notfound" element={<NotFound />} />
-          <Route path="/test" element={<Test />} />
           <Route path="/:id" element={<Detail />} />
           <Route path="/" element={<Main />} />
         </Routes>

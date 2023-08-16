@@ -18,8 +18,11 @@ export default function useUserInfo() {
 
     if (result.status === 205) {
       toast.success("로그아웃 했습니다.");
-      dispatch(handleLogout());
       navigate("/");
+
+      setTimeout(() => {
+        dispatch(handleLogout());
+      }, 100);
     } else {
       toast.error("로그아웃에 실패했습니다.");
       return;
