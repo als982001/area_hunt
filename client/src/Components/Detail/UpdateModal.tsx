@@ -14,7 +14,6 @@ import { IPlace } from "../../utils/types";
 
 interface IProps {
   data: IPlace;
-  setUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Container = styled.form`
@@ -105,7 +104,7 @@ const Input = styled.input`
   outline: none;
 `;
 
-export default function UpdateModal({ data, setUpdate }: IProps) {
+export default function UpdateModal({ data }: IProps) {
   const {
     handleSubmit,
     handleStartUpdate,

@@ -1,13 +1,7 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 
-import {
-  displayCenter,
-  displayCenterStart,
-  gridCenter,
-} from "../styles/displays";
-import { fixedCenter } from "../styles/positions";
-import { border2px, borderRadius20px } from "../styles/styles";
+import { displayCenterStart, gridCenter } from "../styles/displays";
+import { borderRadius20px } from "../styles/styles";
 
 const Wrapper = styled.div`
   width: 100%;

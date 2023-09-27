@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Stores";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { borderRadius20px, centerImage } from "../styles/styles";
 import { displayCenter } from "../styles/displays";

@@ -98,8 +98,6 @@ export const getImageUrl = async (imageName: string, image: File) => {
     body: formData,
   });
 
-  console.log(uploadResult);
-
   if (uploadResult.ok) {
     return `${uploadResult.url}/${imageName}`;
   } else {

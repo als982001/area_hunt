@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { inputShadow } from "../../../styles/shadows";
 

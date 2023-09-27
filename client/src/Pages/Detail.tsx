@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 
 import UpdateModal from "../Components/Detail/UpdateModal";
@@ -9,7 +8,6 @@ import {
   displayCenter,
   displayCenterStart,
   displayStartCenter,
-  gridCenter,
 } from "../styles/displays";
 import { borderRadius20px } from "../styles/styles";
 import { defaultShadow } from "../styles/shadows";
@@ -232,7 +230,7 @@ export default function Detail() {
       {update && (
         <>
           <Overlay onClick={() => setUpdate((prev) => false)} />
-          <UpdateModal data={data as IPlace} setUpdate={setUpdate} />
+          <UpdateModal data={data as IPlace} />
         </>
       )}
     </>

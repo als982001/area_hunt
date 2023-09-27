@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { getPlacesByKeyword } from "../utils/placeFunctions";
 import { useNavigate } from "react-router-dom";
 
 export default function useHeader() {

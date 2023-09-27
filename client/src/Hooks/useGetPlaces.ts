@@ -20,8 +20,8 @@ export default function useGetPlaces() {
       setPlaces((prev) => [...prev, ...data]);
 
       setIsLoading((prev) => false);
-      finishInitSetting.current = true;
 
+      finishInitSetting.current = true;
       isAdding.current = false;
     })();
   }, []);
